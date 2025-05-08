@@ -1,0 +1,18 @@
+<%- include('./partials/header') %>
+
+<div class="chat-container">
+    <div class="chat-messages" id="chatMessages">
+        <div class="message ai-message">
+            Halo! Saya asisten AI dari <%= config.appName %> yang ditenagai oleh Gemini. Silakan tanyakan apa saja, dan saya akan coba menjawabnya.
+        </div>
+    </div>
+
+    <div class="chat-input">
+        <input type="text" id="userInput" placeholder="Ketik pertanyaan Anda di sini..." autofocus>
+        <button id="sendButton">Kirim</button>
+    </div>
+</div>
+
+<script src="/js/chat.js"></script>
+
+<%- include('./partials/footer') %>

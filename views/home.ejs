@@ -1,0 +1,64 @@
+<%- include('./partials/header') %>
+
+<div class="home-container">
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Selamat Datang di <%= config.appName %></h2>
+            <p><%= config.description %></p>
+            <a href="/chat" class="btn-primary">Mulai Bertanya</a>
+        </div>
+        <div class="hero-image">
+            <img src="/img/ai-chat.png" alt="AI Chat Illustration" style="width: 70vw; height: 70vh;">
+        </div>
+    </section>
+
+    <section class="features">
+        <h2>Fitur Utama</h2>
+        <div class="feature-cards">
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h3>Tanya Jawab Cerdas</h3>
+                <p>Dapatkan jawaban cerdas untuk pertanyaan Anda dengan teknologi AI mutakhir</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Respons Cepat</h3>
+                <p>Nikmati respons instan tanpa perlu menunggu lama</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3>Informasi Akurat</h3>
+                <p>Dapatkan informasi terkini dan akurat untuk berbagai topik</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <h2>Cara Kerja</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Kunjungi Halaman Chat</h3>
+                    <p>Klik tombol "Mulai Bertanya" atau menu "Tanya AI" di atas</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Ajukan Pertanyaan</h3>
+                    <p>Ketik pertanyaan Anda di kolom chat yang tersedia</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Dapatkan Jawaban</h3>
+                    <p>AI kami akan segera memberikan jawaban untuk pertanyaan Anda</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<%- include('./partials/footer') %>
