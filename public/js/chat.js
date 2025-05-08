@@ -15,14 +15,44 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    function parseMarkdown(text) {
+        // Mengganti **text** dengan <strong>text</strong> (bold)
+        text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+        // Mengganti *text* atau _text_ dengan <em>text</em> (italic)
+        text = text.replace(/(\*|_)(.*?)\1/g, '<em>$2</em>');
+
+        // Mengganti `code` dengan <code>code</code>
+        text = text.replace(/`(.*?)`/g, '<code>$1</code>');
+
+        // Mengganti newline dengan <br>
+        text = text.replace(/\n/g, '<br>');
+
+        // Menangani daftar (list) dengan - atau *
+        text = text.replace(/^- (.*?)$/gm, '<li>$1</li>');
+        text = text.replace(/^\* (.*?)$/gm, '<li>$1</li>');
+        text = text.replace(/<li>(.*?)<\/li>(?:\s*<li>|$)/gs, '<ul><li>$1</li></ul>');
+
+        // Menangani heading (judul)
+        text = text.replace(/^# (.*?)$/gm, '<h1>$1</h1>');
+        text = text.replace(/^## (.*?)$/gm, '<h2>$1</h2>');
+        text = text.replace(/^### (.*?)$/gm, '<h3>$1</h3>');
+
+        // Mengganti tautan [text](url) dengan <a href="url">text</a>
+        text = text.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>');
+
+        return text;
+    }
+
+
     // Fungsi untuk menambahkan pesan ke chat
     function addMessage(text, isUser) {
         const messageDiv = document.createElement('div');
         messageDiv.classList.add('message');
         messageDiv.classList.add(isUser ? 'user-message' : 'ai-message');
 
-        // Mengganti newline dengan <br> untuk tampilan yang lebih baik
-        messageDiv.innerHTML = text.replace(/\n/g, '<br>');
+        // Menggunakan parseMarkdown untuk memformat teks
+        messageDiv.innerHTML = parseMarkdown(text);
 
         chatMessages.appendChild(messageDiv);
         chatMessages.scrollTop = chatMessages.scrollHeight;
