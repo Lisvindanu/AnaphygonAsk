@@ -1,42 +1,42 @@
-/* Reset dan variabel */
+/* Definisikan variabel CSS di root */
 :root {
-    --primary-color: #1a73e8;
-    --primary-dark: #1558c4;
-    --secondary-color: #34a853;
-    --text-color: #202124;
-    --light-text: #5f6368;
-    --bg-color: #f8f9fa;
-    --light-gray: #dadce0;
-    --white: #ffffff;
-    --shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
-    --radius: 8px;
-    --font-main: 'Google Sans', 'Segoe UI', Roboto, Arial, sans-serif;
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --text-color: #212529;      /* Warna teks utama */
+    --light-text: #6c757d;      /* Warna teks sekunder/abu-abu */
+    --bg-color: #ffffff;        /* Warna latar belakang utama */
+    /* BARIS DI BAWAH INI DIUBAH: */
+    --accent-bg-color: #f0f2f5; /* Warna latar belakang aksen - menjadi abu-abu muda yang lebih terlihat */
+    --border-color: #dee2e6;    /* Warna border */
+    --radius: 8px;              /* Radius border default */
+
+    /* Warna Notifikasi (jika belum ada, atau untuk konsistensi) */
+    --success-bg: linear-gradient(135deg, #28a745, #20c997);
+    --error-bg: linear-gradient(135deg, #dc3545, #e74c3c);
+    --warning-bg: linear-gradient(135deg, #ffc107, #f39c12);
+    --info-bg: linear-gradient(135deg, #17a2b8, #3498db);
+
+    /* Bayangan (Shadows) */
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.08); /* Sedikit mengurangi intensitas shadow */
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.09);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.1);
 }
 
-* {
+/* Reset dasar & gaya body */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: var(--font-main);
     background-color: var(--bg-color);
     color: var(--text-color);
-    line-height: 1.6;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    line-height: 1.5;
 }
 
-/* Header */
 header {
-    background-color: var(--white);
-    box-shadow: var(--shadow);
-    padding: 0.5rem 0;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 1rem 0;
+    box-shadow: var(--shadow-md);
 }
 
 .header-container {
@@ -55,331 +55,1150 @@ header {
 
 .logo {
     height: 40px;
-    margin-right: 0.5rem;
+    margin-right: 0.75rem;
+    border-radius: 50%;
 }
 
-h1 {
-    font-size: 1.5rem;
-    color: var(--primary-color);
+.header-container h1 {
+    font-size: 1.75rem;
+    margin: 0;
+    font-weight: 600;
 }
 
 nav ul {
-    display: flex;
     list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
 }
 
 nav ul li {
-    margin-left: 1rem;
+    margin-left: 1.5rem;
 }
 
 nav ul li a {
+    color: white;
     text-decoration: none;
-    color: var(--text-color);
+    font-size: 1rem;
     font-weight: 500;
-    padding: 0.5rem 1rem;
-    border-radius: var(--radius);
-    transition: background-color 0.2s;
+    padding: 0.5rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease, opacity 0.3s ease;
 }
 
-nav ul li a:hover {
-    background-color: rgba(26, 115, 232, 0.1);
-}
-
+nav ul li a:hover,
 nav ul li a.active {
-    color: var(--primary-color);
-    background-color: rgba(26, 115, 232, 0.1);
+    border-bottom-color: white;
+    opacity: 0.9;
 }
 
-/* Main content */
 main {
-    flex: 1;
-    padding: 2rem 1rem;
+    padding: 1rem; /* Padding default untuk main content */
     max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
+    margin: 2rem auto; /* Memberi sedikit ruang dari header dan footer */
 }
 
-/* Beranda */
+footer {
+    background-color: var(--accent-bg-color);
+    color: var(--light-text);
+    text-align: center;
+    padding: 1.5rem 1rem;
+    border-top: 1px solid var(--border-color);
+    margin-top: 2rem;
+}
+
+.footer-container p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* Tombol Dasar */
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), #0056b3);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: var(--radius);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,123,255,0.3);
+}
+
+
+/* --- Halaman Home --- */
 .home-container {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
+    padding: 1rem;
 }
 
 .hero {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 2rem;
+    background-color: var(--accent-bg-color);
+    padding: 3rem 2rem;
+    border-radius: var(--radius);
+    margin-bottom: 3rem;
+    box-shadow: var(--shadow-md);
 }
 
 .hero-content {
     flex: 1;
+    min-width: 300px;
+    padding-right: 2rem;
 }
 
-.hero h2 {
+.hero-content h2 {
     font-size: 2.5rem;
-    margin-bottom: 1rem;
     color: var(--primary-color);
+    margin-bottom: 1rem;
+    line-height: 1.2;
 }
 
-.hero p {
-    font-size: 1.2rem;
+.hero-content p {
+    font-size: 1.1rem;
     color: var(--light-text);
     margin-bottom: 2rem;
-}
-
-.btn-primary {
-    display: inline-block;
-    background-color: var(--primary-color);
-    color: var(--white);
-    padding: 0.75rem 1.5rem;
-    border-radius: var(--radius);
-    text-decoration: none;
-    font-weight: 500;
-    transition: background-color 0.2s;
-}
-
-.btn-primary:hover {
-    background-color: var(--primary-dark);
+    max-width: 500px;
 }
 
 .hero-image {
     flex: 1;
-    display: flex;
-    justify-content: center;
+    min-width: 300px;
+    text-align: center;
 }
 
 .hero-image img {
     max-width: 100%;
     height: auto;
+    border-radius: var(--radius);
 }
 
-/* Fitur */
-.features h2, .how-it-works h2 {
+.features {
     text-align: center;
+    margin-bottom: 3rem;
+}
+
+.features h2 {
     font-size: 2rem;
+    color: var(--text-color);
     margin-bottom: 2rem;
-    margin-top: 6.5rem;
-    color: var(--primary-color);
 }
 
 .feature-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
 }
 
 .feature-card {
-    background-color: var(--white);
+    /* BARIS DI BAWAH INI DIUBAH: */
+    background-color: var(--accent-bg-color); /* Menggunakan variabel warna aksen yang baru */
+    border: 1px solid var(--border-color);
     border-radius: var(--radius);
     padding: 2rem;
-    box-shadow: var(--shadow);
-    text-align: center;
-    transition: transform 0.2s;
+    flex: 1;
+    min-width: 280px;
+    max-width: 350px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .feature-card:hover {
     transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
 }
 
 .feature-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-}
-
-.feature-card h3 {
+    font-size: 2.5rem;
     margin-bottom: 1rem;
     color: var(--primary-color);
 }
 
-/* Cara Kerja */
+.feature-card h3 {
+    font-size: 1.25rem;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.feature-card p {
+    font-size: 0.95rem;
+    color: var(--light-text);
+    line-height: 1.6;
+}
+
+.how-it-works {
+    background-color: var(--accent-bg-color);
+    padding: 3rem 2rem;
+    border-radius: var(--radius);
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-md);
+}
+
+.how-it-works h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--text-color);
+    margin-bottom: 2.5rem;
+}
+
 .steps {
     display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    max-width: 800px;
-    margin: 0 auto;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
 }
 
 .step {
     display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    background-color: var(--white);
-    border-radius: var(--radius);
-    padding: 1.5rem;
-    box-shadow: var(--shadow);
+    align-items: flex-start;
+    flex: 1;
+    min-width: 280px;
+    max-width: 350px;
 }
 
 .step-number {
-    background-color: var(--primary-color);
-    color: var(--white);
-    width: 40px;
-    height: 40px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    background-color: white;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    font-weight: bold;
-    font-size: 1.2rem;
+    margin-right: 1.5rem;
+    flex-shrink: 0;
 }
 
 .step-content h3 {
+    font-size: 1.2rem;
+    color: var(--text-color);
     margin-bottom: 0.5rem;
-    color: var(--primary-color);
 }
 
-/* Chat */
-.chat-container {
-    background-color: var(--white);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    overflow: hidden;
+.step-content p {
+    font-size: 0.95rem;
+    color: var(--light-text);
+    line-height: 1.6;
+}
+
+
+/* UPGRADED: Enhanced Chat Styles with New Chat Feature */
+/* Session Selector Styles */
+.session-selector {
+    background: var(--accent-bg-color); /* Menggunakan variabel */
+    border: 1px solid var(--border-color); /* Menggunakan variabel */
+    border-radius: var(--radius); /* Menggunakan variabel */
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow-sm); /* Menggunakan variabel */
+}
+
+.session-header {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color); /* Menggunakan variabel */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-radius: var(--radius) var(--radius) 0 0; /* Menggunakan variabel */
+}
+
+.session-title-bar {
     display: flex;
     flex-direction: column;
-    height: 70vh;
-    max-height: 800px;
+    gap: 0.25rem;
+}
+
+.session-label {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.session-count {
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+
+.session-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.btn-new-chat {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius); /* Menggunakan variabel */
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-new-chat:hover {
+    background: rgba(255,255,255,0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.btn-toggle {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 0.5rem;
+    border-radius: var(--radius); /* Menggunakan variabel */
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    min-width: 40px;
+}
+
+.btn-toggle:hover {
+    background: rgba(255,255,255,0.3);
+    transform: rotate(180deg);
+}
+
+.session-list-container {
+    max-height: 300px;
+    overflow-y: auto;
+    background: white; /* Atau var(--bg-color) jika ingin konsisten */
+    border-radius: 0 0 var(--radius) var(--radius); /* Menggunakan variabel */
+}
+
+.session-list {
+    padding: 0.5rem;
+}
+
+.session-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    border-radius: var(--radius); /* Menggunakan variabel */
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: var(--accent-bg-color); /* Menggunakan variabel */
+}
+
+.session-item:hover {
+    background: #e9ecef; /* Bisa diganti dengan warna yang lebih gelap dari --accent-bg-color */
+    border-color: var(--primary-color); /* Menggunakan variabel */
+    transform: translateX(4px);
+}
+
+.session-item.active {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-color: var(--primary-color); /* Menggunakan variabel */
+    box-shadow: 0 2px 8px rgba(0,123,255,0.3);
+}
+
+.session-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.session-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.session-time {
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+.session-delete {
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+    border: 1px solid rgba(220, 53, 69, 0.3);
+    padding: 0.4rem;
+    border-radius: var(--radius); /* Menggunakan variabel */
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    margin-left: 0.5rem;
+    opacity: 0.7;
+}
+
+.session-delete:hover {
+    background: #dc3545;
+    color: white;
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.session-item.active .session-delete {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border-color: rgba(255,255,255,0.3);
+}
+
+.session-item.active .session-delete:hover {
+    background: rgba(220, 53, 69, 0.9);
+}
+
+/* Enhanced Chat Container */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 280px); /* Disesuaikan agar ada ruang untuk header, session selector, dan help */
+    min-height: 400px; /* Tinggi minimal chat */
+    max-height: 600px; /* Maksimal tinggi bisa disesuaikan */
+    background: var(--bg-color); /* Menggunakan variabel */
+    border-radius: var(--radius); /* Menggunakan variabel */
+    box-shadow: var(--shadow-md); /* Menggunakan variabel */
+    overflow: hidden;
+    border: 1px solid var(--border-color);
 }
 
 .chat-messages {
     flex: 1;
     padding: 1rem;
     overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    background-color: var(--bg-color); /* Latar belakang area pesan */
 }
 
+
+/* Enhanced Message Styles */
 .message {
+    margin-bottom: 1rem;
     padding: 1rem;
-    border-radius: var(--radius);
-    max-width: 70%;
-    word-wrap: break-word;
+    border-radius: var(--radius); /* Menggunakan variabel */
+    position: relative;
+    max-width: 80%; /* Pesan tidak terlalu lebar */
+    word-wrap: break-word; /* Memastikan teks panjang akan wrap */
+    /* animation: messageSlide 0.3s ease-out; (Dihapus sementara, lihat di bawah) */
 }
+
+/*
+@keyframes messageSlide {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+*/
 
 .user-message {
-    background-color: rgba(26, 115, 232, 0.1);
-    align-self: flex-end;
-    border-bottom-right-radius: 0;
+    background: linear-gradient(135deg, var(--primary-color), #0056b3);
+    color: white;
+    margin-left: auto; /* Pesan pengguna ke kanan */
+    border-bottom-right-radius: 4px;
 }
 
 .ai-message {
-    background-color: var(--light-gray);
-    align-self: flex-start;
-    border-bottom-left-radius: 0;
+    background: var(--accent-bg-color); /* Menggunakan variabel */
+    border: 1px solid var(--border-color); /* Menggunakan variabel */
+    margin-right: auto; /* Pesan AI ke kiri */
+    border-bottom-left-radius: 4px;
+    color: var(--text-color); /* Pastikan teks AI terbaca */
 }
 
+.message-content {
+    line-height: 1.6;
+}
+
+.message-content pre {
+    background-color: rgba(0,0,0,0.05); /* Latar belakang blok kode */
+    padding: 0.75rem;
+    border-radius: calc(var(--radius) / 2);
+    overflow-x: auto;
+    border: 1px solid var(--border-color);
+}
+
+.message-content code:not(pre code) { /* Inline code */
+    background-color: rgba(0,0,0,0.05);
+    padding: 0.1em 0.3em;
+    border-radius: 3px;
+    font-family: monospace;
+}
+
+
+.message-actions {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: flex;
+    gap: 0.25rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.message:hover .message-actions {
+    opacity: 1;
+}
+
+.action-btn {
+    background: rgba(0,0,0,0.1);
+    border: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    background: rgba(0,0,0,0.2);
+    transform: scale(1.1);
+}
+
+.user-message .action-btn {
+    background: rgba(255,255,255,0.2);
+    color: white;
+}
+
+.user-message .action-btn:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+/* Enhanced Welcome Message */
+.welcome-content {
+    text-align: center;
+    padding: 1rem;
+}
+
+.welcome-content h3 {
+    color: var(--primary-color); /* Menggunakan variabel */
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.welcome-content ul {
+    text-align: left;
+    max-width: 400px;
+    margin: 1rem auto;
+    padding-left: 1.5rem;
+    list-style-type: '✔️ '; /* Emoji sebagai bullet point */
+}
+
+.welcome-content li {
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+    color: var(--text-color);
+}
+
+.welcome-content kbd {
+    background: #e9ecef; /* Bisa diganti var(--border-color) atau warna lain */
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+    padding: 0.2rem 0.4rem;
+    font-size: 0.85rem;
+    color: #495057;
+}
+
+/* Enhanced Input Area */
 .chat-input {
     display: flex;
+    gap: 0.5rem;
     padding: 1rem;
-    border-top: 1px solid var(--light-gray);
-    background-color: var(--white);
+    background: var(--accent-bg-color); /* Menggunakan variabel */
+    border-top: 1px solid var(--border-color); /* Menggunakan variabel */
+    align-items: flex-end;
 }
 
-.chat-input input {
+#userInput {
     flex: 1;
-    padding: 0.75rem 1rem;
-    border: 1px solid var(--light-gray);
-    border-radius: var(--radius);
+    min-height: 44px;
+    max-height: 120px;
+    padding: 0.75rem;
+    border: 2px solid var(--border-color); /* Menggunakan variabel */
+    border-radius: var(--radius); /* Menggunakan variabel */
     font-size: 1rem;
+    resize: none;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+#userInput:focus {
     outline: none;
-    transition: border-color 0.2s;
+    border-color: var(--primary-color); /* Menggunakan variabel */
+    box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
 }
 
-.chat-input input:focus {
-    border-color: var(--primary-color);
-}
-
-.chat-input button {
-    background-color: var(--primary-color);
-    color: var(--white);
+#sendButton { /* Menggunakan #sendButton karena itu ID */
+    background: linear-gradient(135deg, var(--primary-color), #0056b3); /* Konsisten dengan .btn-primary */
+    color: white;
     border: none;
-    border-radius: var(--radius);
     padding: 0.75rem 1.5rem;
-    margin-left: 0.5rem;
+    border-radius: var(--radius); /* Menggunakan variabel */
+    font-size: 1rem;
+    font-weight: 600;
     cursor: pointer;
-    font-weight: 500;
-    transition: background-color 0.2s;
+    transition: all 0.3s ease;
+    min-width: 80px; /* Agar tombol tidak terlalu kecil */
+    align-self: stretch; /* Agar tinggi tombol menyesuaikan textarea jika diperlukan */
 }
 
-.chat-input button:hover {
-    background-color: var(--primary-dark);
+#sendButton:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,123,255,0.3);
 }
 
+#sendButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none; /* Menghilangkan hover transform saat disabled */
+    box-shadow: none; /* Menghilangkan hover shadow saat disabled */
+}
+
+/* Enhanced Thinking Animation */
 .thinking {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
     padding: 1rem;
-    background-color: var(--light-gray);
-    border-radius: var(--radius);
-    align-self: flex-start;
-    border-bottom-left-radius: 0;
-    max-width: 70px;
+    margin-bottom: 1rem;
+    background: var(--accent-bg-color); /* Menggunakan variabel */
+    border-radius: var(--radius); /* Menggunakan variabel */
+    margin-right: auto; /* Ke kiri seperti AI message */
+    max-width: 80%;
+    border: 1px solid var(--border-color); /* Menggunakan variabel */
+    color: var(--text-color);
+}
+
+.dots-container {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.dots-container::before {
+    content: "🤔 AI sedang berpikir";
+    margin-right: 1rem;
+    color: var(--light-text); /* Menggunakan variabel */
+    font-style: italic;
 }
 
 .dot {
-    background-color: var(--light-text);
     width: 8px;
     height: 8px;
+    background: var(--primary-color); /* Menggunakan variabel */
     border-radius: 50%;
-    animation: bounce 1.5s infinite ease-in-out;
+    animation: thinking 1.4s infinite ease-in-out;
 }
 
-.dot:nth-child(2) {
-    animation-delay: 0.2s;
+.dot:nth-child(1) { animation-delay: -0.32s; }
+.dot:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes thinking {
+    0%, 80%, 100% {
+        transform: scale(0);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
-.dot:nth-child(3) {
-    animation-delay: 0.4s;
+/* Enhanced Notifications */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius); /* Menggunakan variabel */
+    color: white;
+    font-weight: 500;
+    z-index: 1000;
+    transform: translateX(calc(100% + 30px)); /* Mulai dari luar layar */
+    transition: transform 0.4s ease-in-out;
+    box-shadow: var(--shadow-lg); /* Menggunakan variabel */
+    min-width: 250px; /* Lebar minimal notifikasi */
 }
 
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
+.notification.show {
+    transform: translateX(0);
 }
 
-/* Footer */
-footer {
-    background-color: var(--white);
-    box-shadow: 0 -1px 2px 0 rgba(60, 64, 67, 0.3);
-    padding: 1rem 0;
-    text-align: center;
+.notification-success {
+    background: var(--success-bg);
 }
 
-.footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
+.notification-error {
+    background: var(--error-bg);
 }
 
-/* Responsive */
+.notification-warning {
+    background: var(--warning-bg);
+    color: #212529; /* Teks gelap untuk background kuning */
+}
+
+.notification-info {
+    background: var(--info-bg);
+}
+
+/* Enhanced Scrollbar */
+.chat-messages::-webkit-scrollbar,
+.session-list-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-messages::-webkit-scrollbar-track,
+.session-list-container::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Atau var(--accent-bg-color) yang lebih terang */
+    border-radius: 4px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb,
+.session-list-container::-webkit-scrollbar-thumb {
+    background: #c1c1c1; /* Atau var(--light-text) */
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover,
+.session-list-container::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1; /* Atau var(--secondary-color) */
+}
+
+
+/* Responsive Design */
 @media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    nav ul {
+        justify-content: center;
+        width: 100%;
+    }
+    nav ul li {
+        margin: 0 0.75rem;
+    }
+    main {
+        margin: 1rem auto;
+        padding: 0.5rem;
+    }
     .hero {
         flex-direction: column;
+        padding: 2rem 1rem;
+    }
+    .hero-content {
+        padding-right: 0;
         text-align: center;
     }
-
-    .hero h2 {
+    .hero-image {
+        margin-top: 1.5rem;
+    }
+    .hero-content h2 {
         font-size: 2rem;
     }
 
+    .session-selector {
+        margin-bottom: 0.5rem;
+    }
+
+    .session-header {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    .session-actions {
+        justify-content: center;
+    }
+
+    .btn-new-chat {
+        flex: 1;
+        max-width: 200px;
+    }
+
+    .session-item {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+    }
+
+    .session-delete {
+        align-self: flex-end;
+        margin-left: 0;
+    }
+
     .message {
-        max-width: 85%;
+        max-width: 90%; /* Pesan sedikit lebih lebar di mobile */
+    }
+
+    .chat-container {
+        height: calc(100vh - 250px); /* Disesuaikan untuk mobile */
+    }
+
+    .notification {
+        right: 10px;
+        left: 10px;
+        top: 10px;
+        transform: translateY(calc(-100% - 20px)); /* Mulai dari atas layar */
+    }
+
+    .notification.show {
+        transform: translateY(0);
     }
 }
 
 @media (max-width: 480px) {
-    h1 {
-        font-size: 1.2rem;
+    .header-container h1 {
+        font-size: 1.5rem;
+    }
+    nav ul li a {
+        font-size: 0.9rem;
+    }
+    .hero-content h2 {
+        font-size: 1.8rem;
+    }
+    .hero-content p {
+        font-size: 1rem;
+    }
+    .features h2, .how-it-works h2 {
+        font-size: 1.5rem;
+    }
+    .feature-card, .step {
+        padding: 1.5rem;
     }
 
-    nav ul li a {
+    .session-header {
+        padding: 0.75rem;
+    }
+
+    .session-item {
         padding: 0.5rem;
     }
 
-    .message {
-        max-width: 90%;
+    .session-title {
+        font-size: 0.9rem;
     }
+
+    .session-time {
+        font-size: 0.75rem;
+    }
+
+    .chat-input {
+        padding: 0.75rem;
+        gap: 0.25rem;
+    }
+
+    #userInput {
+        font-size: 0.9rem;
+        padding: 0.6rem;
+    }
+
+    #sendButton {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+        min-width: 70px;
+    }
+
+    .message {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Dark Mode Support (Dasar, bisa dikembangkan) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-color: #0d6efd; /* Biru yang sedikit lebih terang untuk dark mode */
+        --secondary-color: #5c636a;
+        --text-color: #e9ecef;
+        --light-text: #adb5bd;
+        --bg-color: #212529;
+        --accent-bg-color: #343a40;
+        --border-color: #495057;
+    }
+
+    .session-selector {
+        background: var(--accent-bg-color);
+        border-color: var(--border-color);
+    }
+
+    .session-list-container {
+        background: var(--bg-color);
+    }
+
+    .session-item {
+        background: var(--accent-bg-color);
+        color: var(--text-color);
+    }
+
+    .session-item:hover {
+        background: #495057; /* Warna hover lebih gelap */
+    }
+
+    .ai-message {
+        background: var(--accent-bg-color);
+        border-color: var(--border-color);
+        color: var(--text-color);
+    }
+
+    .thinking {
+        background: var(--accent-bg-color);
+        border-color: var(--border-color);
+    }
+
+    .chat-input {
+        background: var(--accent-bg-color);
+        border-top-color: var(--border-color);
+    }
+
+    #userInput {
+        background: var(--bg-color);
+        border-color: var(--border-color);
+        color: var(--text-color);
+    }
+
+    #userInput:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.2); /* Shadow disesuaikan */
+    }
+
+    .welcome-content kbd {
+        background: var(--border-color);
+        border-color: #5a6268;
+        color: var(--text-color);
+    }
+
+    .chat-messages::-webkit-scrollbar-track,
+    .session-list-container::-webkit-scrollbar-track {
+        background: #2c3034;
+    }
+
+    .chat-messages::-webkit-scrollbar-thumb,
+    .session-list-container::-webkit-scrollbar-thumb {
+        background: #555;
+    }
+
+    .chat-messages::-webkit-scrollbar-thumb:hover,
+    .session-list-container::-webkit-scrollbar-thumb:hover {
+        background: #777;
+    }
+
+    .quick-actions button { /* Gaya tombol quick actions di chat.ejs */
+        background-color: var(--accent-bg-color);
+        color: var(--text-color);
+        border-color: var(--border-color);
+    }
+    .quick-actions button:hover {
+        background-color: #495057;
+    }
+
+    /* Footer di dark mode */
+    footer {
+        background-color: #1c1f23; /* Sedikit lebih gelap dari body */
+        color: var(--light-text);
+        border-top-color: var(--border-color);
+    }
+}
+
+/* Animation Enhancements (Contoh, aktifkan jika diinginkan) */
+/*
+.user-message {
+    animation: slideInFromRight 0.4s ease-out forwards;
+}
+
+.ai-message, .thinking {
+    animation: slideInFromLeft 0.4s ease-out forwards;
+}
+
+@keyframes slideInFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+*/
+
+/* Focus and Accessibility */
+.btn-new-chat:focus,
+.btn-toggle:focus,
+.session-delete:focus,
+.action-btn:focus,
+#sendButton:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(0,123,255,0.25); /* Shadow untuk fokus */
+}
+
+.session-item:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: -2px; /* Outline di dalam */
+}
+
+/* --- Halaman 404 --- */
+.container-404 {
+    text-align: center;
+    padding: 3rem 1rem;
+    min-height: calc(100vh - 200px); /* Sesuaikan dengan tinggi header & footer */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-404 {
+    font-size: 5rem; /* Ukuran ikon emoji */
+    margin-bottom: 1rem;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+    40% {transform: translateY(-20px);}
+    60% {transform: translateY(-10px);}
+}
+
+.title-404 {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.subtitle-404 {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.message-404 {
+    color: var(--light-text);
+    margin-bottom: 2rem;
+    max-width: 500px;
+    line-height: 1.6;
+}
+
+.actions-404 {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.suggestions-404 {
+    margin-top: 3rem;
+    padding: 1.5rem;
+    background: var(--accent-bg-color);
+    border-radius: var(--radius);
+    max-width: 600px;
+    border: 1px solid var(--border-color);
+}
+
+.suggestions-404 h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.suggestions-404 ul {
+    text-align: left;
+    color: var(--text-color);
+    line-height: 1.8;
+    padding-left: 1.2rem; /* Ruang untuk bullet points */
+    list-style-type: '💡 '; /* Emoji sebagai bullet */
+}
+
+.suggestions-404 li {
+    margin-bottom: 0.5rem;
+}
+
+/* Style untuk kbd di chat.ejs help section agar konsisten */
+.chat-help kbd {
+    background-color: #dee2e6; /* Abu-abu yang lebih terlihat, lebih gelap dari latar chat-help */
+    border: 1px solid #adb5bd;  /* Border yang lebih jelas */
+    border-bottom-color: #9ca3af; /* Border bawah sedikit lebih gelap untuk efek kedalaman */
+    border-radius: 3px;
+    padding: 0.15em 0.4em;      /* Padding yang umum untuk kbd */
+    font-size: 0.875em;         /* Sedikit lebih kecil dari teks utama, umum untuk kbd */
+    color: #212529;             /* Teks gelap, konsisten dengan var(--text-color) */
+    font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    box-shadow: inset 0 -1px 0 #adb5bd; /* Inner shadow untuk kedalaman, gaya kbd umum */
+    margin: 0 0.1em; /* Sedikit margin horizontal */
+    line-height: 1.2; /* Disesuaikan untuk perataan vertikal yang lebih baik */
+    display: inline-block; /* Untuk memastikan padding dan margin bekerja dengan baik */
+    vertical-align: baseline; /* Membantu perataan dengan teks di sekitarnya */
+}
+
+/* Quick actions button di chat.ejs agar lebih menarik */
+.quick-actions button {
+    background: var(--accent-bg-color);
+    border: 1px solid var(--border-color);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px; /* Lebih rounded */
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--text-color);
+}
+
+.quick-actions button:hover {
+    background: var(--border-color); /* Sedikit lebih gelap saat hover */
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.chat-help {
+    margin-top: 1rem;
+    padding: 1.5rem; /* Padding lebih */
+    background: var(--accent-bg-color);
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.chat-help h4 {
+    color: var(--primary-color);
+    margin-bottom: 0.75rem; /* Sedikit lebih banyak spasi */
+    font-size: 1.05rem; /* Sedikit lebih besar */
+}
+
+.chat-help ul {
+    margin: 0;
+    padding-left: 1.5rem; /* Lebih banyak indentasi */
+    font-size: 0.9rem;
+    line-height: 1.6; /* Spasi baris lebih baik */
+    list-style-type: '🔹 '; /* Bullet point berbeda */
+}
+.chat-help ul li {
+    margin-bottom: 0.4rem;
 }

@@ -1,18 +1,269 @@
 <%- include('./partials/header') %>
 
-<div class="chat-container">
-    <div class="chat-messages" id="chatMessages">
-        <div class="message ai-message">
-            Halo! Saya asisten AI dari <%= config.appName %> yang ditenagai oleh Gemini. Silakan tanyakan apa saja, dan saya akan coba menjawabnya.
+<!-- UPGRADED: Enhanced Chat Layout with Session Management -->
+<div class="chat-page-container" style="padding: 1rem; max-width: 1200px; margin: 0 auto;">
+    <!-- Session selector will be dynamically inserted here by JavaScript -->
+
+    <div class="chat-container">
+        <div class="chat-messages" id="chatMessages">
+            <!-- Messages will be dynamically added here -->
+        </div>
+
+        <div class="chat-input">
+            <textarea
+                    id="userInput"
+                    placeholder="Ketik pertanyaan Anda di sini... (Ctrl+K untuk fokus, Ctrl+N untuk chat baru)"
+                    autofocus
+                    rows="1"
+            ></textarea>
+            <button id="sendButton">Kirim</button>
         </div>
     </div>
 
-    <div class="chat-input">
-        <input type="text" id="userInput" placeholder="Ketik pertanyaan Anda di sini..." autofocus>
-        <button id="sendButton">Kirim</button>
+    <!-- UPGRADED: Enhanced Help Section -->
+    <div class="chat-help" style="margin-top: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 8px; border: 1px solid #e9ecef;">
+        <div class="help-content" style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: space-between; align-items: flex-start;">
+            <div class="help-section" style="flex: 1; min-width: 250px;">
+                <h4 style="color: var(--primary-color, #007bff); margin-bottom: 0.5rem; font-size: 1rem;">
+                    🎯 Tips Penggunaan
+                </h4>
+                <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.9rem; line-height: 1.5;">
+                    <li>Gunakan <kbd style="background: #e9ecef; padding: 0.2rem 0.4rem; border-radius: 3px; font-size: 0.8rem;">Ctrl+K</kbd> untuk fokus ke input</li>
+                    <li>Gunakan <kbd style="background: #e9ecef; padding: 0.2rem 0.4rem; border-radius: 3px; font-size: 0.8rem;">Ctrl+N</kbd> untuk chat baru</li>
+                    <li>Klik "➕ New Chat" untuk memulai percakapan baru</li>
+                    <li>History chat tersimpan otomatis di browser</li>
+                </ul>
+            </div>
+
+            <div class="help-section" style="flex: 1; min-width: 250px;">
+                <h4 style="color: var(--primary-color, #007bff); margin-bottom: 0.5rem; font-size: 1rem;">
+                    💡 Saya Bisa Membantu
+                </h4>
+                <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.9rem; line-height: 1.5;">
+                    <li>📚 Pertanyaan pengetahuan umum</li>
+                    <li>💻 Programming dan teknologi</li>
+                    <li>🌍 Informasi dan analisis</li>
+                    <li>🎯 Problem solving</li>
+                </ul>
+            </div>
+
+            <div class="help-section" style="flex: 1; min-width: 250px;">
+                <h4 style="color: var(--primary-color, #007bff); margin-bottom: 0.5rem; font-size: 1rem;">
+                    ⚡ Fitur Chat
+                </h4>
+                <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.9rem; line-height: 1.5;">
+                    <li>🔄 Multiple chat sessions</li>
+                    <li>📋 Copy/delete messages</li>
+                    <li>💾 Auto-save conversation</li>
+                    <li>📱 Responsive design</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- UPGRADED: Quick Actions -->
+        <div class="quick-actions" style="border-top: 1px solid #e9ecef; padding-top: 1rem; margin-top: 1rem;">
+            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
+                <button
+                        onclick="userInput.value='Jelaskan apa itu AI'; userInput.focus();"
+                        style="background: #f8f9fa; border: 1px solid #dee2e6; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.85rem; cursor: pointer; transition: all 0.3s ease;"
+                        onmouseover="this.style.background='#e9ecef'"
+                        onmouseout="this.style.background='#f8f9fa'"
+                >
+                    🤖 Apa itu AI?
+                </button>
+                <button
+                        onclick="userInput.value='Bagaimana cara belajar programming?'; userInput.focus();"
+                        style="background: #f8f9fa; border: 1px solid #dee2e6; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.85rem; cursor: pointer; transition: all 0.3s ease;"
+                        onmouseover="this.style.background='#e9ecef'"
+                        onmouseout="this.style.background='#f8f9fa'"
+                >
+                    💻 Belajar Programming
+                </button>
+                <button
+                        onclick="userInput.value='Ceritakan tentang Bandung'; userInput.focus();"
+                        style="background: #f8f9fa; border: 1px solid #dee2e6; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.85rem; cursor: pointer; transition: all 0.3s ease;"
+                        onmouseover="this.style.background='#e9ecef'"
+                        onmouseout="this.style.background='#f8f9fa'"
+                >
+                    🏔️ Tentang Bandung
+                </button>
+                <button
+                        onclick="userInput.value='Tips produktivitas sehari-hari'; userInput.focus();"
+                        style="background: #f8f9fa; border: 1px solid #dee2e6; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.85rem; cursor: pointer; transition: all 0.3s ease;"
+                        onmouseover="this.style.background='#e9ecef'"
+                        onmouseout="this.style.background='#f8f9fa'"
+                >
+                    ⚡ Tips Produktivitas
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 
+<!-- UPGRADED: Additional Styles -->
+<style>
+    /* Page-specific styles */
+    .chat-page-container {
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .chat-help {
+        animation: slideUp 0.6s ease-out 0.2s both;
+    }
+
+    @keyframes slideUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .quick-actions button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 2px 8px rgba(0,123,255,0.2);
+    }
+
+    .quick-actions button:active {
+        transform: translateY(0);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .chat-page-container {
+            padding: 0.5rem;
+        }
+
+        .help-content {
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .help-section {
+            min-width: auto;
+        }
+
+        .quick-actions {
+            text-align: center;
+        }
+
+        .quick-actions button {
+            font-size: 0.8rem;
+            padding: 0.3rem 0.6rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .help-content {
+            gap: 0.75rem;
+        }
+
+        .help-section h4 {
+            font-size: 0.95rem;
+        }
+
+        .help-section ul {
+            font-size: 0.85rem;
+        }
+
+        .quick-actions button {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+        }
+    }
+</style>
+
+<!-- UPGRADED: Enhanced JavaScript -->
 <script src="/js/chat.js"></script>
+
+<!-- UPGRADED: Additional features script -->
+<script>
+    // Enhanced keyboard shortcuts and accessibility
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add aria labels for accessibility
+        const userInput = document.getElementById('userInput');
+        const sendButton = document.getElementById('sendButton');
+
+        userInput.setAttribute('aria-label', 'Ketik pertanyaan Anda');
+        sendButton.setAttribute('aria-label', 'Kirim pesan');
+
+        // Enhanced placeholder rotation
+        const placeholders = [
+            'Ketik pertanyaan Anda di sini...',
+            'Apa yang ingin Anda ketahui?',
+            'Tanyakan apa saja kepada AI...',
+            'Mulai percakapan dengan AI...'
+        ];
+
+        let placeholderIndex = 0;
+
+        function rotatePlaceholder() {
+            if (userInput.value === '' && document.activeElement !== userInput) {
+                userInput.placeholder = placeholders[placeholderIndex];
+                placeholderIndex = (placeholderIndex + 1) % placeholders.length;
+            }
+        }
+
+        // Rotate placeholder every 3 seconds
+        setInterval(rotatePlaceholder, 3000);
+
+        // Add visual feedback for keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                userInput.focus();
+                // Visual feedback
+                userInput.style.boxShadow = '0 0 0 3px rgba(0,123,255,0.3)';
+                setTimeout(() => {
+                    userInput.style.boxShadow = '';
+                }, 500);
+            }
+
+            if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
+                e.preventDefault();
+                if (typeof startNewChat === 'function') {
+                    startNewChat();
+                    // Visual feedback
+                    const newChatBtn = document.getElementById('newChatBtn');
+                    if (newChatBtn) {
+                        newChatBtn.style.transform = 'scale(1.1)';
+                        newChatBtn.style.background = 'rgba(255,255,255,0.4)';
+                        setTimeout(() => {
+                            newChatBtn.style.transform = '';
+                            newChatBtn.style.background = '';
+                        }, 200);
+                    }
+                }
+            }
+        });
+
+        // Add loading state management
+        let isPageLoading = true;
+
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                isPageLoading = false;
+                document.body.classList.add('page-loaded');
+            }, 500);
+        });
+
+        // Enhanced error handling for offline mode
+        window.addEventListener('online', function() {
+            console.log('Connection restored');
+            if (typeof showNotification === 'function') {
+                showNotification('Koneksi internet tersambung kembali! 🌐', 'success');
+            }
+        });
+
+        window.addEventListener('offline', function() {
+            console.log('Connection lost');
+            if (typeof showNotification === 'function') {
+                showNotification('Koneksi internet terputus. Beberapa fitur mungkin tidak berfungsi. 📡', 'warning');
+            }
+        });
+    });
+</script>
 
 <%- include('./partials/footer') %>

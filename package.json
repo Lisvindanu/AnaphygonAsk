@@ -1,21 +1,31 @@
 {
   "name": "anaphygonask-nodejs",
-  "version": "1.0.0",
-  "description": "Website tanya jawab AI dengan Gemini API",
+  "version": "2.0.0",
+  "description": "Enhanced AI Q&A website powered by Gemini API",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --ext .js",
+    "format": "prettier --write .",
+    "clean": "rm -rf node_modules package-lock.json && npm install"
   },
   "keywords": [
     "ai",
     "chatbot",
     "gemini",
-    "nodejs"
+    "nodejs",
+    "express",
+    "artificial-intelligence",
+    "question-answering"
   ],
-  "author": "",
+  "author": "Your Name",
   "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
   "dependencies": {
     "@google/generative-ai": "^0.1.3",
     "axios": "^1.9.0",
@@ -25,7 +35,17 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "eslint": "^8.57.1",
+    "nodemon": "^3.1.10",
+    "prettier": "^3.5.3"
   },
-  "type": "commonjs"
+  "type": "commonjs",
+  "repository": {
+    "type": "git",
+    "url": "your-repository-url"
+  },
+  "bugs": {
+    "url": "your-issues-url"
+  },
+  "homepage": "your-homepage-url"
 }
