@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyDocument - Word Online</title>
+    <!-- Memuat Tailwind CSS untuk styling modern -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Memuat Font Inter dari Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Menggunakan font Inter dan styling dasar untuk editor */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Style untuk area ketik agar terlihat seperti dokumen */
+        #editor {
+            outline: none;
+            line-height: 1.6;
+        }
+        /* Placeholder styling */
+        #editor:empty:before {
+            content: attr(data-placeholder);
+            color: #a0aec0;
+            cursor: text;
+        }
+    </style>
+</head>
+<body class="bg-gray-200 flex items-center justify-center min-h-screen p-4">
+
+<!-- Kontainer utama menyerupai aplikasi Word -->
+<div class="bg-white rounded-lg shadow-2xl max-w-4xl w-full h-[80vh] flex flex-col">
+
+    <!-- Toolbar Palsu -->
+    <div class="bg-gray-100 p-2 border-b border-gray-300 flex items-center space-x-2 flex-wrap">
+        <button class="text-gray-600 p-2 rounded hover:bg-gray-200" disabled title="Bold">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-type-bold" viewBox="0 0 16 16">
+                <path d="M8.21 13c2.106 0 3.412-1.087 3.412-2.823 0-1.306-.984-2.283-2.324-2.386v-.055a2.176 2.176 0 0 0 1.852-2.14c0-1.51-1.162-2.46-3.014-2.46H3.843V13H8.21zM5.908 4.674h1.696c.963 0 1.517.451 1.517 1.244 0 .834-.629 1.32-1.73 1.32H5.908V4.674zm0 3.776h1.84c1.137 0 1.856.53 1.856 1.437 0 .955-.744 1.54-1.96 1.54H5.908V8.45z"/>
+            </svg>
+        </button>
+        <button class="text-gray-600 p-2 rounded hover:bg-gray-200" disabled title="Italic">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-type-italic" viewBox="0 0 16 16">
+                <path d="M7.991 11.674 9.53 4.455h1.989l-1.54 7.219H7.991zm-2.46-1.52h1.603l1.54-7.22H6.974l-1.54 7.22z"/>
+            </svg>
+        </button>
+        <button class="text-gray-600 p-2 rounded hover:bg-gray-200" disabled title="Underline">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-type-underline" viewBox="0 0 16 16">
+                <path d="M5.313 3.136h-1.23V9.54c0 2.105 1.47 3.623 3.917 3.623s3.917-1.518 3.917-3.623V3.136h-1.23v6.323c0 1.49-.978 2.57-2.687 2.57-1.709 0-2.687-1.08-2.687-2.57V3.136zM12.5 15h-9v-1h9v1z"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Area Konten yang Bisa Diketik -->
+    <div class="p-8 flex-grow overflow-y-auto">
+        <div id="editor" contenteditable="true" data-placeholder="Mulai ketik di sini..." class="text-gray-800 text-lg leading-relaxed max-w-2xl mx-auto"></div>
+    </div>
+
+</div>
+
+<!-- Overlay untuk pesan prank -->
+<div id="prankOverlay" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+    <div class="text-white text-2xl font-bold text-center">
+        <p>Mencoba menyimpan dokumen...</p>
+        <p class="text-sm mt-2">Harap jangan tutup jendela ini.</p>
+    </div>
+</div>
+
+
+<script>
+    const editor = document.getElementById('editor');
+    const overlay = document.getElementById('prankOverlay');
+
+    let spaceCount = 0;
+    let prankTriggered = false; // Flag untuk memastikan prank hanya berjalan sekali
+
+    // Fokus ke editor saat halaman dimuat
+    editor.focus();
+
+    editor.addEventListener('keydown', function(event) {
+        // Jika prank sudah berjalan, hentikan
+        if (prankTriggered) return;
+
+        // Cek jika tombol yang ditekan adalah spasi
+        if (event.key === ' ') {
+            spaceCount++;
+        }
+
+        // Jika spasi sudah ditekan 5 kali, picu prank
+        if (spaceCount >= 5) {
+            prankTriggered = true; // Set flag
+            triggerPrank();
+        }
+    });
+
+    function triggerPrank() {
+        // Tampilkan overlay dengan pesan palsu
+        overlay.classList.remove('hidden');
+
+        // Setelah 2.5 detik, redirect ke link "rickroll"
+        setTimeout(function() {
+            window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+        }, 2500);
+    }
+</script>
+</body>
+</html>

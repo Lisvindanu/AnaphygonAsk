@@ -345,222 +345,6 @@
         100% { transform: translate(100px, 100px); }
     }
 
-    /* Cyberpunk Chat Components */
-    .chat-header-cyber {
-        background: rgba(26, 26, 46, 0.9);
-        border: 1px solid rgba(74, 159, 255, 0.3);
-        border-radius: 8px;
-        margin: 10px;
-        padding: 12px 15px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        box-shadow: 0 0 20px rgba(74, 159, 255, 0.2);
-        backdrop-filter: blur(10px);
-    }
-
-    .current-session-info {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        color: #00ffff;
-    }
-
-    .session-icon {
-        font-size: 16px;
-    }
-
-    .current-session-title {
-        font-weight: bold;
-        font-size: 14px;
-    }
-
-    .session-status {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        color: #7bed9f;
-        font-size: 12px;
-        animation: pulse 2s infinite;
-    }
-
-    .chat-actions {
-        display: flex;
-        gap: 8px;
-    }
-
-    .btn-cyber {
-        background: rgba(74, 159, 255, 0.3);
-        border: 1px solid rgba(74, 159, 255, 0.5);
-        color: #00ffff;
-        padding: 6px 12px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 11px;
-        transition: all 0.3s ease;
-    }
-
-    .btn-cyber:hover {
-        background: rgba(74, 159, 255, 0.5);
-        box-shadow: 0 0 10px rgba(74, 159, 255, 0.5);
-    }
-
-    .btn-cyber-small {
-        background: rgba(74, 159, 255, 0.3);
-        border: 1px solid rgba(74, 159, 255, 0.5);
-        color: #00ffff;
-        padding: 6px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 11px;
-        min-width: 30px;
-    }
-
-    .session-list-container {
-        max-height: 200px;
-        overflow-y: auto;
-        background: rgba(16, 16, 30, 0.8);
-    }
-
-    .session-list {
-        padding: 8px;
-    }
-
-    /* Session Manager Modal Styles */
-    .session-manager-content {
-        width: 100%;
-    }
-
-    .session-manager-stats {
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-        margin-bottom: 20px;
-        padding: 15px;
-        background: rgba(74, 159, 255, 0.1);
-        border-radius: 8px;
-        border: 1px solid rgba(74, 159, 255, 0.2);
-    }
-
-    .stat-item {
-        text-align: center;
-    }
-
-    .stat-number {
-        display: block;
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: #4a9eff;
-    }
-
-    .stat-label {
-        font-size: 0.8rem;
-        color: #888;
-        text-transform: uppercase;
-    }
-
-    .session-manager-list {
-        max-height: 300px;
-        overflow-y: auto;
-        margin-bottom: 20px;
-        border: 1px solid rgba(74, 159, 255, 0.2);
-        border-radius: 8px;
-        background: rgba(16, 16, 30, 0.5);
-    }
-
-    .session-manager-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 12px 15px;
-        border-bottom: 1px solid rgba(74, 159, 255, 0.1);
-        transition: all 0.3s ease;
-        cursor: pointer;
-    }
-
-    .session-manager-item:hover {
-        background: rgba(74, 159, 255, 0.1);
-    }
-
-    .session-manager-item.active {
-        background: rgba(74, 159, 255, 0.2);
-        border-left: 4px solid #00ffff;
-    }
-
-    .session-info-detail {
-        flex: 1;
-    }
-
-    .session-title-detail {
-        font-weight: bold;
-        color: #00ffff;
-        margin-bottom: 4px;
-    }
-
-    .session-time-detail {
-        font-size: 0.8rem;
-        color: #888;
-        margin-bottom: 2px;
-    }
-
-    .session-messages {
-        font-size: 0.75rem;
-        color: #4a9eff;
-    }
-
-    .session-actions-detail {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-    }
-
-    .btn-switch {
-        background: rgba(123, 237, 159, 0.3);
-        border: 1px solid rgba(123, 237, 159, 0.5);
-        color: #7bed9f;
-        padding: 4px 8px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 0.8rem;
-        transition: all 0.3s ease;
-    }
-
-    .btn-switch:hover {
-        background: rgba(123, 237, 159, 0.5);
-    }
-
-    .btn-delete {
-        background: rgba(255, 71, 87, 0.3);
-        border: 1px solid rgba(255, 71, 87, 0.5);
-        color: #ff4757;
-        padding: 4px 8px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 0.8rem;
-        transition: all 0.3s ease;
-    }
-
-    .btn-delete:hover {
-        background: rgba(255, 71, 87, 0.5);
-    }
-
-    .active-badge {
-        background: rgba(0, 255, 255, 0.2);
-        color: #00ffff;
-        padding: 4px 8px;
-        border-radius: 4px;
-        font-size: 0.8rem;
-        border: 1px solid rgba(0, 255, 255, 0.3);
-    }
-
-    .session-manager-actions {
-        display: flex;
-        gap: 10px;
-        justify-content: center;
-        padding-top: 15px;
-        border-top: 1px solid rgba(74, 159, 255, 0.2);
-    }
-
     .chat-container-cyber {
         flex: 1;
         display: flex;
@@ -580,8 +364,8 @@
         overflow-x: hidden;
         background: rgba(16, 16, 30, 0.5);
         border-radius: 8px 8px 0 0;
-        max-height: calc(100vh - 280px); /* Set maximum height */
-        min-height: 300px; /* Set minimum height */
+        max-height: calc(100vh - 280px);
+        min-height: 300px;
     }
 
     .chat-input-cyber {
@@ -656,7 +440,7 @@
         left: 100%;
     }
 
-    /* Message Styles with Code Block Enhancements */
+    /* Message Styles with Enhanced Code Block Support */
     .message {
         margin-bottom: 15px;
         padding: 12px 15px;
@@ -697,49 +481,53 @@
         color: #4a9eff;
     }
 
-    /* Code Block Copy Button */
+    /* ENHANCED: Code Block with Copy Button */
     .code-block-container {
         position: relative;
-        margin: 10px 0;
+        margin: 15px 0;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid rgba(74, 159, 255, 0.3);
+        background: rgba(16, 16, 30, 0.8);
     }
 
     .code-block-header {
-        background: rgba(26, 26, 46, 0.9);
-        border: 1px solid rgba(74, 159, 255, 0.3);
-        border-bottom: none;
-        border-radius: 8px 8px 0 0;
-        padding: 8px 15px;
+        background: rgba(26, 26, 46, 0.95);
+        border-bottom: 1px solid rgba(74, 159, 255, 0.3);
+        padding: 10px 15px;
         display: flex;
         justify-content: space-between;
         align-items: center;
         font-size: 12px;
-        color: #888;
     }
 
     .code-language {
-        font-weight: 500;
+        font-weight: 600;
         color: #4a9eff;
         text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
     .copy-code-btn {
         background: rgba(74, 159, 255, 0.2);
         border: 1px solid rgba(74, 159, 255, 0.4);
         color: #4a9eff;
-        padding: 4px 8px;
-        border-radius: 4px;
+        padding: 6px 10px;
+        border-radius: 5px;
         cursor: pointer;
         font-size: 11px;
         transition: all 0.3s ease;
         display: flex;
         align-items: center;
-        gap: 4px;
+        gap: 5px;
+        font-weight: 500;
     }
 
     .copy-code-btn:hover {
         background: rgba(74, 159, 255, 0.3);
         border-color: #4a9eff;
         transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(74, 159, 255, 0.3);
     }
 
     .copy-code-btn.copied {
@@ -750,8 +538,69 @@
 
     .code-block-container pre {
         margin: 0;
-        border-radius: 0 0 8px 8px;
-        border-top: none;
+        padding: 15px;
+        background: rgba(16, 16, 30, 0.9);
+        border: none;
+        border-radius: 0;
+        overflow-x: auto;
+        font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .code-block-container pre code {
+        background: none;
+        padding: 0;
+        border: none;
+        color: #e6e6e6;
+        font-family: inherit;
+    }
+
+    /* Enhanced scrollbar for code blocks */
+    .code-block-container pre::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .code-block-container pre::-webkit-scrollbar-track {
+        background: rgba(26, 26, 46, 0.5);
+    }
+
+    .code-block-container pre::-webkit-scrollbar-thumb {
+        background: rgba(74, 159, 255, 0.5);
+        border-radius: 3px;
+    }
+
+    .code-block-container pre::-webkit-scrollbar-thumb:hover {
+        background: rgba(74, 159, 255, 0.7);
+    }
+
+    /* Message Action Buttons */
+    .message-actions {
+        display: flex;
+        gap: 5px;
+        margin-top: 8px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .message:hover .message-actions {
+        opacity: 1;
+    }
+
+    .action-btn {
+        background: rgba(74, 159, 255, 0.2);
+        border: 1px solid rgba(74, 159, 255, 0.3);
+        color: #4a9eff;
+        padding: 4px 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+        transition: all 0.3s ease;
+    }
+
+    .action-btn:hover {
+        background: rgba(74, 159, 255, 0.3);
+        border-color: #4a9eff;
     }
 
     .user-message {
@@ -784,6 +633,34 @@
         border: 1px solid rgba(255, 165, 2, 0.3);
         color: #ffa502;
         box-shadow: 0 4px 15px rgba(255, 165, 2, 0.2);
+    }
+
+    /* Thinking Animation */
+    .dots-container {
+        display: flex;
+        gap: 4px;
+    }
+
+    .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #ffa502;
+        animation: dotPulse 1.4s infinite ease-in-out;
+    }
+
+    .dot:nth-child(1) { animation-delay: -0.32s; }
+    .dot:nth-child(2) { animation-delay: -0.16s; }
+
+    @keyframes dotPulse {
+        0%, 80%, 100% {
+            transform: scale(0);
+            opacity: 0.5;
+        }
+        40% {
+            transform: scale(1);
+            opacity: 1;
+        }
     }
 
     .status-bar {
@@ -1068,6 +945,7 @@
                 <div class="session-manager-actions">
                     <button class="btn-cyber" onclick="createNewSessionFromModal()">➕ New Session</button>
                     <button class="btn-cyber" onclick="exportAllSessions()">📤 Export All</button>
+                    <button class="btn-cyber" onclick="testCopyFunction()">🧪 Test Copy</button>
                 </div>
             </div>
         `;
@@ -1102,7 +980,6 @@
             if (typeof window.switchToSession === 'function') {
                 window.switchToSession(sessionId);
                 document.getElementById('modalOverlay').style.display = 'none';
-                updateCurrentSessionDisplay();
             }
         };
 
@@ -1132,249 +1009,7 @@
             URL.revokeObjectURL(url);
         };
 
-        function updateCurrentSessionDisplay() {
-            // Function removed since header is no longer displayed
-            // Session info now managed through sidebar "Riwayat" menu
-        }
-
-        // Remove session display update since header is removed
-        // setTimeout(updateCurrentSessionDisplay, 1000);
-
-        // Enhance welcome message with cyberpunk style
-        function addCyberWelcomeMessage() {
-            const welcomeMessage = `
-            <div class="welcome-content-cyber">
-                <div class="cyber-welcome-header">
-                    <h3>🤖 AI Assistant Online</h3>
-                    <div class="status-indicators">
-                        <span class="status-dot online"></span>
-                        <span class="status-text">System Ready</span>
-                    </div>
-                </div>
-                <div class="cyber-capabilities">
-                    <div class="capability-grid">
-                        <div class="capability-item">
-                            <div class="capability-icon">🧠</div>
-                            <span>Smart Q&A</span>
-                        </div>
-                        <div class="capability-item">
-                            <div class="capability-icon">💻</div>
-                            <span>Code Help</span>
-                        </div>
-                        <div class="capability-item">
-                            <div class="capability-icon">📚</div>
-                            <span>Knowledge</span>
-                        </div>
-                        <div class="capability-item">
-                            <div class="capability-icon">🔍</div>
-                            <span>Analysis</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="cyber-quick-start">
-                    <p><strong>Quick Start:</strong> Ketik pertanyaan atau gunakan shortcut</p>
-                    <div class="shortcut-hints">
-                        <kbd>Ctrl+K</kbd> Focus • <kbd>Ctrl+N</kbd> New Chat • <kbd>Enter</kbd> Send
-                    </div>
-                </div>
-            </div>
-        `;
-
-            const welcomeDiv = document.createElement('div');
-            welcomeDiv.classList.add('message', 'ai-message', 'cyber-welcome');
-            welcomeDiv.innerHTML = welcomeMessage;
-            return welcomeDiv;
-        }
-
-        // Add enhanced styles for welcome message
-        const welcomeStyles = `
-        .welcome-content-cyber {
-            text-align: center;
-            padding: 0;
-        }
-
-        .cyber-welcome-header h3 {
-            color: #00ffff;
-            margin-bottom: 10px;
-            font-size: 1.4rem;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-        }
-
-        .status-indicators {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #7bed9f;
-            box-shadow: 0 0 10px rgba(123, 237, 159, 0.8);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .status-text {
-            color: #7bed9f;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .capability-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin: 15px 0;
-        }
-
-        .capability-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px;
-            background: rgba(74, 159, 255, 0.1);
-            border: 1px solid rgba(74, 159, 255, 0.2);
-            border-radius: 6px;
-            transition: all 0.3s ease;
-        }
-
-        .capability-item:hover {
-            background: rgba(74, 159, 255, 0.2);
-            border-color: #4a9eff;
-        }
-
-        .capability-icon {
-            font-size: 1.2rem;
-        }
-
-        .cyber-quick-start {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(0, 255, 255, 0.2);
-        }
-
-        .cyber-quick-start p {
-            margin-bottom: 8px;
-            color: #00ffff;
-            font-size: 0.9rem;
-        }
-
-        .shortcut-hints {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .shortcut-hints kbd {
-            background: rgba(74, 159, 255, 0.2);
-            border: 1px solid rgba(74, 159, 255, 0.4);
-            border-radius: 3px;
-            padding: 2px 6px;
-            font-size: 0.8rem;
-            color: #4a9eff;
-            font-family: monospace;
-        }
-    `;
-
-        // Add welcome styles to document
-        const welcomeStyleElement = document.createElement('style');
-        welcomeStyleElement.textContent = welcomeStyles;
-        document.head.appendChild(welcomeStyleElement);
-
-        // Override the original showWelcomeMessage if it exists
-        if (typeof window.showWelcomeMessage !== 'undefined') {
-            const originalShowWelcome = window.showWelcomeMessage;
-            window.showWelcomeMessage = function() {
-                const chatMessages = document.getElementById('chatMessages');
-                if (chatMessages) {
-                    const welcomeDiv = addCyberWelcomeMessage();
-                    welcomeDiv.id = 'welcomeMessage'; // Add ID for easy removal
-                    chatMessages.appendChild(welcomeDiv);
-                }
-            };
-        }
-
-        // Function to hide welcome message when chat starts
-        function hideWelcomeMessage() {
-            const welcomeMessage = document.getElementById('welcomeMessage');
-            if (welcomeMessage) {
-                welcomeMessage.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                welcomeMessage.style.opacity = '0';
-                welcomeMessage.style.transform = 'translateY(-20px)';
-                setTimeout(() => {
-                    if (welcomeMessage.parentNode) {
-                        welcomeMessage.remove();
-                    }
-                }, 500);
-            }
-        }
-
-        // Monitor for new messages to hide welcome
-        function observeMessages() {
-            const chatMessages = document.getElementById('chatMessages');
-            if (!chatMessages) return;
-
-            const observer = new MutationObserver(function(mutations) {
-                mutations.forEach(function(mutation) {
-                    if (mutation.type === 'childList') {
-                        // Check if there are any real messages (not just welcome)
-                        const realMessages = Array.from(chatMessages.children).filter(child =>
-                            !child.id || child.id !== 'welcomeMessage'
-                        );
-
-                        if (realMessages.length > 0) {
-                            hideWelcomeMessage();
-                            observer.disconnect(); // Stop observing once welcome is hidden
-                        }
-                    }
-                });
-            });
-
-            observer.observe(chatMessages, {
-                childList: true,
-                subtree: false
-            });
-        }
-
-        // Integration with existing chat.js
-        // Override addMessage function to hide welcome when first message is added
-        const originalAddMessage = window.addMessage;
-        if (originalAddMessage) {
-            window.addMessage = function(text, isUser, save) {
-                // Hide welcome message when first real message is added
-                if (isUser || !isUser) {
-                    hideWelcomeMessage();
-                }
-                return originalAddMessage.call(this, text, isUser, save);
-            };
-        }
-
-        // Override startNewChat to show welcome message for new sessions
-        const originalStartNewChat = window.startNewChat;
-        if (originalStartNewChat) {
-            window.startNewChat = function() {
-                const result = originalStartNewChat.call(this);
-                // Show welcome message for new chat
-                setTimeout(() => {
-                    if (typeof window.showWelcomeMessage === 'function') {
-                        window.showWelcomeMessage();
-                        observeMessages(); // Start observing again
-                    }
-                }, 500);
-                return result;
-            };
-        }
-
-        // Initial browser window animation
+        // Enhanced browser window animation
         const browserWindow = document.querySelector('.browser-window');
         browserWindow.style.opacity = '0';
         browserWindow.style.transform = 'scale(0.9)';
@@ -1435,7 +1070,158 @@
                 opacity: 0;
             }
         }
-    `;
+
+        /* Session Manager Modal Styles */
+        .session-manager-content {
+            width: 100%;
+        }
+
+        .session-manager-stats {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(74, 159, 255, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(74, 159, 255, 0.2);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4a9eff;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #888;
+            text-transform: uppercase;
+        }
+
+        .session-manager-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            border: 1px solid rgba(74, 159, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(16, 16, 30, 0.5);
+        }
+
+        .session-manager-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(74, 159, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .session-manager-item:hover {
+            background: rgba(74, 159, 255, 0.1);
+        }
+
+        .session-manager-item.active {
+            background: rgba(74, 159, 255, 0.2);
+            border-left: 4px solid #00ffff;
+        }
+
+        .session-info-detail {
+            flex: 1;
+        }
+
+        .session-title-detail {
+            font-weight: bold;
+            color: #00ffff;
+            margin-bottom: 4px;
+        }
+
+        .session-time-detail {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 2px;
+        }
+
+        .session-messages {
+            font-size: 0.75rem;
+            color: #4a9eff;
+        }
+
+        .session-actions-detail {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .btn-switch {
+            background: rgba(123, 237, 159, 0.3);
+            border: 1px solid rgba(123, 237, 159, 0.5);
+            color: #7bed9f;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-switch:hover {
+            background: rgba(123, 237, 159, 0.5);
+        }
+
+        .btn-delete {
+            background: rgba(255, 71, 87, 0.3);
+            border: 1px solid rgba(255, 71, 87, 0.5);
+            color: #ff4757;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-delete:hover {
+            background: rgba(255, 71, 87, 0.5);
+        }
+
+        .active-badge {
+            background: rgba(0, 255, 255, 0.2);
+            color: #00ffff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .session-manager-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            padding-top: 15px;
+            border-top: 1px solid rgba(74, 159, 255, 0.2);
+        }
+
+        .btn-cyber {
+            background: rgba(74, 159, 255, 0.3);
+            border: 1px solid rgba(74, 159, 255, 0.5);
+            color: #00ffff;
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cyber:hover {
+            background: rgba(74, 159, 255, 0.5);
+            box-shadow: 0 0 10px rgba(74, 159, 255, 0.5);
+        }
+        `;
 
         const particleStyleElement = document.createElement('style');
         particleStyleElement.textContent = particleStyles;
@@ -1464,7 +1250,7 @@
             50% { color: #4a9eff; }
             100% { color: #00ffff; }
         }
-    `;
+        `;
 
         const statusStyleElement = document.createElement('style');
         statusStyleElement.textContent = statusStyles;
@@ -1472,47 +1258,17 @@
 
         // Expose enhanced functions globally
         window.updateChatStatus = updateChatStatus;
-        window.addCyberWelcomeMessage = addCyberWelcomeMessage;
-        window.hideWelcomeMessage = hideWelcomeMessage;
 
-        // Debug function to test copy functionality
-        window.testCopyFunction = function() {
-            // Create a test code block
-            const testCode = `<div class="code-block-container" data-language="html">
-            <div class="code-block-header">
-                <span class="code-language">HTML</span>
-                <button class="copy-code-btn" onclick="copyCodeBlock('test-code-123')">
-                    <span class="copy-icon">📋</span>
-                    <span class="copy-text">Copy</span>
-                </button>
-            </div>
-            <pre><code id="test-code-123">&lt;html&gt;
-  &lt;head&gt;
-    &lt;title&gt;Test&lt;/title&gt;
-  &lt;/head&gt;
-&lt;/html&gt;</code></pre>
-        </div>`;
-
-            const chatMessages = document.getElementById('chatMessages');
-            if (chatMessages) {
-                const testDiv = document.createElement('div');
-                testDiv.className = 'message ai-message';
-                testDiv.innerHTML = `<div class="message-content">${testCode}</div>`;
-                chatMessages.appendChild(testDiv);
-
-                // Scroll to bottom
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }
-        };
-
-        // Add debug button to test
+        // Log available functions for debugging
         setTimeout(() => {
-            console.log('Copy function test available. Run testCopyFunction() in console to test.');
+            console.log('🚀 AnaphygonAsk Chat System Loaded');
             console.log('Available functions:', {
                 copyCodeBlock: typeof window.copyCodeBlock,
                 testCopyFunction: typeof window.testCopyFunction,
-                parseMarkdown: typeof parseMarkdown
+                parseMarkdown: typeof window.parseMarkdown,
+                startNewChat: typeof window.startNewChat
             });
+            console.log('💡 Try running testCopyFunction() to test code block copying!');
         }, 2000);
     });
 </script>

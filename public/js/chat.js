@@ -1,6 +1,6 @@
 /**
  * Enhanced Chat functionality untuk AnaphygonAsk
- * UPGRADED: Added New Chat feature
+ * UPGRADED: Added New Chat feature + Code Block Copy functionality
  */
 document.addEventListener('DOMContentLoaded', function() {
     const chatMessages = document.getElementById('chatMessages');
@@ -285,13 +285,28 @@ document.addEventListener('DOMContentLoaded', function() {
         return date.toLocaleDateString('id-ID');
     }
 
-    // Enhanced markdown parser
+    // ENHANCED: Markdown parser with proper code block support
     function parseMarkdown(text) {
         // Escape HTML first
         text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-        // Code blocks (```code```)
-        text = text.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+        // ENHANCED: Code blocks with language detection and copy button
+        text = text.replace(/```(\w+)?\n?([\s\S]*?)```/g, function(match, language, code) {
+            const lang = language || 'text';
+            const codeId = 'code-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+            const cleanCode = code.trim();
+
+            return `<div class="code-block-container" data-language="${lang}">
+                <div class="code-block-header">
+                    <span class="code-language">${lang.toUpperCase()}</span>
+                    <button class="copy-code-btn" onclick="copyCodeBlock('${codeId}')">
+                        <span class="copy-icon">📋</span>
+                        <span class="copy-text">Copy</span>
+                    </button>
+                </div>
+                <pre><code id="${codeId}">${cleanCode}</code></pre>
+            </div>`;
+        });
 
         // Inline code (`code`)
         text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
@@ -326,6 +341,57 @@ document.addEventListener('DOMContentLoaded', function() {
         text = text.replace(/\n/g, '<br>');
 
         return text;
+    }
+
+    // NEW: Copy code block functionality
+    async function copyCodeBlock(codeId) {
+        try {
+            const codeElement = document.getElementById(codeId);
+            if (!codeElement) {
+                console.error('Code element not found:', codeId);
+                return;
+            }
+
+            const codeText = codeElement.textContent || codeElement.innerText;
+            await navigator.clipboard.writeText(codeText);
+
+            // Visual feedback
+            const copyBtn = codeElement.closest('.code-block-container').querySelector('.copy-code-btn');
+            if (copyBtn) {
+                const originalText = copyBtn.querySelector('.copy-text').textContent;
+                const originalIcon = copyBtn.querySelector('.copy-icon').textContent;
+
+                copyBtn.classList.add('copied');
+                copyBtn.querySelector('.copy-text').textContent = 'Copied!';
+                copyBtn.querySelector('.copy-icon').textContent = '✅';
+
+                setTimeout(() => {
+                    copyBtn.classList.remove('copied');
+                    copyBtn.querySelector('.copy-text').textContent = originalText;
+                    copyBtn.querySelector('.copy-icon').textContent = originalIcon;
+                }, 2000);
+            }
+
+            showNotification('Code copied to clipboard! 📋', 'success');
+
+        } catch (err) {
+            console.error('Failed to copy code:', err);
+            showNotification('Failed to copy code', 'error');
+
+            // Fallback for older browsers
+            try {
+                const codeElement = document.getElementById(codeId);
+                const range = document.createRange();
+                range.selectNode(codeElement);
+                window.getSelection().removeAllRanges();
+                window.getSelection().addRange(range);
+                document.execCommand('copy');
+                window.getSelection().removeAllRanges();
+                showNotification('Code copied to clipboard! 📋', 'success');
+            } catch (fallbackErr) {
+                console.error('Fallback copy also failed:', fallbackErr);
+            }
+        }
     }
 
     // Create message element with actions
@@ -418,14 +484,44 @@ document.addEventListener('DOMContentLoaded', function() {
         notification.classList.add('notification', `notification-${type}`);
         notification.textContent = message;
 
+        // Enhanced notification styling
+        Object.assign(notification.style, {
+            position: 'fixed',
+            top: '20px',
+            right: '20px',
+            padding: '12px 20px',
+            borderRadius: '8px',
+            color: 'white',
+            fontWeight: '500',
+            fontSize: '14px',
+            zIndex: '10000',
+            transition: 'all 0.3s ease',
+            transform: 'translateX(100%)',
+            opacity: '0'
+        });
+
+        // Type-specific styling
+        const typeColors = {
+            success: 'linear-gradient(135deg, #7bed9f, #7bed9f)',
+            error: 'linear-gradient(135deg, #ff4757, #ff4757)',
+            warning: 'linear-gradient(135deg, #ffa502, #ffa502)',
+            info: 'linear-gradient(135deg, #4a9eff, #4a9eff)'
+        };
+
+        notification.style.background = typeColors[type] || typeColors.info;
+
         document.body.appendChild(notification);
 
+        // Show animation
         setTimeout(() => {
-            notification.classList.add('show');
+            notification.style.transform = 'translateX(0)';
+            notification.style.opacity = '1';
         }, 100);
 
+        // Hide animation
         setTimeout(() => {
-            notification.classList.remove('show');
+            notification.style.transform = 'translateX(100%)';
+            notification.style.opacity = '0';
             setTimeout(() => {
                 if (notification.parentNode) {
                     notification.parentNode.removeChild(notification);
@@ -555,7 +651,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } finally {
             isProcessing = false;
             sendButton.disabled = false;
-            sendButton.textContent = 'Send';
+            sendButton.textContent = 'Kirim';
             userInput.focus();
         }
     }
@@ -580,6 +676,39 @@ document.addEventListener('DOMContentLoaded', function() {
         welcomeDiv.classList.add('message', 'ai-message');
         welcomeDiv.innerHTML = welcomeMessage;
         chatMessages.appendChild(welcomeDiv);
+    }
+
+    // NEW: Test function for code block functionality
+    function testCopyFunction() {
+        const testMarkdown = `Berikut adalah contoh code block:
+
+\`\`\`html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test</title>
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+  </body>
+</html>
+\`\`\`
+
+Dan juga code JavaScript:
+
+\`\`\`javascript
+function greet(name) {
+    console.log('Hello, ' + name + '!');
+}
+
+greet('World');
+\`\`\`
+
+Inline code juga berfungsi: \`console.log('Hello')\`
+        `;
+
+        addMessage(testMarkdown, false);
+        showNotification('Test code blocks added! Try copying them.', 'info');
     }
 
     // Event listeners
@@ -624,6 +753,9 @@ document.addEventListener('DOMContentLoaded', function() {
     window.deleteChatSession = deleteChatSession;
     window.startNewChat = startNewChat;
     window.clearCurrentChatHistory = clearCurrentChatHistory;
+    window.copyCodeBlock = copyCodeBlock;
+    window.testCopyFunction = testCopyFunction;
+    window.parseMarkdown = parseMarkdown;
 
     // Auto-focus input
     userInput.focus();
