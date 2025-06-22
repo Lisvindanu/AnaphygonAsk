@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:maximized": "MAXIMIZED_MODE=true nodemon app.js",
+    "test:api": "curl -X POST http://localhost:3006/api/chat -H 'Content-Type: application/json' -d '{\"question\":\"Test maximized API\"}'",
+    "health": "curl http://localhost:3006/health",
+    "metrics": "curl http://localhost:3006/api/metrics",
     "lint": "eslint . --ext .js",
     "format": "prettier --write .",
     "clean": "rm -rf node_modules package-lock.json && npm install"

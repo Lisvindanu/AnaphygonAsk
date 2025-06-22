@@ -1,64 +1,732 @@
 <%- include('./partials/header') %>
 
-<div class="home-container">
-    <section class="hero">
-        <div class="hero-content">
-            <h2>Selamat Datang di <%= config.appName %></h2>
-            <p><%= config.description %></p>
-            <a href="/chat" class="btn-primary">Mulai Bertanya</a>
-        </div>
-        <div class="hero-image">
-            <img src="/img/ai-chat.png" alt="AI Chat Illustration" style="width: 70vw; height: 70vh;">
-        </div>
-    </section>
-
-    <section class="features">
-        <h2>Fitur Utama</h2>
-        <div class="feature-cards">
-            <div class="feature-card">
-                <div class="feature-icon">💬</div>
-                <h3>Tanya Jawab Cerdas</h3>
-                <p>Dapatkan jawaban cerdas untuk pertanyaan Anda dengan teknologi AI mutakhir</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3>Respons Cepat</h3>
-                <p>Nikmati respons instan tanpa perlu menunggu lama</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔍</div>
-                <h3>Informasi Akurat</h3>
-                <p>Dapatkan informasi terkini dan akurat untuk berbagai topik</p>
+<div class="desktop-container">
+    <div class="browser-window">
+        <div class="title-bar">
+            <div class="window-title">ネットワーク・アクセス</div>
+            <div class="window-controls">
+                <div class="control-btn">−</div>
+                <div class="control-btn">□</div>
+                <div class="control-btn">×</div>
             </div>
         </div>
-    </section>
-
-    <section class="how-it-works">
-        <h2>Cara Kerja</h2>
-        <div class="steps">
-            <div class="step">
-                <div class="step-number">1</div>
-                <div class="step-content">
-                    <h3>Kunjungi Halaman Chat</h3>
-                    <p>Klik tombol "Mulai Bertanya" atau menu "Tanya AI" di atas</p>
+        
+        <div class="tab-bar">
+            <div class="tab active" data-tab-id="home">
+                <div class="tab-favicon">🏠</div>
+                <div class="tab-title"><%= config.appName %> Portal</div>
+                <div class="tab-close" data-tab-close-id="home">×</div> 
+            </div>
+            <button class="new-tab-btn" id="newTabBtn" title="New Tab">+</button>
+            <div class="window-actions">
+                <button class="window-btn" id="newWindowBtn" title="New Window">⧉</button>
+            </div>
+        </div>
+        
+        <div class="address-bar">
+            <div class="nav-buttons">
+                <button class="nav-btn" id="backBtn" disabled>←</button>
+                <button class="nav-btn" id="forwardBtn" disabled>→</button>
+                <button class="nav-btn" id="refreshBtn">↻</button>
+            </div>
+            <input type="text" class="url-input" value="http://anaphygonask.ai.net/" id="urlInput">
+            <button class="search-btn" id="searchBtn">🔍</button>
+        </div>
+        
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="sidebar-header">Menu Utama</div>
+                
+                <div class="menu-item active" data-section="home">
+                    <div class="menu-icon home-icon">🏠</div>
+                    <span>Beranda</span>
+                    <div class="menu-arrow">▶</div>
+                </div>
+                
+                <div class="menu-item" data-section="chat">
+                    <div class="menu-icon chat-icon">💬</div>
+                    <span>Tanya AI</span>
+                    <div class="menu-arrow">▶</div>
+                </div>
+                
+                <div class="menu-item" data-section="features">
+                    <div class="menu-icon features-icon">⚡</div>
+                    <span>Fitur</span>
+                    <div class="menu-arrow">▶</div>
+                </div>
+                
+                <div class="menu-item" data-section="howto">
+                    <div class="menu-icon howto-icon">📚</div>
+                    <span>Cara Kerja</span>
+                    <div class="menu-arrow">▶</div>
+                </div>
+                
+                <div class="menu-item" data-section="about">
+                    <div class="menu-icon about-icon">🤖</div>
+                    <span>Tentang AI</span>
+                    <div class="menu-arrow">▶</div>
+                </div>
+                
+                <div style="margin-top: auto; padding: 20px 15px; border-top: 1px solid rgba(42, 82, 152, 0.3);">
+                    <div class="menu-item" data-section="settings" style="border: none;">
+                        <div class="menu-icon" style="background: #747d8c;">⚙️</div>
+                        <span>Pengaturan</span>
+                    </div>
+                    <div class="menu-item" data-section="help" style="border: none;">
+                        <div class="menu-icon" style="background: #5f27cd;">❓</div>
+                        <span>Bantuan</span>
+                    </div>
                 </div>
             </div>
-            <div class="step">
-                <div class="step-number">2</div>
-                <div class="step-content">
-                    <h3>Ajukan Pertanyaan</h3>
-                    <p>Ketik pertanyaan Anda di kolom chat yang tersedia</p>
+            
+            <div class="content-area">
+                <div class="cyber-lines"></div>
+                <div class="content-background"></div>
+                
+                <div class="home-content" id="homeContent">
+                    <div class="graffiti-area" id="mainContent">
+                        <span style="transform: rotate(-2deg); display: inline-block;" id="mainText"><%= config.appName %></span>
+                    </div>
+                    
+                    <div class="floating-elements">
+                        <div class="floating-box">
+                            AI Assistant<br>
+                            Ready & Online ✓
+                        </div>
+                        <div class="floating-box">
+                            Status Sistem:<br>
+                            Siap Membantu 🤖
+                        </div>
+                        <div class="floating-box">
+                            Mode Hari Ini:<br>
+                            Tanya Apa Saja! 💡
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="step">
-                <div class="step-number">3</div>
-                <div class="step-content">
-                    <h3>Dapatkan Jawaban</h3>
-                    <p>AI kami akan segera memberikan jawaban untuk pertanyaan Anda</p>
+                
+                <div class="website-frame" id="websiteFrame" style="display: none;">
+                    <div class="loading-indicator" id="loadingIndicator">
+                        Memuat... 🔄
+                    </div>
+                    <iframe class="website-iframe" id="websiteIframe" src="" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"></iframe>
+                </div>
+                
+                <div class="error-page" id="errorPage" style="display: none;">
+                    <div class="error-code">Error</div>
+                    <div class="error-message" id="errorMessage">Koneksi Gagal</div>
+                    <div class="error-details" id="errorDetails">
+                        Halaman yang Anda coba akses tidak dapat dimuat.
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+        
+        <div class="status-bar">
+            <div class="status-left">
+                <span id="statusText"><%= config.description %></span>
+            </div>
+            <div class="status-right">
+                <span id="currentTime">Siap</span>
+            </div>
+        </div>
+    </div>
 </div>
+
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal-content">
+        <button class="close-modal-btn" id="closeModalBtn">×</button>
+        <div class="modal-title" id="modalTitle">Judul Bagian</div>
+        <div class="modal-text" id="modalText">Konten ada di sini...</div>
+        <button id="actionBtn" style="background: #4a9eff; border: none; padding: 10px 20px; border-radius: 5px; color: white; cursor: pointer; margin-top: 15px; display: none;">Aksi</button>
+    </div>
+</div>
+
+<script>
+// AnaphygonAsk Cyberpunk Interface
+document.addEventListener('DOMContentLoaded', function() {
+    // Import styles from original cyberpunk theme
+    const style = document.createElement('style');
+    style.textContent = `
+        /* Override existing styles with cyberpunk theme */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            overflow: hidden;
+            height: 100vh;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        main {
+            padding: 0;
+            margin: 0;
+            max-width: none;
+            height: 100vh;
+        }
+
+        .desktop-container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+        }
+
+        .browser-window {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .title-bar {
+            height: 35px;
+            background: linear-gradient(180deg, #4a9eff 0%, #2080ff 100%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+            color: white;
+            font-size: 13px;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 5px;
+        }
+
+        .control-btn {
+            width: 18px;
+            height: 18px;
+            border-radius: 3px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        .tab-bar {
+            height: 32px;
+            background: #e8e8e8;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            gap: 2px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .tab {
+            background: white;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            padding: 6px 12px;
+            cursor: pointer;
+            border-radius: 4px 4px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #333;
+        }
+
+        .address-bar {
+            height: 40px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            gap: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .nav-btn, .search-btn, .new-tab-btn, .window-btn {
+            background: #e0e0e0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #333;
+        }
+
+        .nav-btn {
+            width: 28px;
+            height: 26px;
+        }
+
+        .url-input {
+            flex: 1;
+            height: 26px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 0 8px;
+            font-size: 12px;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            background: #1a1a2e;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(180deg, #0f3460 0%, #1a1a2e 100%);
+            border-right: 2px solid #2a5298;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 20px 15px 10px;
+            color: #00ffff;
+            font-size: 14px;
+            font-weight: bold;
+            border-bottom: 1px solid rgba(42, 82, 152, 0.3);
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(42, 82, 152, 0.2);
+            color: #ffffff;
+            font-size: 13px;
+        }
+
+        .menu-item:hover {
+            background: rgba(74, 159, 255, 0.2);
+            border-left: 4px solid #4a9eff;
+        }
+
+        .menu-item.active {
+            background: rgba(74, 159, 255, 0.3);
+            border-left: 4px solid #00ffff;
+            color: #00ffff;
+        }
+
+        .menu-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 12px;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .home-icon { background: #4a9eff; }
+        .chat-icon { background: #ff4757; }
+        .features-icon { background: #ffa502; }
+        .howto-icon { background: #7bed9f; }
+        .about-icon { background: #ff6b9d; }
+
+        .content-area {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(45deg, rgba(255, 0, 150, 0.05) 0%, transparent 50px, rgba(255, 0, 150, 0.05) 51px, transparent 100px),
+                repeating-linear-gradient(-45deg, rgba(0, 255, 255, 0.05) 0%, transparent 50px, rgba(0, 255, 255, 0.05) 51px, transparent 100px);
+        }
+
+        .home-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .graffiti-area {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 200px;
+            background: linear-gradient(45deg, #ff6b9d, #ffa502, #4a9eff, #7bed9f);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .floating-box {
+            position: absolute;
+            background: rgba(74, 159, 255, 0.8);
+            border-radius: 8px;
+            padding: 10px;
+            color: white;
+            font-size: 12px;
+            animation: float 15s linear infinite;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .floating-box:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-box:nth-child(2) {
+            top: 60%;
+            right: 15%;
+            animation-delay: 5s;
+            background: rgba(255, 107, 157, 0.8);
+        }
+
+        .floating-box:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 10s;
+            background: rgba(123, 237, 159, 0.8);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+            25% { transform: translateY(-20px) rotate(2deg); opacity: 1; }
+            50% { transform: translateY(10px) rotate(-1deg); opacity: 0.8; }
+            75% { transform: translateY(-15px) rotate(1deg); opacity: 0.9; }
+        }
+
+        .status-bar {
+            height: 25px;
+            background: #0f3460;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15px;
+            font-size: 11px;
+            color: #00ffff;
+            border-top: 1px solid #2a5298;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 3px solid #4a9eff;
+            border-radius: 10px;
+            padding: 25px;
+            max-width: 500px;
+            max-height: 70%;
+            overflow-y: auto;
+            color: white;
+            box-shadow: 0 0 30px rgba(74, 159, 255, 0.5);
+            position: relative;
+        }
+
+        .close-modal-btn {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            background: none;
+            border: 2px solid #ff4757;
+            color: #ff4757;
+            padding: 4px 8px;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .cyber-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(90deg, transparent, transparent 100px, rgba(74, 159, 255, 0.05) 101px, rgba(74, 159, 255, 0.05) 102px),
+                repeating-linear-gradient(0deg, transparent, transparent 100px, rgba(74, 159, 255, 0.05) 101px, rgba(74, 159, 255, 0.05) 102px);
+            pointer-events: none;
+            animation: lineShift 30s linear infinite;
+        }
+
+        @keyframes lineShift {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(100px, 100px); }
+        }
+
+        /* Hide original header and footer */
+        header, footer {
+            display: none;
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Content sections untuk modal
+    const sections = {
+        home: {
+            title: "Selamat Datang di <%= config.appName %> 🏠",
+            content: `
+                <p>Selamat datang di platform AI terdepan untuk tanya jawab! 🤖</p>
+                <br>
+                <p><strong>Apa yang bisa dilakukan:</strong></p>
+                <ul>
+                    <li>Bertanya kepada AI tentang berbagai topik 💭</li>
+                    <li>Mendapatkan jawaban cerdas dan akurat ✨</li>
+                    <li>Menyimpan riwayat percakapan 📚</li>
+                    <li>Menggunakan fitur chat yang canggih 🚀</li>
+                </ul>
+                <br>
+                <p>Siap untuk memulai petualangan AI Anda? Klik "Tanya AI" di menu! 🎯</p>
+            `
+        },
+        chat: {
+            title: "Fitur Tanya AI 💬",
+            content: `
+                <p>Halaman chat dengan teknologi AI terdepan! 🤖</p>
+                <br>
+                <p><strong>Fitur Unggulan:</strong></p>
+                <ul>
+                    <li>Percakapan real-time dengan AI 💨</li>
+                    <li>Multiple chat sessions 📂</li>
+                    <li>Context-aware responses 🧠</li>
+                    <li>Markdown support 📝</li>
+                    <li>Keyboard shortcuts ⌨️</li>
+                </ul>
+                <br>
+                <p><em>Ready to chat? Mari mulai berbicara dengan AI! 🚀</em></p>
+            `,
+            action: 'chat'
+        },
+        features: {
+            title: "Fitur Utama ⚡",
+            content: `
+                <p>Teknologi canggih untuk pengalaman terbaik! ✨</p>
+                <br>
+                <p><strong>Yang Membuat Kami Istimewa:</strong></p>
+                <ul>
+                    <li>🧠 AI Cerdas - Powered by Google Gemini</li>
+                    <li>⚡ Respons Cepat - Jawaban dalam hitungan detik</li>
+                    <li>🔍 Informasi Akurat - Data terpercaya dan terkini</li>
+                    <li>💾 Auto-Save - Riwayat tersimpan otomatis</li>
+                    <li>📱 Responsive - Sempurna di semua perangkat</li>
+                    <li>🌙 Dark Mode - Nyaman untuk mata</li>
+                </ul>
+                <br>
+                <p><em>Semua fitur dirancang untuk kemudahan Anda! 🎯</em></p>
+            `
+        },
+        howto: {
+            title: "Cara Kerja Sistem 📚",
+            content: `
+                <p>Mudah digunakan dalam 3 langkah! 🎯</p>
+                <br>
+                <p><strong>Langkah Penggunaan:</strong></p>
+                <ol>
+                    <li><strong>Kunjungi Chat</strong> - Klik menu "Tanya AI" 💬</li>
+                    <li><strong>Ketik Pertanyaan</strong> - Tulis apa yang ingin ditanyakan ✍️</li>
+                    <li><strong>Terima Jawaban</strong> - AI akan merespons dengan cepat! 🚀</li>
+                </ol>
+                <br>
+                <p><strong>Tips Penggunaan:</strong></p>
+                <ul>
+                    <li>Gunakan Ctrl+K untuk fokus ke input 🎯</li>
+                    <li>Ctrl+N untuk memulai chat baru 📝</li>
+                    <li>Pertanyaan bisa sampai 2000 karakter 📏</li>
+                    <li>AI mengingat konteks percakapan 🧠</li>
+                </ul>
+            `
+        },
+        about: {
+            title: "Tentang AI Kami 🤖",
+            content: `
+                <p>Berkenalan dengan teknologi di balik layar! 🔬</p>
+                <br>
+                <p><strong>Teknologi yang Digunakan:</strong></p>
+                <ul>
+                    <li>🧠 Google Gemini 2.0 Flash - AI Engine</li>
+                    <li>⚡ Node.js + Express - Backend</li>
+                    <li>🎨 Modern CSS - Frontend</li>
+                    <li>💾 Local Storage - Data Management</li>
+                </ul>
+                <br>
+                <p><strong>Kemampuan AI:</strong></p>
+                <ul>
+                    <li>Memahami bahasa Indonesia dengan baik 🇮🇩</li>
+                    <li>Menjawab berbagai topik pengetahuan 📖</li>
+                    <li>Membantu dengan coding dan teknologi 💻</li>
+                    <li>Memberikan solusi kreatif 💡</li>
+                </ul>
+                <br>
+                <p><em>AI yang ramah, cerdas, dan siap membantu! 🌟</em></p>
+            `
+        },
+        settings: {
+            title: "Pengaturan Sistem ⚙️",
+            content: `
+                <p>Kustomisasi pengalaman Anda! 🎨</p>
+                <br>
+                <p><strong>Pengaturan Tersedia:</strong></p>
+                <ul>
+                    <li>🌙 Mode Gelap/Terang (otomatis)</li>
+                    <li>🔊 Notifikasi suara</li>
+                    <li>💾 Auto-save percakapan</li>
+                    <li>⌨️ Keyboard shortcuts</li>
+                    <li>📱 Responsive layout</li>
+                </ul>
+                <br>
+                <p><em>Semua pengaturan tersimpan otomatis di browser Anda! 💾</em></p>
+            `
+        },
+        help: {
+            title: "Bantuan & FAQ ❓",
+            content: `
+                <p>Butuh bantuan? Kami siap membantu! 🤝</p>
+                <br>
+                <p><strong>FAQ Umum:</strong></p>
+                <ul>
+                    <li><strong>Q:</strong> Apakah gratis? <strong>A:</strong> Ya, 100% gratis! 🆓</li>
+                    <li><strong>Q:</strong> Data tersimpan dimana? <strong>A:</strong> Di browser Anda (aman) 🔒</li>
+                    <li><strong>Q:</strong> Bisa offline? <strong>A:</strong> Perlu internet untuk AI 🌐</li>
+                    <li><strong>Q:</strong> Ada batasan? <strong>A:</strong> 10 pesan per menit ⏱️</li>
+                </ul>
+                <br>
+                <p><strong>Keyboard Shortcuts:</strong></p>
+                <ul>
+                    <li>Ctrl+K - Fokus ke input field 🎯</li>
+                    <li>Ctrl+N - Chat baru 📝</li>
+                    <li>Esc - Clear input ❌</li>
+                </ul>
+            `
+        }
+    };
+
+    // Event handlers untuk menu
+    document.querySelectorAll('.menu-item[data-section]').forEach(item => {
+        item.addEventListener('click', function() {
+            const section = this.getAttribute('data-section');
+            
+            // Update active state
+            document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+            
+            if (section === 'chat') {
+                // Redirect to chat page
+                window.location.href = '/chat';
+                return;
+            }
+            
+            // Show modal content
+            const sectionData = sections[section];
+            if (sectionData) {
+                document.getElementById('modalTitle').textContent = sectionData.title;
+                document.getElementById('modalText').innerHTML = sectionData.content;
+                
+                const actionBtn = document.getElementById('actionBtn');
+                if (sectionData.action === 'chat') {
+                    actionBtn.style.display = 'block';
+                    actionBtn.textContent = 'Mulai Chat';
+                    actionBtn.onclick = () => window.location.href = '/chat';
+                } else {
+                    actionBtn.style.display = 'none';
+                }
+                
+                document.getElementById('modalOverlay').style.display = 'flex';
+            }
+        });
+    });
+
+    // Modal handlers
+    document.getElementById('closeModalBtn').addEventListener('click', () => {
+        document.getElementById('modalOverlay').style.display = 'none';
+    });
+
+    document.getElementById('modalOverlay').addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.style.display = 'none';
+        }
+    });
+
+    // Main content click - go to chat
+    document.getElementById('mainContent').addEventListener('click', function() {
+        window.location.href = '/chat';
+    });
+
+    // Update time
+    function updateTime() {
+        const now = new Date();
+        document.getElementById('currentTime').textContent = now.toLocaleTimeString();
+    }
+    updateTime();
+    setInterval(updateTime, 1000);
+
+    // Initial setup
+    const browserWindow = document.querySelector('.browser-window');
+    browserWindow.style.opacity = '0';
+    browserWindow.style.transform = 'scale(0.9)';
+    
+    setTimeout(() => {
+        browserWindow.style.transition = 'all 0.5s ease';
+        browserWindow.style.opacity = '1';
+        browserWindow.style.transform = 'scale(1)';
+    }, 100);
+});
+</script>
 
 <%- include('./partials/footer') %>

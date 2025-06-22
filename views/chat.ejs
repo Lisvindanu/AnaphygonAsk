@@ -1,268 +1,1519 @@
 <%- include('./partials/header') %>
 
-<!-- UPGRADED: Enhanced Chat Layout with Session Management -->
-<div class="chat-page-container" style="padding: 1rem; max-width: 1200px; margin: 0 auto;">
-    <!-- Session selector will be dynamically inserted here by JavaScript -->
-
-    <div class="chat-container">
-        <div class="chat-messages" id="chatMessages">
-            <!-- Messages will be dynamically added here -->
-        </div>
-
-        <div class="chat-input">
-            <textarea
-                    id="userInput"
-                    placeholder="Ketik pertanyaan Anda di sini... (Ctrl+K untuk fokus, Ctrl+N untuk chat baru)"
-                    autofocus
-                    rows="1"
-            ></textarea>
-            <button id="sendButton">Kirim</button>
-        </div>
-    </div>
-
-    <!-- UPGRADED: Enhanced Help Section -->
-    <div class="chat-help" style="margin-top: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 8px; border: 1px solid #e9ecef;">
-        <div class="help-content" style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: space-between; align-items: flex-start;">
-            <div class="help-section" style="flex: 1; min-width: 250px;">
-                <h4 style="color: var(--primary-color, #007bff); margin-bottom: 0.5rem; font-size: 1rem;">
-                    🎯 Tips Penggunaan
-                </h4>
-                <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.9rem; line-height: 1.5;">
-                    <li>Gunakan <kbd style="background: #e9ecef; padding: 0.2rem 0.4rem; border-radius: 3px; font-size: 0.8rem;">Ctrl+K</kbd> untuk fokus ke input</li>
-                    <li>Gunakan <kbd style="background: #e9ecef; padding: 0.2rem 0.4rem; border-radius: 3px; font-size: 0.8rem;">Ctrl+N</kbd> untuk chat baru</li>
-                    <li>Klik "➕ New Chat" untuk memulai percakapan baru</li>
-                    <li>History chat tersimpan otomatis di browser</li>
-                </ul>
-            </div>
-
-            <div class="help-section" style="flex: 1; min-width: 250px;">
-                <h4 style="color: var(--primary-color, #007bff); margin-bottom: 0.5rem; font-size: 1rem;">
-                    💡 Saya Bisa Membantu
-                </h4>
-                <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.9rem; line-height: 1.5;">
-                    <li>📚 Pertanyaan pengetahuan umum</li>
-                    <li>💻 Programming dan teknologi</li>
-                    <li>🌍 Informasi dan analisis</li>
-                    <li>🎯 Problem solving</li>
-                </ul>
-            </div>
-
-            <div class="help-section" style="flex: 1; min-width: 250px;">
-                <h4 style="color: var(--primary-color, #007bff); margin-bottom: 0.5rem; font-size: 1rem;">
-                    ⚡ Fitur Chat
-                </h4>
-                <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.9rem; line-height: 1.5;">
-                    <li>🔄 Multiple chat sessions</li>
-                    <li>📋 Copy/delete messages</li>
-                    <li>💾 Auto-save conversation</li>
-                    <li>📱 Responsive design</li>
-                </ul>
+<div class="desktop-container">
+    <div class="browser-window">
+        <div class="title-bar">
+            <div class="window-title">AI チャット・システム</div>
+            <div class="window-controls">
+                <div class="control-btn">−</div>
+                <div class="control-btn">□</div>
+                <div class="control-btn">×</div>
             </div>
         </div>
 
-        <!-- UPGRADED: Quick Actions -->
-        <div class="quick-actions" style="border-top: 1px solid #e9ecef; padding-top: 1rem; margin-top: 1rem;">
-            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
-                <button
-                        onclick="userInput.value='Jelaskan apa itu AI'; userInput.focus();"
-                        style="background: #f8f9fa; border: 1px solid #dee2e6; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.85rem; cursor: pointer; transition: all 0.3s ease;"
-                        onmouseover="this.style.background='#e9ecef'"
-                        onmouseout="this.style.background='#f8f9fa'"
-                >
-                    🤖 Apa itu AI?
-                </button>
-                <button
-                        onclick="userInput.value='Bagaimana cara belajar programming?'; userInput.focus();"
-                        style="background: #f8f9fa; border: 1px solid #dee2e6; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.85rem; cursor: pointer; transition: all 0.3s ease;"
-                        onmouseover="this.style.background='#e9ecef'"
-                        onmouseout="this.style.background='#f8f9fa'"
-                >
-                    💻 Belajar Programming
-                </button>
-                <button
-                        onclick="userInput.value='Ceritakan tentang Bandung'; userInput.focus();"
-                        style="background: #f8f9fa; border: 1px solid #dee2e6; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.85rem; cursor: pointer; transition: all 0.3s ease;"
-                        onmouseover="this.style.background='#e9ecef'"
-                        onmouseout="this.style.background='#f8f9fa'"
-                >
-                    🏔️ Tentang Bandung
-                </button>
-                <button
-                        onclick="userInput.value='Tips produktivitas sehari-hari'; userInput.focus();"
-                        style="background: #f8f9fa; border: 1px solid #dee2e6; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.85rem; cursor: pointer; transition: all 0.3s ease;"
-                        onmouseover="this.style.background='#e9ecef'"
-                        onmouseout="this.style.background='#f8f9fa'"
-                >
-                    ⚡ Tips Produktivitas
-                </button>
+        <div class="tab-bar">
+            <div class="tab active" data-tab-id="chat">
+                <div class="tab-favicon">💬</div>
+                <div class="tab-title">Tanya AI</div>
+                <div class="tab-close" data-tab-close-id="chat">×</div>
+            </div>
+            <button class="new-tab-btn" id="newTabBtn" title="New Tab">+</button>
+            <div class="window-actions">
+                <button class="window-btn" onclick="window.location.href='/'" title="Home">🏠</button>
+            </div>
+        </div>
+
+        <div class="address-bar">
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="window.history.back()">←</button>
+                <button class="nav-btn" onclick="window.location.reload()">↻</button>
+                <button class="nav-btn" onclick="window.location.href='/'">🏠</button>
+            </div>
+            <input type="text" class="url-input" value="http://anaphygonask.ai.net/chat" readonly>
+            <button class="search-btn">🤖</button>
+        </div>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="sidebar-header">Chat Control</div>
+
+                <div class="menu-item active" data-section="chat">
+                    <div class="menu-icon chat-icon">💬</div>
+                    <span>Chat Aktif</span>
+                    <div class="menu-arrow">▶</div>
+                </div>
+
+                <div class="menu-item" data-section="new-chat">
+                    <div class="menu-icon new-icon">➕</div>
+                    <span>Chat Baru</span>
+                    <div class="menu-arrow">▶</div>
+                </div>
+
+                <div class="menu-item" data-section="history">
+                    <div class="menu-icon history-icon">📚</div>
+                    <span>Riwayat</span>
+                    <div class="menu-arrow">▶</div>
+                </div>
+
+                <div class="menu-item" data-section="shortcuts">
+                    <div class="menu-icon shortcut-icon">⌨️</div>
+                    <span>Shortcuts</span>
+                    <div class="menu-arrow">▶</div>
+                </div>
+
+                <div style="margin-top: auto; padding: 20px 15px; border-top: 1px solid rgba(42, 82, 152, 0.3);">
+                    <div class="menu-item" onclick="window.location.href='/'" style="border: none;">
+                        <div class="menu-icon" style="background: #4a9eff;">🏠</div>
+                        <span>Kembali</span>
+                    </div>
+                    <div class="menu-item" data-section="help" style="border: none;">
+                        <div class="menu-icon" style="background: #5f27cd;">❓</div>
+                        <span>Bantuan</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-area">
+                <div class="cyber-lines"></div>
+                <div class="content-background"></div>
+
+                <!-- Chat Container langsung tanpa header -->
+                <div class="chat-container-cyber">
+                    <div class="chat-messages-cyber" id="chatMessages">
+                        <!-- Messages will be added here -->
+                    </div>
+
+                    <div class="chat-input-cyber">
+                        <textarea
+                                id="userInput"
+                                placeholder="Ketik pertanyaan Anda di sini... (Ctrl+K untuk fokus, Ctrl+N untuk chat baru)"
+                                rows="1"
+                        ></textarea>
+                        <button id="sendButton" class="send-btn-cyber">
+                            <span>Kirim</span>
+                            <div class="btn-glow"></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="status-bar">
+            <div class="status-left">
+                <span id="statusText">AI Assistant siap membantu - Ketik pertanyaan Anda</span>
+            </div>
+            <div class="status-right">
+                <span id="currentTime">Ready</span>
             </div>
         </div>
     </div>
 </div>
 
-<!-- UPGRADED: Additional Styles -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal-content">
+        <button class="close-modal-btn" id="closeModalBtn">×</button>
+        <div class="modal-title" id="modalTitle">Chat Info</div>
+        <div class="modal-text" id="modalText">Informasi chat...</div>
+    </div>
+</div>
+
 <style>
-    /* Page-specific styles */
-    .chat-page-container {
-        animation: fadeIn 0.5s ease-out;
+    /* Cyberpunk Chat Styles - Override existing styles */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        overflow: hidden;
+        height: 100vh;
+        color: white;
+        margin: 0;
+        padding: 0;
     }
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+    main {
+        padding: 0;
+        margin: 0;
+        max-width: none;
+        height: 100vh;
     }
 
-    .chat-help {
-        animation: slideUp 0.6s ease-out 0.2s both;
+    /* Import cyberpunk styles from home */
+    .desktop-container {
+        width: 100%;
+        height: 100vh;
+        position: relative;
     }
 
-    @keyframes slideUp {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
+    .browser-window {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
     }
 
-    .quick-actions button:hover {
+    .title-bar {
+        height: 35px;
+        background: linear-gradient(180deg, #4a9eff 0%, #2080ff 100%);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 10px;
+        color: white;
+        font-size: 13px;
+    }
+
+    .window-controls {
+        display: flex;
+        gap: 5px;
+    }
+
+    .control-btn {
+        width: 18px;
+        height: 18px;
+        border-radius: 3px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.1);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+    }
+
+    .tab-bar {
+        height: 32px;
+        background: #e8e8e8;
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+        gap: 2px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .tab {
+        background: white;
+        border: 1px solid #ccc;
+        border-bottom: none;
+        padding: 6px 12px;
+        cursor: pointer;
+        border-radius: 4px 4px 0 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: #333;
+    }
+
+    .address-bar {
+        height: 40px;
+        background: #f0f0f0;
+        display: flex;
+        align-items: center;
+        padding: 0 15px;
+        gap: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .nav-buttons {
+        display: flex;
+        gap: 5px;
+    }
+
+    .nav-btn, .search-btn, .new-tab-btn, .window-btn {
+        background: #e0e0e0;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        color: #333;
+        padding: 4px 8px;
+        height: 26px;
+    }
+
+    .url-input {
+        flex: 1;
+        height: 26px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        padding: 0 8px;
+        font-size: 12px;
+    }
+
+    .main-content {
+        flex: 1;
+        display: flex;
+        background: #1a1a2e;
+    }
+
+    .sidebar {
+        width: 250px;
+        background: linear-gradient(180deg, #0f3460 0%, #1a1a2e 100%);
+        border-right: 2px solid #2a5298;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sidebar-header {
+        padding: 20px 15px 10px;
+        color: #00ffff;
+        font-size: 14px;
+        font-weight: bold;
+        border-bottom: 1px solid rgba(42, 82, 152, 0.3);
+    }
+
+    .menu-item {
+        display: flex;
+        align-items: center;
+        padding: 12px 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border-bottom: 1px solid rgba(42, 82, 152, 0.2);
+        color: #ffffff;
+        font-size: 13px;
+    }
+
+    .menu-item:hover {
+        background: rgba(74, 159, 255, 0.2);
+        border-left: 4px solid #4a9eff;
+    }
+
+    .menu-item.active {
+        background: rgba(74, 159, 255, 0.3);
+        border-left: 4px solid #00ffff;
+        color: #00ffff;
+    }
+
+    .menu-icon {
+        width: 24px;
+        height: 24px;
+        margin-right: 12px;
+        border-radius: 3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+    }
+
+    .chat-icon { background: #ff4757; }
+    .new-icon { background: #7bed9f; }
+    .history-icon { background: #ffa502; }
+    .shortcut-icon { background: #ff6b9d; }
+
+    .content-area {
+        flex: 1;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .content-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background:
+                repeating-linear-gradient(45deg, rgba(255, 0, 150, 0.05) 0%, transparent 50px, rgba(255, 0, 150, 0.05) 51px, transparent 100px),
+                repeating-linear-gradient(-45deg, rgba(0, 255, 255, 0.05) 0%, transparent 50px, rgba(0, 255, 255, 0.05) 51px, transparent 100px);
+    }
+
+    .cyber-lines {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background:
+                repeating-linear-gradient(90deg, transparent, transparent 100px, rgba(74, 159, 255, 0.05) 101px, rgba(74, 159, 255, 0.05) 102px),
+                repeating-linear-gradient(0deg, transparent, transparent 100px, rgba(74, 159, 255, 0.05) 101px, rgba(74, 159, 255, 0.05) 102px);
+        pointer-events: none;
+        animation: lineShift 30s linear infinite;
+    }
+
+    @keyframes lineShift {
+        0% { transform: translate(0, 0); }
+        100% { transform: translate(100px, 100px); }
+    }
+
+    /* Cyberpunk Chat Components */
+    .chat-header-cyber {
+        background: rgba(26, 26, 46, 0.9);
+        border: 1px solid rgba(74, 159, 255, 0.3);
+        border-radius: 8px;
+        margin: 10px;
+        padding: 12px 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 0 20px rgba(74, 159, 255, 0.2);
+        backdrop-filter: blur(10px);
+    }
+
+    .current-session-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #00ffff;
+    }
+
+    .session-icon {
+        font-size: 16px;
+    }
+
+    .current-session-title {
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .session-status {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        color: #7bed9f;
+        font-size: 12px;
+        animation: pulse 2s infinite;
+    }
+
+    .chat-actions {
+        display: flex;
+        gap: 8px;
+    }
+
+    .btn-cyber {
+        background: rgba(74, 159, 255, 0.3);
+        border: 1px solid rgba(74, 159, 255, 0.5);
+        color: #00ffff;
+        padding: 6px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 11px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-cyber:hover {
+        background: rgba(74, 159, 255, 0.5);
+        box-shadow: 0 0 10px rgba(74, 159, 255, 0.5);
+    }
+
+    .btn-cyber-small {
+        background: rgba(74, 159, 255, 0.3);
+        border: 1px solid rgba(74, 159, 255, 0.5);
+        color: #00ffff;
+        padding: 6px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 11px;
+        min-width: 30px;
+    }
+
+    .session-list-container {
+        max-height: 200px;
+        overflow-y: auto;
+        background: rgba(16, 16, 30, 0.8);
+    }
+
+    .session-list {
+        padding: 8px;
+    }
+
+    /* Session Manager Modal Styles */
+    .session-manager-content {
+        width: 100%;
+    }
+
+    .session-manager-stats {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-bottom: 20px;
+        padding: 15px;
+        background: rgba(74, 159, 255, 0.1);
+        border-radius: 8px;
+        border: 1px solid rgba(74, 159, 255, 0.2);
+    }
+
+    .stat-item {
+        text-align: center;
+    }
+
+    .stat-number {
+        display: block;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #4a9eff;
+    }
+
+    .stat-label {
+        font-size: 0.8rem;
+        color: #888;
+        text-transform: uppercase;
+    }
+
+    .session-manager-list {
+        max-height: 300px;
+        overflow-y: auto;
+        margin-bottom: 20px;
+        border: 1px solid rgba(74, 159, 255, 0.2);
+        border-radius: 8px;
+        background: rgba(16, 16, 30, 0.5);
+    }
+
+    .session-manager-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 15px;
+        border-bottom: 1px solid rgba(74, 159, 255, 0.1);
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .session-manager-item:hover {
+        background: rgba(74, 159, 255, 0.1);
+    }
+
+    .session-manager-item.active {
+        background: rgba(74, 159, 255, 0.2);
+        border-left: 4px solid #00ffff;
+    }
+
+    .session-info-detail {
+        flex: 1;
+    }
+
+    .session-title-detail {
+        font-weight: bold;
+        color: #00ffff;
+        margin-bottom: 4px;
+    }
+
+    .session-time-detail {
+        font-size: 0.8rem;
+        color: #888;
+        margin-bottom: 2px;
+    }
+
+    .session-messages {
+        font-size: 0.75rem;
+        color: #4a9eff;
+    }
+
+    .session-actions-detail {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .btn-switch {
+        background: rgba(123, 237, 159, 0.3);
+        border: 1px solid rgba(123, 237, 159, 0.5);
+        color: #7bed9f;
+        padding: 4px 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.8rem;
+        transition: all 0.3s ease;
+    }
+
+    .btn-switch:hover {
+        background: rgba(123, 237, 159, 0.5);
+    }
+
+    .btn-delete {
+        background: rgba(255, 71, 87, 0.3);
+        border: 1px solid rgba(255, 71, 87, 0.5);
+        color: #ff4757;
+        padding: 4px 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.8rem;
+        transition: all 0.3s ease;
+    }
+
+    .btn-delete:hover {
+        background: rgba(255, 71, 87, 0.5);
+    }
+
+    .active-badge {
+        background: rgba(0, 255, 255, 0.2);
+        color: #00ffff;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        border: 1px solid rgba(0, 255, 255, 0.3);
+    }
+
+    .session-manager-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        padding-top: 15px;
+        border-top: 1px solid rgba(74, 159, 255, 0.2);
+    }
+
+    .chat-container-cyber {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        margin: 0 10px 10px 10px;
+        background: rgba(26, 26, 46, 0.9);
+        border: 1px solid rgba(74, 159, 255, 0.3);
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(74, 159, 255, 0.2);
+        backdrop-filter: blur(10px);
+    }
+
+    .chat-messages-cyber {
+        flex: 1;
+        padding: 15px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        background: rgba(16, 16, 30, 0.5);
+        border-radius: 8px 8px 0 0;
+        max-height: calc(100vh - 280px); /* Set maximum height */
+        min-height: 300px; /* Set minimum height */
+    }
+
+    .chat-input-cyber {
+        display: flex;
+        gap: 10px;
+        padding: 15px;
+        background: rgba(26, 26, 46, 0.8);
+        border-top: 1px solid rgba(74, 159, 255, 0.2);
+        border-radius: 0 0 8px 8px;
+    }
+
+    #userInput {
+        flex: 1;
+        background: rgba(16, 16, 30, 0.8);
+        border: 2px solid rgba(74, 159, 255, 0.3);
+        border-radius: 8px;
+        padding: 12px 15px;
+        color: #00ffff;
+        font-size: 14px;
+        resize: none;
+        min-height: 20px;
+        max-height: 120px;
+        transition: all 0.3s ease;
+    }
+
+    #userInput:focus {
+        outline: none;
+        border-color: #4a9eff;
+        box-shadow: 0 0 15px rgba(74, 159, 255, 0.4);
+    }
+
+    #userInput::placeholder {
+        color: rgba(0, 255, 255, 0.5);
+    }
+
+    .send-btn-cyber {
+        position: relative;
+        background: linear-gradient(45deg, #4a9eff, #ff6b9d);
+        border: none;
+        border-radius: 8px;
+        padding: 12px 20px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        min-width: 80px;
+    }
+
+    .send-btn-cyber:hover {
         transform: translateY(-2px);
-        box-shadow: 0 2px 8px rgba(0,123,255,0.2);
+        box-shadow: 0 8px 25px rgba(74, 159, 255, 0.4);
     }
 
-    .quick-actions button:active {
-        transform: translateY(0);
+    .send-btn-cyber:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
     }
 
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .chat-page-container {
-            padding: 0.5rem;
-        }
-
-        .help-content {
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .help-section {
-            min-width: auto;
-        }
-
-        .quick-actions {
-            text-align: center;
-        }
-
-        .quick-actions button {
-            font-size: 0.8rem;
-            padding: 0.3rem 0.6rem;
-        }
+    .btn-glow {
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s ease;
     }
 
-    @media (max-width: 480px) {
-        .help-content {
-            gap: 0.75rem;
-        }
+    .send-btn-cyber:hover .btn-glow {
+        left: 100%;
+    }
 
-        .help-section h4 {
-            font-size: 0.95rem;
-        }
+    /* Message Styles with Code Block Enhancements */
+    .message {
+        margin-bottom: 15px;
+        padding: 12px 15px;
+        border-radius: 12px;
+        position: relative;
+        max-width: 80%;
+        word-wrap: break-word;
+        backdrop-filter: blur(10px);
+    }
 
-        .help-section ul {
-            font-size: 0.85rem;
-        }
+    .message-content pre {
+        position: relative;
+        background: rgba(16, 16, 30, 0.8);
+        border: 1px solid rgba(74, 159, 255, 0.3);
+        border-radius: 8px;
+        padding: 15px;
+        margin: 10px 0;
+        overflow-x: auto;
+        font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        font-size: 13px;
+        line-height: 1.4;
+    }
 
-        .quick-actions button {
-            font-size: 0.75rem;
-            padding: 0.25rem 0.5rem;
-        }
+    .message-content pre code {
+        background: none;
+        padding: 0;
+        border: none;
+        color: #e6e6e6;
+    }
+
+    .message-content code:not(pre code) {
+        background: rgba(74, 159, 255, 0.2);
+        border: 1px solid rgba(74, 159, 255, 0.3);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        font-size: 0.9em;
+        color: #4a9eff;
+    }
+
+    /* Code Block Copy Button */
+    .code-block-container {
+        position: relative;
+        margin: 10px 0;
+    }
+
+    .code-block-header {
+        background: rgba(26, 26, 46, 0.9);
+        border: 1px solid rgba(74, 159, 255, 0.3);
+        border-bottom: none;
+        border-radius: 8px 8px 0 0;
+        padding: 8px 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+        color: #888;
+    }
+
+    .code-language {
+        font-weight: 500;
+        color: #4a9eff;
+        text-transform: uppercase;
+    }
+
+    .copy-code-btn {
+        background: rgba(74, 159, 255, 0.2);
+        border: 1px solid rgba(74, 159, 255, 0.4);
+        color: #4a9eff;
+        padding: 4px 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 11px;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .copy-code-btn:hover {
+        background: rgba(74, 159, 255, 0.3);
+        border-color: #4a9eff;
+        transform: translateY(-1px);
+    }
+
+    .copy-code-btn.copied {
+        background: rgba(123, 237, 159, 0.3);
+        border-color: #7bed9f;
+        color: #7bed9f;
+    }
+
+    .code-block-container pre {
+        margin: 0;
+        border-radius: 0 0 8px 8px;
+        border-top: none;
+    }
+
+    .user-message {
+        background: linear-gradient(135deg, rgba(74, 159, 255, 0.8), rgba(32, 128, 255, 0.6));
+        color: white;
+        margin-left: auto;
+        border-bottom-right-radius: 4px;
+        border: 1px solid rgba(74, 159, 255, 0.3);
+        box-shadow: 0 4px 15px rgba(74, 159, 255, 0.3);
+    }
+
+    .ai-message {
+        background: rgba(26, 26, 46, 0.8);
+        border: 1px solid rgba(0, 255, 255, 0.3);
+        margin-right: auto;
+        border-bottom-left-radius: 4px;
+        color: #00ffff;
+        box-shadow: 0 4px 15px rgba(0, 255, 255, 0.2);
+    }
+
+    .thinking {
+        display: flex;
+        align-items: center;
+        padding: 12px 15px;
+        margin-bottom: 15px;
+        background: rgba(26, 26, 46, 0.8);
+        border-radius: 12px;
+        margin-right: auto;
+        max-width: 80%;
+        border: 1px solid rgba(255, 165, 2, 0.3);
+        color: #ffa502;
+        box-shadow: 0 4px 15px rgba(255, 165, 2, 0.2);
+    }
+
+    .status-bar {
+        height: 25px;
+        background: #0f3460;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 15px;
+        font-size: 11px;
+        color: #00ffff;
+        border-top: 1px solid #2a5298;
+    }
+
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+    }
+
+    .modal-content {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        border: 3px solid #4a9eff;
+        border-radius: 10px;
+        padding: 25px;
+        max-width: 500px;
+        max-height: 70%;
+        overflow-y: auto;
+        color: white;
+        box-shadow: 0 0 30px rgba(74, 159, 255, 0.5);
+        position: relative;
+    }
+
+    .close-modal-btn {
+        position: absolute;
+        top: 8px;
+        right: 12px;
+        background: none;
+        border: 2px solid #ff4757;
+        color: #ff4757;
+        padding: 4px 8px;
+        cursor: pointer;
+        border-radius: 3px;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    /* Hide original header and footer */
+    header, footer {
+        display: none;
+    }
+
+    /* Scrollbar styling - Enhanced */
+    .chat-messages-cyber::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .chat-messages-cyber::-webkit-scrollbar-track {
+        background: rgba(16, 16, 30, 0.5);
+        border-radius: 4px;
+    }
+
+    .chat-messages-cyber::-webkit-scrollbar-thumb {
+        background: rgba(74, 159, 255, 0.5);
+        border-radius: 4px;
+        border: 1px solid rgba(74, 159, 255, 0.3);
+    }
+
+    .chat-messages-cyber::-webkit-scrollbar-thumb:hover {
+        background: rgba(74, 159, 255, 0.7);
+    }
+
+    /* For Firefox */
+    .chat-messages-cyber {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(74, 159, 255, 0.5) rgba(16, 16, 30, 0.5);
     }
 </style>
 
-<!-- UPGRADED: Enhanced JavaScript -->
 <script src="/js/chat.js"></script>
 
-<!-- UPGRADED: Additional features script -->
 <script>
-    // Enhanced keyboard shortcuts and accessibility
+    // Cyberpunk Chat Enhancements
     document.addEventListener('DOMContentLoaded', function() {
-        // Add aria labels for accessibility
-        const userInput = document.getElementById('userInput');
-        const sendButton = document.getElementById('sendButton');
+        // Update time function
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('currentTime').textContent = now.toLocaleTimeString();
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
 
-        userInput.setAttribute('aria-label', 'Ketik pertanyaan Anda');
-        sendButton.setAttribute('aria-label', 'Kirim pesan');
+        // Enhanced modal content for sidebar
+        const chatSections = {
+            'new-chat': {
+                title: "Mulai Chat Baru 🆕",
+                content: `
+                <p>Siap memulai percakapan baru dengan AI? 🤖</p>
+                <br>
+                <p><strong>Fitur Chat Baru:</strong></p>
+                <ul>
+                    <li>Konteks bersih tanpa riwayat sebelumnya 🧹</li>
+                    <li>Session terpisah dari chat lama 📂</li>
+                    <li>Auto-save dengan title otomatis 💾</li>
+                    <li>Performa optimal untuk respons cepat ⚡</li>
+                </ul>
+                <br>
+                <p>Klik tombol "New Chat" di atas atau gunakan Ctrl+N! 🚀</p>
+            `
+            },
+            'history': {
+                title: "Riwayat & Session Manager 📚",
+                content: `
+                <p>Kelola semua chat session Anda! 📝</p>
+                <br>
+                <p><strong>Fitur Session Manager:</strong></p>
+                <ul>
+                    <li>📅 Auto-save semua percakapan</li>
+                    <li>🔍 Pencarian cepat dalam chat</li>
+                    <li>🗂️ Switch antar session dengan mudah</li>
+                    <li>📝 Edit title session</li>
+                    <li>🗑️ Hapus session yang tidak diperlukan</li>
+                    <li>📤 Export chat ke file</li>
+                </ul>
+                <br>
+                <p><strong>Cara Menggunakan:</strong></p>
+                <ul>
+                    <li>Klik "New Chat" untuk session baru</li>
+                    <li>Title session otomatis dari pesan pertama</li>
+                    <li>Gunakan Ctrl+N untuk quick new session</li>
+                    <li>Session tersimpan otomatis di browser</li>
+                </ul>
+                <br>
+                <p><em>Session manager akan muncul saat ada lebih dari 1 chat! 🔒</em></p>
+            `,
+                action: 'show-sessions'
+            },
+            'shortcuts': {
+                title: "Keyboard Shortcuts ⌨️",
+                content: `
+                <p>Gunakan chat dengan lebih efisien! ⚡</p>
+                <br>
+                <p><strong>Shortcut Utama:</strong></p>
+                <ul>
+                    <li><kbd>Ctrl + K</kbd> - Fokus ke input field 🎯</li>
+                    <li><kbd>Ctrl + N</kbd> - Mulai chat baru 📝</li>
+                    <li><kbd>Ctrl + Enter</kbd> - Kirim pesan 🚀</li>
+                    <li><kbd>Esc</kbd> - Clear input field ❌</li>
+                    <li><kbd>↑/↓</kbd> - Navigate chat history 📜</li>
+                </ul>
+                <br>
+                <p><strong>Tips Pro:</strong></p>
+                <ul>
+                    <li>Shift + Enter untuk baris baru 📄</li>
+                    <li>Ctrl + / untuk bantuan cepat ❓</li>
+                    <li>Alt + C untuk copy terakhir 📋</li>
+                </ul>
+            `
+            },
+            'help': {
+                title: "Bantuan Chat 🆘",
+                content: `
+                <p>Panduan lengkap menggunakan chat AI! 🤖</p>
+                <br>
+                <p><strong>Cara Terbaik Bertanya:</strong></p>
+                <ul>
+                    <li>💬 Gunakan bahasa yang jelas dan spesifik</li>
+                    <li>🎯 Berikan konteks yang cukup</li>
+                    <li>📝 Pecah pertanyaan kompleks menjadi bagian kecil</li>
+                    <li>🔄 Ikuti dengan pertanyaan lanjutan jika perlu</li>
+                </ul>
+                <br>
+                <p><strong>Troubleshooting:</strong></p>
+                <ul>
+                    <li>🐛 Refresh halaman jika chat tidak respons</li>
+                    <li>⏱️ Tunggu beberapa detik antar pesan</li>
+                    <li>🌐 Pastikan koneksi internet stabil</li>
+                    <li>🔄 Coba pertanyaan dengan kata lain</li>
+                </ul>
+            `
+            }
+        };
 
-        // Enhanced placeholder rotation
-        const placeholders = [
-            'Ketik pertanyaan Anda di sini...',
-            'Apa yang ingin Anda ketahui?',
-            'Tanyakan apa saja kepada AI...',
-            'Mulai percakapan dengan AI...'
-        ];
+        // Sidebar menu handlers
+        document.querySelectorAll('.menu-item[data-section]').forEach(item => {
+            item.addEventListener('click', function() {
+                const section = this.getAttribute('data-section');
 
-        let placeholderIndex = 0;
+                // Update active state
+                document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
 
-        function rotatePlaceholder() {
-            if (userInput.value === '' && document.activeElement !== userInput) {
-                userInput.placeholder = placeholders[placeholderIndex];
-                placeholderIndex = (placeholderIndex + 1) % placeholders.length;
+                // Handle special actions
+                if (section === 'new-chat') {
+                    if (typeof startNewChat === 'function') {
+                        startNewChat();
+                    } else {
+                        // Fallback jika startNewChat belum tersedia
+                        window.location.reload();
+                    }
+                    return;
+                }
+
+                if (section === 'history') {
+                    // Show session manager modal
+                    showSessionManager();
+                    return;
+                }
+
+                // Show modal content
+                const sectionData = chatSections[section];
+                if (sectionData) {
+                    document.getElementById('modalTitle').textContent = sectionData.title;
+                    document.getElementById('modalText').innerHTML = sectionData.content;
+                    document.getElementById('modalOverlay').style.display = 'flex';
+                }
+            });
+        });
+
+        // Modal handlers
+        document.getElementById('closeModalBtn').addEventListener('click', () => {
+            document.getElementById('modalOverlay').style.display = 'none';
+        });
+
+        document.getElementById('modalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+            }
+        });
+
+        // Session Manager Modal
+        function showSessionManager() {
+            const sessions = JSON.parse(localStorage.getItem('anaphygon_chat_sessions') || '[]');
+
+            let sessionListHTML = '';
+            if (sessions.length === 0) {
+                sessionListHTML = '<p style="text-align: center; color: #888; margin: 20px 0;">Belum ada session tersimpan</p>';
+            } else {
+                sessions.reverse().forEach((session, index) => {
+                    const timeAgo = getTimeAgo(session.lastActive);
+                    const isActive = session.id === getCurrentSessionId();
+
+                    sessionListHTML += `
+                    <div class="session-manager-item ${isActive ? 'active' : ''}" data-session-id="${session.id}">
+                        <div class="session-info-detail">
+                            <div class="session-title-detail">${session.title}</div>
+                            <div class="session-time-detail">${timeAgo}</div>
+                            <div class="session-messages">${session.messages?.length || 0} pesan</div>
+                        </div>
+                        <div class="session-actions-detail">
+                            ${!isActive ? `<button class="btn-switch" onclick="switchToSessionFromModal('${session.id}')">Switch</button>` : '<span class="active-badge">Aktif</span>'}
+                            <button class="btn-delete" onclick="deleteSessionFromModal('${session.id}')">🗑️</button>
+                        </div>
+                    </div>
+                `;
+                });
+            }
+
+            const modalContent = `
+            <div class="session-manager-content">
+                <h3 style="color: #00ffff; margin-bottom: 15px; text-align: center;">📚 Session Manager</h3>
+                <div class="session-manager-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">${sessions.length}</span>
+                        <span class="stat-label">Total Sessions</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">${sessions.reduce((acc, s) => acc + (s.messages?.length || 0), 0)}</span>
+                        <span class="stat-label">Total Messages</span>
+                    </div>
+                </div>
+                <div class="session-manager-list">
+                    ${sessionListHTML}
+                </div>
+                <div class="session-manager-actions">
+                    <button class="btn-cyber" onclick="createNewSessionFromModal()">➕ New Session</button>
+                    <button class="btn-cyber" onclick="exportAllSessions()">📤 Export All</button>
+                </div>
+            </div>
+        `;
+
+            document.getElementById('modalTitle').textContent = '';
+            document.getElementById('modalText').innerHTML = modalContent;
+            document.getElementById('modalOverlay').style.display = 'flex';
+        }
+
+        function getTimeAgo(isoString) {
+            const date = new Date(isoString);
+            const now = new Date();
+            const diffMs = now - date;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffHours = Math.floor(diffMs / 3600000);
+            const diffDays = Math.floor(diffMs / 86400000);
+
+            if (diffMins < 1) return 'Baru saja';
+            if (diffMins < 60) return `${diffMins} menit lalu`;
+            if (diffHours < 24) return `${diffHours} jam lalu`;
+            if (diffDays < 7) return `${diffDays} hari lalu`;
+            return date.toLocaleDateString('id-ID');
+        }
+
+        function getCurrentSessionId() {
+            // This should be available from the chat.js
+            return window.currentSessionId || null;
+        }
+
+        // Global functions for session management
+        window.switchToSessionFromModal = function(sessionId) {
+            if (typeof window.switchToSession === 'function') {
+                window.switchToSession(sessionId);
+                document.getElementById('modalOverlay').style.display = 'none';
+                updateCurrentSessionDisplay();
+            }
+        };
+
+        window.deleteSessionFromModal = function(sessionId) {
+            if (typeof window.deleteChatSession === 'function') {
+                window.deleteChatSession(sessionId);
+                showSessionManager(); // Refresh the modal
+            }
+        };
+
+        window.createNewSessionFromModal = function() {
+            if (typeof window.startNewChat === 'function') {
+                window.startNewChat();
+                document.getElementById('modalOverlay').style.display = 'none';
+            }
+        };
+
+        window.exportAllSessions = function() {
+            const sessions = JSON.parse(localStorage.getItem('anaphygon_chat_sessions') || '[]');
+            const dataStr = JSON.stringify(sessions, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `anaphygonask-sessions-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+        };
+
+        function updateCurrentSessionDisplay() {
+            // Function removed since header is no longer displayed
+            // Session info now managed through sidebar "Riwayat" menu
+        }
+
+        // Remove session display update since header is removed
+        // setTimeout(updateCurrentSessionDisplay, 1000);
+
+        // Enhance welcome message with cyberpunk style
+        function addCyberWelcomeMessage() {
+            const welcomeMessage = `
+            <div class="welcome-content-cyber">
+                <div class="cyber-welcome-header">
+                    <h3>🤖 AI Assistant Online</h3>
+                    <div class="status-indicators">
+                        <span class="status-dot online"></span>
+                        <span class="status-text">System Ready</span>
+                    </div>
+                </div>
+                <div class="cyber-capabilities">
+                    <div class="capability-grid">
+                        <div class="capability-item">
+                            <div class="capability-icon">🧠</div>
+                            <span>Smart Q&A</span>
+                        </div>
+                        <div class="capability-item">
+                            <div class="capability-icon">💻</div>
+                            <span>Code Help</span>
+                        </div>
+                        <div class="capability-item">
+                            <div class="capability-icon">📚</div>
+                            <span>Knowledge</span>
+                        </div>
+                        <div class="capability-item">
+                            <div class="capability-icon">🔍</div>
+                            <span>Analysis</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cyber-quick-start">
+                    <p><strong>Quick Start:</strong> Ketik pertanyaan atau gunakan shortcut</p>
+                    <div class="shortcut-hints">
+                        <kbd>Ctrl+K</kbd> Focus • <kbd>Ctrl+N</kbd> New Chat • <kbd>Enter</kbd> Send
+                    </div>
+                </div>
+            </div>
+        `;
+
+            const welcomeDiv = document.createElement('div');
+            welcomeDiv.classList.add('message', 'ai-message', 'cyber-welcome');
+            welcomeDiv.innerHTML = welcomeMessage;
+            return welcomeDiv;
+        }
+
+        // Add enhanced styles for welcome message
+        const welcomeStyles = `
+        .welcome-content-cyber {
+            text-align: center;
+            padding: 0;
+        }
+
+        .cyber-welcome-header h3 {
+            color: #00ffff;
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .status-indicators {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #7bed9f;
+            box-shadow: 0 0 10px rgba(123, 237, 159, 0.8);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .status-text {
+            color: #7bed9f;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .capability-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .capability-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            background: rgba(74, 159, 255, 0.1);
+            border: 1px solid rgba(74, 159, 255, 0.2);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .capability-item:hover {
+            background: rgba(74, 159, 255, 0.2);
+            border-color: #4a9eff;
+        }
+
+        .capability-icon {
+            font-size: 1.2rem;
+        }
+
+        .cyber-quick-start {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        .cyber-quick-start p {
+            margin-bottom: 8px;
+            color: #00ffff;
+            font-size: 0.9rem;
+        }
+
+        .shortcut-hints {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .shortcut-hints kbd {
+            background: rgba(74, 159, 255, 0.2);
+            border: 1px solid rgba(74, 159, 255, 0.4);
+            border-radius: 3px;
+            padding: 2px 6px;
+            font-size: 0.8rem;
+            color: #4a9eff;
+            font-family: monospace;
+        }
+    `;
+
+        // Add welcome styles to document
+        const welcomeStyleElement = document.createElement('style');
+        welcomeStyleElement.textContent = welcomeStyles;
+        document.head.appendChild(welcomeStyleElement);
+
+        // Override the original showWelcomeMessage if it exists
+        if (typeof window.showWelcomeMessage !== 'undefined') {
+            const originalShowWelcome = window.showWelcomeMessage;
+            window.showWelcomeMessage = function() {
+                const chatMessages = document.getElementById('chatMessages');
+                if (chatMessages) {
+                    const welcomeDiv = addCyberWelcomeMessage();
+                    welcomeDiv.id = 'welcomeMessage'; // Add ID for easy removal
+                    chatMessages.appendChild(welcomeDiv);
+                }
+            };
+        }
+
+        // Function to hide welcome message when chat starts
+        function hideWelcomeMessage() {
+            const welcomeMessage = document.getElementById('welcomeMessage');
+            if (welcomeMessage) {
+                welcomeMessage.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                welcomeMessage.style.opacity = '0';
+                welcomeMessage.style.transform = 'translateY(-20px)';
+                setTimeout(() => {
+                    if (welcomeMessage.parentNode) {
+                        welcomeMessage.remove();
+                    }
+                }, 500);
             }
         }
 
-        // Rotate placeholder every 3 seconds
-        setInterval(rotatePlaceholder, 3000);
+        // Monitor for new messages to hide welcome
+        function observeMessages() {
+            const chatMessages = document.getElementById('chatMessages');
+            if (!chatMessages) return;
 
-        // Add visual feedback for keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-                e.preventDefault();
-                userInput.focus();
-                // Visual feedback
-                userInput.style.boxShadow = '0 0 0 3px rgba(0,123,255,0.3)';
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'childList') {
+                        // Check if there are any real messages (not just welcome)
+                        const realMessages = Array.from(chatMessages.children).filter(child =>
+                            !child.id || child.id !== 'welcomeMessage'
+                        );
+
+                        if (realMessages.length > 0) {
+                            hideWelcomeMessage();
+                            observer.disconnect(); // Stop observing once welcome is hidden
+                        }
+                    }
+                });
+            });
+
+            observer.observe(chatMessages, {
+                childList: true,
+                subtree: false
+            });
+        }
+
+        // Integration with existing chat.js
+        // Override addMessage function to hide welcome when first message is added
+        const originalAddMessage = window.addMessage;
+        if (originalAddMessage) {
+            window.addMessage = function(text, isUser, save) {
+                // Hide welcome message when first real message is added
+                if (isUser || !isUser) {
+                    hideWelcomeMessage();
+                }
+                return originalAddMessage.call(this, text, isUser, save);
+            };
+        }
+
+        // Override startNewChat to show welcome message for new sessions
+        const originalStartNewChat = window.startNewChat;
+        if (originalStartNewChat) {
+            window.startNewChat = function() {
+                const result = originalStartNewChat.call(this);
+                // Show welcome message for new chat
                 setTimeout(() => {
-                    userInput.style.boxShadow = '';
+                    if (typeof window.showWelcomeMessage === 'function') {
+                        window.showWelcomeMessage();
+                        observeMessages(); // Start observing again
+                    }
+                }, 500);
+                return result;
+            };
+        }
+
+        // Initial browser window animation
+        const browserWindow = document.querySelector('.browser-window');
+        browserWindow.style.opacity = '0';
+        browserWindow.style.transform = 'scale(0.9)';
+
+        setTimeout(() => {
+            browserWindow.style.transition = 'all 0.5s ease';
+            browserWindow.style.opacity = '1';
+            browserWindow.style.transform = 'scale(1)';
+        }, 100);
+
+        // Enhanced particle effects for chat
+        function createChatParticles() {
+            const contentArea = document.querySelector('.content-area');
+            if (!contentArea) return;
+
+            const colors = ['#4a9eff', '#00ffff', '#ff6b9d', '#7bed9f'];
+
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.style.position = 'absolute';
+                    particle.style.width = '3px';
+                    particle.style.height = '3px';
+                    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    particle.style.borderRadius = '50%';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = Math.random() * 100 + '%';
+                    particle.style.pointerEvents = 'none';
+                    particle.style.opacity = '0.7';
+                    particle.style.zIndex = '1';
+
+                    const duration = 8 + Math.random() * 4;
+                    particle.style.animation = `particleFloat ${duration}s linear forwards`;
+
+                    contentArea.appendChild(particle);
+
+                    setTimeout(() => {
+                        if (particle.parentNode) {
+                            particle.remove();
+                        }
+                    }, duration * 1000);
+                }, i * 1000);
+            }
+        }
+
+        // Add particle animation CSS
+        const particleStyles = `
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    `;
+
+        const particleStyleElement = document.createElement('style');
+        particleStyleElement.textContent = particleStyles;
+        document.head.appendChild(particleStyleElement);
+
+        // Start particle system
+        createChatParticles();
+        setInterval(createChatParticles, 5000);
+
+        // Enhanced status updates
+        function updateChatStatus(message) {
+            const statusText = document.getElementById('statusText');
+            if (statusText) {
+                statusText.textContent = message;
+                statusText.style.animation = 'statusPulse 0.5s ease';
+                setTimeout(() => {
+                    statusText.style.animation = '';
                 }, 500);
             }
+        }
 
-            if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
-                e.preventDefault();
-                if (typeof startNewChat === 'function') {
-                    startNewChat();
-                    // Visual feedback
-                    const newChatBtn = document.getElementById('newChatBtn');
-                    if (newChatBtn) {
-                        newChatBtn.style.transform = 'scale(1.1)';
-                        newChatBtn.style.background = 'rgba(255,255,255,0.4)';
-                        setTimeout(() => {
-                            newChatBtn.style.transform = '';
-                            newChatBtn.style.background = '';
-                        }, 200);
-                    }
-                }
+        // Add status animation
+        const statusStyles = `
+        @keyframes statusPulse {
+            0% { color: #00ffff; }
+            50% { color: #4a9eff; }
+            100% { color: #00ffff; }
+        }
+    `;
+
+        const statusStyleElement = document.createElement('style');
+        statusStyleElement.textContent = statusStyles;
+        document.head.appendChild(statusStyleElement);
+
+        // Expose enhanced functions globally
+        window.updateChatStatus = updateChatStatus;
+        window.addCyberWelcomeMessage = addCyberWelcomeMessage;
+        window.hideWelcomeMessage = hideWelcomeMessage;
+
+        // Debug function to test copy functionality
+        window.testCopyFunction = function() {
+            // Create a test code block
+            const testCode = `<div class="code-block-container" data-language="html">
+            <div class="code-block-header">
+                <span class="code-language">HTML</span>
+                <button class="copy-code-btn" onclick="copyCodeBlock('test-code-123')">
+                    <span class="copy-icon">📋</span>
+                    <span class="copy-text">Copy</span>
+                </button>
+            </div>
+            <pre><code id="test-code-123">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Test&lt;/title&gt;
+  &lt;/head&gt;
+&lt;/html&gt;</code></pre>
+        </div>`;
+
+            const chatMessages = document.getElementById('chatMessages');
+            if (chatMessages) {
+                const testDiv = document.createElement('div');
+                testDiv.className = 'message ai-message';
+                testDiv.innerHTML = `<div class="message-content">${testCode}</div>`;
+                chatMessages.appendChild(testDiv);
+
+                // Scroll to bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
             }
-        });
+        };
 
-        // Add loading state management
-        let isPageLoading = true;
-
-        window.addEventListener('load', function() {
-            setTimeout(() => {
-                isPageLoading = false;
-                document.body.classList.add('page-loaded');
-            }, 500);
-        });
-
-        // Enhanced error handling for offline mode
-        window.addEventListener('online', function() {
-            console.log('Connection restored');
-            if (typeof showNotification === 'function') {
-                showNotification('Koneksi internet tersambung kembali! 🌐', 'success');
-            }
-        });
-
-        window.addEventListener('offline', function() {
-            console.log('Connection lost');
-            if (typeof showNotification === 'function') {
-                showNotification('Koneksi internet terputus. Beberapa fitur mungkin tidak berfungsi. 📡', 'warning');
-            }
-        });
+        // Add debug button to test
+        setTimeout(() => {
+            console.log('Copy function test available. Run testCopyFunction() in console to test.');
+            console.log('Available functions:', {
+                copyCodeBlock: typeof window.copyCodeBlock,
+                testCopyFunction: typeof window.testCopyFunction,
+                parseMarkdown: typeof parseMarkdown
+            });
+        }, 2000);
     });
 </script>
 
