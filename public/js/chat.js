@@ -26,74 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 200);
 
-    // ========================================================================
-    // MARKDOWN PARSING WITH HIGHLIGHT.JS
-    // ========================================================================
-
-    // function parseMarkdown(text) {
-    //     if (!text || typeof text !== 'string') return '';
-    //
-    //     try {
-    //         // Use highlight.js if available, otherwise fallback
-    //         if (typeof window.hljs !== 'undefined') {
-    //             return parseMarkdownWithHighlightJS(text);
-    //         } else {
-    //             return basicMarkdownParse(text);
-    //         }
-    //     } catch (error) {
-    //         console.error('Error parsing markdown:', error);
-    //         return basicMarkdownParse(text);
-    //     }
-    // }
-    //
-    // function parseMarkdownWithHighlightJS(text) {
-    //     // Escape HTML first
-    //     text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    //
-    //     // Code blocks with highlight.js
-    //     text = text.replace(/```(\w+)?\n?([\s\S]*?)```/g, function(match, language, code) {
-    //         const lang = language ? language.toLowerCase() : '';
-    //         const codeId = generateCodeId();
-    //         const cleanCode = code.trim();
-    //
-    //         let highlightedCode = cleanCode;
-    //
-    //         // Try to highlight with hljs
-    //         if (lang && window.hljs && hljs.getLanguage && hljs.getLanguage(lang)) {
-    //             try {
-    //                 const result = hljs.highlight(cleanCode, { language: lang, ignoreIllegals: true });
-    //                 highlightedCode = result.value;
-    //             } catch (error) {
-    //                 console.warn('Highlighting failed for', lang, ':', error);
-    //                 // Use plain code if highlighting fails
-    //                 highlightedCode = cleanCode;
-    //             }
-    //         } else if (window.hljs && hljs.highlightAuto) {
-    //             // Auto-detect language
-    //             try {
-    //                 const result = hljs.highlightAuto(cleanCode);
-    //                 highlightedCode = result.value;
-    //             } catch (error) {
-    //                 console.warn('Auto-highlighting failed:', error);
-    //                 highlightedCode = cleanCode;
-    //             }
-    //         }
-    //
-    //         return `<div class="code-block-container" data-language="${lang || 'text'}">
-    //             <div class="code-block-header">
-    //                 <span class="code-language">${(lang || 'TEXT').toUpperCase()}</span>
-    //                 <button class="copy-code-btn" onclick="copyCodeBlock('${codeId}')">
-    //                     <span class="copy-icon">📋</span>
-    //                     <span class="copy-text">Copy</span>
-    //                 </button>
-    //             </div>
-    //             <pre><code id="${codeId}" class="hljs">${highlightedCode}</code></pre>
-    //         </div>`;
-    //     });
-    //
-    //     // Continue with other markdown processing
-    //     return processOtherMarkdown(text);
-    // }
 
     function parseMarkdown(text) {
         if (!text || typeof text !== 'string') return '';
@@ -114,77 +46,80 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+
     function parseMarkdownWithHighlightJS(text) {
-        // Escape HTML hanya untuk content yang bukan code blocks
+        // Store original line breaks dalam code blocks
         const codeBlockRegex = /```(\w+)?\n?([\s\S]*?)```/g;
         const codeBlocks = [];
         let codeBlockIndex = 0;
 
-        // Extract code blocks first
-        text = text.replace(codeBlockRegex, function(match) {
+        // Extract dan preserve code blocks
+        text = text.replace(codeBlockRegex, function(match, language, code) {
             const placeholder = `__CODE_BLOCK_${codeBlockIndex}__`;
-            codeBlocks[codeBlockIndex] = match;
+
+            // 🔑 PRESERVE ORIGINAL FORMATTING - jangan trim berlebihan
+            const cleanCode = code.replace(/^\n/, '').replace(/\n$/, ''); // Remove only leading/trailing newlines
+
+            codeBlocks[codeBlockIndex] = {
+                language: language || 'text',
+                code: cleanCode,
+                originalMatch: match
+            };
+
             codeBlockIndex++;
             return placeholder;
         });
 
-        // Now escape HTML in the remaining text
+        // Escape HTML in remaining text (non-code content)
         text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-        // Restore code blocks and process them
+        // Restore dan process code blocks
         for (let i = 0; i < codeBlocks.length; i++) {
             const placeholder = `__CODE_BLOCK_${i}__`;
-            const codeBlockMatch = codeBlocks[i].match(/```(\w+)?\n?([\s\S]*?)```/);
+            const block = codeBlocks[i];
+            const lang = block.language.toLowerCase();
+            const codeId = generateCodeId();
 
-            if (codeBlockMatch) {
-                const language = codeBlockMatch[1];
-                const code = codeBlockMatch[2];
-                const lang = language ? language.toLowerCase() : '';
-                const codeId = generateCodeId();
-                const cleanCode = code.trim();
+            let highlightedCode = block.code;
 
-                let highlightedCode = cleanCode;
-
-                // Try to highlight with hljs
-                if (lang && window.hljs && hljs.getLanguage && hljs.getLanguage(lang)) {
-                    try {
-                        const result = hljs.highlight(cleanCode, { language: lang, ignoreIllegals: true });
-                        highlightedCode = result.value;
-                    } catch (error) {
-                        console.warn('Highlighting failed for', lang, ':', error);
-                        // Escape HTML for plain code
-                        highlightedCode = cleanCode.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-                    }
-                } else if (window.hljs && hljs.highlightAuto) {
-                    // Auto-detect language
-                    try {
-                        const result = hljs.highlightAuto(cleanCode);
-                        highlightedCode = result.value;
-                    } catch (error) {
-                        console.warn('Auto-highlighting failed:', error);
-                        highlightedCode = cleanCode.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-                    }
-                } else {
+            // Try highlight.js dengan better error handling
+            if (lang && window.hljs && hljs.getLanguage && hljs.getLanguage(lang)) {
+                try {
+                    const result = hljs.highlight(block.code, { language: lang, ignoreIllegals: true });
+                    highlightedCode = result.value;
+                } catch (error) {
+                    console.warn('Highlighting failed for', lang, ':', error);
                     // Escape HTML for plain code
-                    highlightedCode = cleanCode.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                    highlightedCode = block.code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
                 }
-
-                const processedCodeBlock = `<div class="code-block-container" data-language="${lang || 'text'}">
-                <div class="code-block-header">
-                    <span class="code-language">${(lang || 'TEXT').toUpperCase()}</span>
-                    <button class="copy-code-btn" onclick="copyCodeBlock('${codeId}')">
-                        <span class="copy-icon">📋</span>
-                        <span class="copy-text">Copy</span>
-                    </button>
-                </div>
-                <pre><code id="${codeId}" class="hljs">${highlightedCode}</code></pre>
-            </div>`;
-
-                text = text.replace(placeholder, processedCodeBlock);
+            } else if (window.hljs && hljs.highlightAuto) {
+                try {
+                    const result = hljs.highlightAuto(block.code);
+                    highlightedCode = result.value;
+                } catch (error) {
+                    console.warn('Auto-highlighting failed:', error);
+                    highlightedCode = block.code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                }
+            } else {
+                // Plain text - escape HTML
+                highlightedCode = block.code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
             }
+
+            // 🎯 ENHANCED CODE BLOCK HTML - dengan data attributes untuk better copying
+            const processedCodeBlock = `<div class="code-block-container" data-language="${lang}" data-original-code="${encodeURIComponent(block.code)}">
+            <div class="code-block-header">
+                <span class="code-language">${(lang || 'TEXT').toUpperCase()}</span>
+                <button class="copy-code-btn" onclick="copyCodeBlock('${codeId}')" title="Copy code with proper formatting">
+                    <span class="copy-icon">📋</span>
+                    <span class="copy-text">Copy</span>
+                </button>
+            </div>
+            <pre><code id="${codeId}" class="hljs" data-original="${encodeURIComponent(block.code)}">${highlightedCode}</code></pre>
+        </div>`;
+
+            text = text.replace(placeholder, processedCodeBlock);
         }
 
-        // Continue with other markdown processing
         return processOtherMarkdown(text);
     }
 
@@ -549,16 +484,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return messageId;
     }
 
-    // async function copyMessage(text) {
-    //     try {
-    //         const plainText = text.replace(/<[^>]*>/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
-    //         await navigator.clipboard.writeText(plainText);
-    //         showNotification('Message copied to clipboard!', 'success');
-    //     } catch (err) {
-    //         console.error('Failed to copy message:', err);
-    //         showNotification('Failed to copy message', 'error');
-    //     }
-    // }
 
     async function copyMessage(text) {
         try {
@@ -639,44 +564,190 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            const codeText = codeElement.textContent || codeElement.innerText;
-            await navigator.clipboard.writeText(codeText);
+            // 🔑 SOLUSI UTAMA: Ambil teks dari innerHTML dan preserve line breaks
+            let codeText = '';
 
-            const copyBtn = codeElement.closest('.code-block-container').querySelector('.copy-code-btn');
-            if (copyBtn) {
-                const originalText = copyBtn.querySelector('.copy-text').textContent;
-                const originalIcon = copyBtn.querySelector('.copy-icon').textContent;
-
-                copyBtn.classList.add('copied');
-                copyBtn.querySelector('.copy-text').textContent = 'Copied!';
-                copyBtn.querySelector('.copy-icon').textContent = '✅';
-
-                setTimeout(() => {
-                    copyBtn.classList.remove('copied');
-                    copyBtn.querySelector('.copy-text').textContent = originalText;
-                    copyBtn.querySelector('.copy-icon').textContent = originalIcon;
-                }, 2000);
+            // Method 1: Cek apakah ada highlight.js (lebih complex HTML structure)
+            if (codeElement.classList.contains('hljs') || codeElement.querySelector('.hljs-')) {
+                // Untuk highlighted code, kita perlu extract teks dari struktur HTML highlight.js
+                codeText = extractTextFromHighlightedCode(codeElement);
+            } else {
+                // Untuk plain code block, ambil dari textContent tapi preserve line breaks
+                codeText = codeElement.textContent || codeElement.innerText;
             }
 
-            showNotification('Code copied to clipboard!', 'success');
+            // Method 2: Jika masih dalam satu line, coba alternative extraction
+            if (!codeText.includes('\n') && codeText.length > 100) {
+                codeText = extractTextFromCodeElement(codeElement);
+            }
+
+            // Method 3: Last resort - manual line break detection
+            if (!codeText.includes('\n')) {
+                codeText = addLineBreaksToCode(codeText);
+            }
+
+            // Clean up dan trim
+            codeText = codeText.trim();
+
+            // Copy ke clipboard
+            await navigator.clipboard.writeText(codeText);
+
+            // Update UI feedback
+            updateCopyButtonState(codeElement);
+
+            showNotification('Code copied with proper formatting! 🎉', 'success');
+            console.log('✅ Copied code preview:', codeText.substring(0, 100) + '...');
+
         } catch (error) {
             console.error('Failed to copy code:', error);
             showNotification('Failed to copy code to clipboard', 'error');
-            
-            // Fallback
-            try {
-                const codeElement = document.getElementById(codeId);
-                if (codeElement) {
-                    const range = document.createRange();
-                    range.selectNodeContents(codeElement);
-                    const selection = window.getSelection();
-                    selection.removeAllRanges();
-                    selection.addRange(range);
-                    showNotification('Code selected - press Ctrl+C to copy', 'info');
+
+            // Fallback method
+            fallbackCopyMethod(codeId);
+        }
+    }
+
+// 🛠️ HELPER FUNCTIONS untuk extract text dengan proper formatting
+
+    function extractTextFromHighlightedCode(codeElement) {
+        // Clone element to avoid modifying original
+        const clonedElement = codeElement.cloneNode(true);
+
+        // Remove highlight.js specific elements yang tidak perlu
+        const elementsToRemove = clonedElement.querySelectorAll('.hljs-comment, .hljs-meta');
+        elementsToRemove.forEach(el => {
+            // Keep the text content but remove styling
+            const textNode = document.createTextNode(el.textContent);
+            el.parentNode.replaceChild(textNode, el);
+        });
+
+        // Convert <br> tags to line breaks
+        const brElements = clonedElement.querySelectorAll('br');
+        brElements.forEach(br => {
+            br.replaceWith('\n');
+        });
+
+        // Convert block elements to line breaks
+        const blockElements = clonedElement.querySelectorAll('div, p');
+        blockElements.forEach(block => {
+            block.appendChild(document.createTextNode('\n'));
+        });
+
+        return clonedElement.textContent || clonedElement.innerText;
+    }
+
+    function extractTextFromCodeElement(codeElement) {
+        // Jika element memiliki childNodes, iterate dan build text manually
+        let text = '';
+
+        function walkNodes(node) {
+            if (node.nodeType === Node.TEXT_NODE) {
+                text += node.textContent;
+            } else if (node.nodeType === Node.ELEMENT_NODE) {
+                // Add line break untuk certain elements
+                if (['DIV', 'P', 'BR'].includes(node.tagName)) {
+                    text += '\n';
                 }
-            } catch (fallbackError) {
-                console.error('Fallback copy also failed:', fallbackError);
+
+                // Recursively process child nodes
+                for (let child of node.childNodes) {
+                    walkNodes(child);
+                }
+
+                // Add line break after block elements
+                if (['DIV', 'P'].includes(node.tagName)) {
+                    text += '\n';
+                }
             }
+        }
+
+        walkNodes(codeElement);
+
+        // Clean up multiple consecutive line breaks
+        return text.replace(/\n{3,}/g, '\n\n').trim();
+    }
+
+    function addLineBreaksToCode(text) {
+        // Heuristic untuk menambah line breaks pada common code patterns
+
+        // JavaScript/TypeScript patterns
+        text = text.replace(/;(?!\s*$)/g, ';\n');
+        text = text.replace(/{(?!\s*})/g, '{\n');
+        text = text.replace(/}(?!\s*[,;)])/g, '\n}');
+
+        // HTML patterns
+        text = text.replace(/>/g, '>\n');
+        text = text.replace(/<(?!\/)/g, '\n<');
+
+        // CSS patterns
+        text = text.replace(/}/g, '\n}\n');
+        text = text.replace(/{/g, ' {\n');
+
+        // Python patterns
+        text = text.replace(/:/g, ':\n');
+
+        // Clean up excessive line breaks
+        text = text.replace(/\n{3,}/g, '\n\n');
+        text = text.replace(/^\n+/, ''); // Remove leading newlines
+
+        return text.trim();
+    }
+
+    function updateCopyButtonState(codeElement) {
+        const copyBtn = codeElement.closest('.code-block-container')?.querySelector('.copy-code-btn');
+
+        if (copyBtn) {
+            const originalText = copyBtn.querySelector('.copy-text')?.textContent || 'Copy';
+            const originalIcon = copyBtn.querySelector('.copy-icon')?.textContent || '📋';
+
+            copyBtn.classList.add('copied');
+            if (copyBtn.querySelector('.copy-text')) {
+                copyBtn.querySelector('.copy-text').textContent = 'Copied!';
+            }
+            if (copyBtn.querySelector('.copy-icon')) {
+                copyBtn.querySelector('.copy-icon').textContent = '✅';
+            }
+
+            setTimeout(() => {
+                copyBtn.classList.remove('copied');
+                if (copyBtn.querySelector('.copy-text')) {
+                    copyBtn.querySelector('.copy-text').textContent = originalText;
+                }
+                if (copyBtn.querySelector('.copy-icon')) {
+                    copyBtn.querySelector('.copy-icon').textContent = originalIcon;
+                }
+            }, 2000);
+        }
+    }
+
+    function fallbackCopyMethod(codeId) {
+        try {
+            const codeElement = document.getElementById(codeId);
+            if (codeElement) {
+                // Create a temporary textarea dengan value yang sudah di-format
+                const tempTextarea = document.createElement('textarea');
+                tempTextarea.value = extractTextFromCodeElement(codeElement);
+                tempTextarea.style.position = 'fixed';
+                tempTextarea.style.left = '-9999px';
+                tempTextarea.style.top = '-9999px';
+
+                document.body.appendChild(tempTextarea);
+                tempTextarea.select();
+                tempTextarea.setSelectionRange(0, 99999); // For mobile
+
+                const successful = document.execCommand('copy');
+                document.body.removeChild(tempTextarea);
+
+                if (successful) {
+                    showNotification('Code copied using fallback method! 📋', 'info');
+                    updateCopyButtonState(codeElement);
+                } else {
+                    showNotification('Please manually select and copy the code', 'warning');
+                }
+            }
+        } catch (fallbackError) {
+            console.error('Fallback copy also failed:', fallbackError);
+            showNotification('Copy failed. Please select text manually and use Ctrl+C', 'error');
         }
     }
 
