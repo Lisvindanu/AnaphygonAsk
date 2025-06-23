@@ -1,6 +1,6 @@
 /**
  * MAXIMIZED Configuration untuk AnaphygonAsk
- * Fixed version with all required methods
+ * Updated for Gemini 2.5 Flash with enhanced capabilities
  */
 
 // MAXIMIZED: Enhanced validation with comprehensive checks
@@ -39,7 +39,7 @@ function validateMaximizedConfig() {
         process.exit(1);
     }
 
-    console.log('✅ API key validation passed - MAXIMIZED configuration ready');
+    console.log('✅ API key validation passed - Gemini 2.5 Flash ready');
     return apiKey;
 }
 
@@ -51,11 +51,11 @@ const MAXIMIZED_MODE = process.env.MAXIMIZED_MODE !== 'false'; // Default enable
 // MAXIMIZED: Validated API key
 const GEMINI_API_KEY = validateMaximizedConfig();
 
-// MAXIMIZED: Advanced generation configuration
+// MAXIMIZED: Advanced generation configuration optimized for Gemini 2.5 Flash
 const MAXIMIZED_GEMINI_CONFIG = {
-    // Core generation settings
-    temperature: parseFloat(process.env.GEMINI_TEMPERATURE) || 0.7,    // MAXIMIZED: Higher creativity
-    maxOutputTokens: parseInt(process.env.GEMINI_MAX_TOKENS) || 4000,  // MAXIMIZED: Extended output
+    // Core generation settings optimized for 2.5 Flash
+    temperature: parseFloat(process.env.GEMINI_TEMPERATURE) || 0.7,    // MAXIMIZED: Balanced creativity
+    maxOutputTokens: parseInt(process.env.GEMINI_MAX_TOKENS) || 8192,  // UPDATED: Increased for 2.5 Flash
     topP: parseFloat(process.env.GEMINI_TOP_P) || 0.9,                // MAXIMIZED: Higher diversity
     topK: parseInt(process.env.GEMINI_TOP_K) || 40,                   // MAXIMIZED: More candidates
 
@@ -66,22 +66,32 @@ const MAXIMIZED_GEMINI_CONFIG = {
     // Response quality settings
     responseMimeType: "text/plain",
 
-    // MAXIMIZED: Custom generation modes
+    // MAXIMIZED: Custom generation modes for 2.5 Flash
     modes: {
         creative: {
             temperature: 0.9,
             topP: 0.95,
-            topK: 50
+            topK: 50,
+            maxOutputTokens: 8192
         },
         balanced: {
             temperature: 0.7,
             topP: 0.9,
-            topK: 40
+            topK: 40,
+            maxOutputTokens: 8192
         },
         precise: {
             temperature: 0.3,
             topP: 0.8,
-            topK: 20
+            topK: 20,
+            maxOutputTokens: 6144
+        },
+        // NEW: Thinking mode for complex reasoning
+        thinking: {
+            temperature: 0.5,
+            topP: 0.85,
+            topK: 30,
+            maxOutputTokens: 8192
         }
     }
 };
@@ -90,21 +100,21 @@ const MAXIMIZED_GEMINI_CONFIG = {
 const MAXIMIZED_APP_CONFIG = {
     // Basic app info
     appName: 'AnaphygonAsk',
-    version: '2.5.0', // MAXIMIZED version
-    description: 'AI-powered Q&A platform with maximized Gemini API integration',
-    footerText: `© ${new Date().getFullYear()} AnaphygonAsk - Powered by Maximized Gemini AI`,
+    version: '3.0.0', // UPDATED: Version bump for 2.5 Flash
+    description: 'AI-powered Q&A platform with Gemini 2.5 Flash integration',
+    footerText: `© ${new Date().getFullYear()} AnaphygonAsk - Powered by Gemini 2.5 Flash`,
 
-    // MAXIMIZED: Extended limits
-    maxQuestionLength: 5000,        // Increased from 2000
-    maxContextItems: 8,             // Increased from 6
-    maxContextItemLength: 300,      // Increased from 200
-    maxSessionsPerUser: 50,         // New limit
-    maxMessagesPerSession: 200,     // New limit
+    // MAXIMIZED: Extended limits for 2.5 Flash capabilities
+    maxQuestionLength: 8000,        // INCREASED: 2.5 Flash can handle longer inputs
+    maxContextItems: 10,            // INCREASED: Better context handling
+    maxContextItemLength: 500,      // INCREASED: More detailed context
+    maxSessionsPerUser: 100,        // INCREASED: More sessions
+    maxMessagesPerSession: 500,     // INCREASED: Longer conversations
 
     // MAXIMIZED: Rate limiting configuration
     rateLimiting: {
         windowMs: 60 * 1000,        // 1 minute window
-        maxRequests: 15,            // Increased from 10
+        maxRequests: 20,            // INCREASED: 2.5 Flash is more efficient
         skipSuccessfulRequests: false,
         skipFailedRequests: false,
         standardHeaders: true,
@@ -135,22 +145,29 @@ const MAXIMIZED_APP_CONFIG = {
         enableResponseEnhancement: true,
         enableAnalytics: DEBUG_MODE,
 
+        // NEW: 2.5 Flash specific features
+        enableAdaptiveThinking: true,
+        enableMultimodalSupport: true,
+        enableAdvancedReasoning: true,
+        enableLongContextProcessing: true,
+
         // Experimental features
         enableExperimentalFeatures: process.env.ENABLE_EXPERIMENTAL === 'true',
         enableA11yFeatures: true,
         enablePWAFeatures: true
     },
 
-    // MAXIMIZED: Performance configuration
+    // MAXIMIZED: Performance configuration optimized for 2.5 Flash
     performance: {
-        maxResponseTime: 30000,         // 30 seconds
-        warningResponseTime: 15000,     // 15 seconds
+        maxResponseTime: 45000,         // INCREASED: 45 seconds for complex reasoning
+        warningResponseTime: 20000,     // INCREASED: 20 seconds warning
         retryAttempts: 3,               // API retry attempts
         retryDelayBase: 1000,           // Base delay for exponential backoff
         enableCaching: true,
-        cacheTimeout: 300000,           // 5 minutes
+        cacheTimeout: 600000,           // INCREASED: 10 minutes for better caching
         enableCompression: true,
-        enableMetrics: true
+        enableMetrics: true,
+        adaptiveTimeout: true           // NEW: Dynamic timeout based on complexity
     },
 
     // MAXIMIZED: Error handling configuration
@@ -162,7 +179,8 @@ const MAXIMIZED_APP_CONFIG = {
         enableErrorAnalytics: true,
         maxRetries: 3,
         retryDelay: 1000,
-        enableCircuitBreaker: true
+        enableCircuitBreaker: true,
+        enableSmartFallbacks: true      // NEW: Intelligent fallback selection
     },
 
     // MAXIMIZED: Security configuration
@@ -172,9 +190,10 @@ const MAXIMIZED_APP_CONFIG = {
         enableXSSProtection: true,
         enableCSRFProtection: true,
         enableCORS: true,
-        maxFileSize: '10mb',
+        maxFileSize: '50mb',            // INCREASED: 2.5 Flash supports multimodal
         allowedOrigins: process.env.ALLOWED_ORIGINS ?
-            process.env.ALLOWED_ORIGINS.split(',') : ['*']
+            process.env.ALLOWED_ORIGINS.split(',') : ['*'],
+        enableContentValidation: true   // NEW: Enhanced content validation
     },
 
     // MAXIMIZED: Monitoring configuration
@@ -184,15 +203,17 @@ const MAXIMIZED_APP_CONFIG = {
         enableUsageAnalytics: DEBUG_MODE,
         enableErrorTracking: true,
         metricsInterval: 60000, // 1 minute
-        healthCheckInterval: 30000 // 30 seconds
+        healthCheckInterval: 30000, // 30 seconds
+        enableModelMetrics: true,       // NEW: Track model-specific metrics
+        enableThinkingMetrics: true     // NEW: Track thinking/reasoning metrics
     }
 };
 
 // MAXIMIZED: Advanced logging with structured output
 if (DEBUG_MODE) {
-    console.log('\n🚀 MAXIMIZED Configuration Loaded:');
+    console.log('\n🚀 MAXIMIZED Configuration Loaded for Gemini 2.5 Flash:');
     console.log('╭─────────────────────────────────────────────────────────╮');
-    console.log('│                  ANAPHYGONASK MAXIMIZED                │');
+    console.log('│              ANAPHYGONASK + GEMINI 2.5 FLASH           │');
     console.log('╰─────────────────────────────────────────────────────────╯');
     console.log('');
     console.log('📊 Application Info:');
@@ -202,8 +223,9 @@ if (DEBUG_MODE) {
     console.log(`├── Debug Mode: ${DEBUG_MODE ? '✅ Enabled' : '❌ Disabled'}`);
     console.log(`└── Maximized Mode: ${MAXIMIZED_MODE ? '🚀 Active' : '⚠️  Inactive'}`);
     console.log('');
-    console.log('🔧 API Configuration:');
+    console.log('🔧 Gemini 2.5 Flash Configuration:');
     console.log(`├── API Key: ${GEMINI_API_KEY ? '✅ Configured' : '❌ Missing'}`);
+    console.log(`├── Model: gemini-2.5-flash`);
     console.log(`├── Temperature: ${MAXIMIZED_GEMINI_CONFIG.temperature}`);
     console.log(`├── Max Tokens: ${MAXIMIZED_GEMINI_CONFIG.maxOutputTokens}`);
     console.log(`├── Top P: ${MAXIMIZED_GEMINI_CONFIG.topP}`);
@@ -222,15 +244,26 @@ if (DEBUG_MODE) {
     console.log(`├── Max Response Time: ${MAXIMIZED_APP_CONFIG.performance.maxResponseTime}ms`);
     console.log(`├── Retry Attempts: ${MAXIMIZED_APP_CONFIG.performance.retryAttempts}`);
     console.log(`├── Cache Timeout: ${MAXIMIZED_APP_CONFIG.performance.cacheTimeout}ms`);
+    console.log(`├── Adaptive Timeout: ${MAXIMIZED_APP_CONFIG.performance.adaptiveTimeout ? '✅' : '❌'}`);
     console.log(`└── Compression: ${MAXIMIZED_APP_CONFIG.performance.enableCompression ? '✅' : '❌'}`);
     console.log('');
     console.log('🔒 Security & Rate Limiting:');
     console.log(`├── Rate Limit: ${MAXIMIZED_APP_CONFIG.rateLimiting.maxRequests} req/min`);
     console.log(`├── Max Question Length: ${MAXIMIZED_APP_CONFIG.maxQuestionLength} chars`);
     console.log(`├── Max Context Items: ${MAXIMIZED_APP_CONFIG.maxContextItems}`);
+    console.log(`├── Max File Size: ${MAXIMIZED_APP_CONFIG.security.maxFileSize}`);
     console.log(`└── XSS Protection: ${MAXIMIZED_APP_CONFIG.security.enableXSSProtection ? '✅' : '❌'}`);
     console.log('');
-    console.log('🎮 Ready to serve maximized AI responses!');
+    console.log('💎 Gemini 2.5 Flash Capabilities:');
+    console.log('├── ✅ Adaptive Thinking');
+    console.log('├── ✅ Multimodal Support (Audio, Images, Video, Text)');
+    console.log('├── ✅ Extended Context Window (1M+ tokens)');
+    console.log('├── ✅ Advanced Reasoning');
+    console.log('├── ✅ Code Execution Support');
+    console.log('├── ✅ Function Calling');
+    console.log('└── ✅ Structured Outputs');
+    console.log('');
+    console.log('🎮 Ready to serve maximized AI responses with Gemini 2.5 Flash!');
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     console.log('');
 }
@@ -273,16 +306,37 @@ module.exports = {
     getSecurityConfig: () => MAXIMIZED_APP_CONFIG.security,
     getRateLimitConfig: () => MAXIMIZED_APP_CONFIG.rateLimiting,
 
-    // MAXIMIZED: Generation mode selector
+    // UPDATED: Generation mode selector for 2.5 Flash
     getGenerationConfig: (mode = 'balanced') => {
         const baseConfig = MAXIMIZED_GEMINI_CONFIG;
         const modeConfig = baseConfig.modes[mode] || baseConfig.modes.balanced;
 
         return {
             ...baseConfig,
-            ...modeConfig
+            ...modeConfig,
+            model: 'gemini-2.5-flash'
         };
     },
+
+    // NEW: Get model-specific configuration
+    getModelConfig: () => ({
+        name: 'gemini-2.5-flash',
+        version: '2.5',
+        capabilities: [
+            'adaptive_thinking',
+            'multimodal_support',
+            'extended_context',
+            'advanced_reasoning',
+            'code_execution',
+            'function_calling',
+            'structured_outputs'
+        ],
+        limits: {
+            inputTokens: 1048576,   // 1M+ tokens
+            outputTokens: 65536,    // 65K tokens
+            maxFileSize: '50mb'
+        }
+    }),
 
     // MAXIMIZED: Dynamic feature toggling
     updateFeature: (featureName, enabled) => {
@@ -323,8 +377,8 @@ module.exports = {
             warnings.push('Temperature outside recommended range (0-1)');
         }
 
-        if (MAXIMIZED_GEMINI_CONFIG.maxOutputTokens > 8192) {
-            warnings.push('Max tokens very high, may impact performance');
+        if (MAXIMIZED_GEMINI_CONFIG.maxOutputTokens > 65536) {
+            warnings.push('Max tokens exceeds 2.5 Flash limit (65536)');
         }
 
         return {
@@ -335,7 +389,7 @@ module.exports = {
         };
     },
 
-    // MAXIMIZED: Health check configuration
+    // UPDATED: Health check configuration for 2.5 Flash
     getHealthCheck: () => ({
         timestamp: new Date().toISOString(),
         version: MAXIMIZED_APP_CONFIG.version,
@@ -343,8 +397,14 @@ module.exports = {
         environment: NODE_ENV,
         api: {
             configured: !!GEMINI_API_KEY,
-            model: 'gemini-2.0-flash',
-            version: '2.0'
+            model: 'gemini-2.5-flash',
+            version: '2.5',
+            capabilities: [
+                'adaptive_thinking',
+                'multimodal_support',
+                'extended_context',
+                'advanced_reasoning'
+            ]
         },
         features: {
             enabled: Object.keys(MAXIMIZED_APP_CONFIG.features).filter(
@@ -356,11 +416,12 @@ module.exports = {
         security: {
             rateLimiting: MAXIMIZED_APP_CONFIG.rateLimiting.maxRequests,
             xssProtection: MAXIMIZED_APP_CONFIG.security.enableXSSProtection,
-            inputSanitization: MAXIMIZED_APP_CONFIG.security.enableInputSanitization
+            inputSanitization: MAXIMIZED_APP_CONFIG.security.enableInputSanitization,
+            maxFileSize: MAXIMIZED_APP_CONFIG.security.maxFileSize
         }
     }),
 
-    // MAXIMIZED: Full configuration export for debugging
+    // UPDATED: Full configuration export for debugging
     getFullConfig: () => ({
         app: {
             name: MAXIMIZED_APP_CONFIG.appName,
@@ -372,7 +433,7 @@ module.exports = {
         },
         api: {
             configured: !!GEMINI_API_KEY,
-            model: 'gemini-2.0-flash-maximized',
+            model: 'gemini-2.5-flash',
             generation: MAXIMIZED_GEMINI_CONFIG
         },
         features: MAXIMIZED_APP_CONFIG.features,

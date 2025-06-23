@@ -355,12 +355,37 @@ class MaximizedSecurity {
         }
     }
 
+    // sanitizeString(str) {
+    //     if (!str || typeof str !== 'string') return str;
+    //
+    //     let sanitized = str;
+    //
+    //     // Check for suspicious patterns
+    //     for (const pattern of this.suspiciousPatterns) {
+    //         if (pattern.test(sanitized)) {
+    //             console.warn('🚨 Suspicious input detected and sanitized:', sanitized.substring(0, 100));
+    //             sanitized = sanitized.replace(pattern, '[REMOVED]');
+    //         }
+    //     }
+    //
+    //     // Basic HTML encoding for safety
+    //     sanitized = sanitized
+    //         .replace(/&/g, '&amp;')
+    //         .replace(/</g, '&lt;')
+    //         .replace(/>/g, '&gt;')
+    //         .replace(/"/g, '&quot;')
+    //         .replace(/'/g, '&#x27;')
+    //         .replace(/\//g, '&#x2F;');
+    //
+    //     return sanitized;
+    // }
+
     sanitizeString(str) {
         if (!str || typeof str !== 'string') return str;
 
         let sanitized = str;
 
-        // Check for suspicious patterns
+        // Check for suspicious patterns first
         for (const pattern of this.suspiciousPatterns) {
             if (pattern.test(sanitized)) {
                 console.warn('🚨 Suspicious input detected and sanitized:', sanitized.substring(0, 100));
@@ -368,14 +393,20 @@ class MaximizedSecurity {
             }
         }
 
-        // Basic HTML encoding for safety
-        sanitized = sanitized
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#x27;')
-            .replace(/\//g, '&#x2F;');
+        // Only sanitize if it's not already HTML encoded
+        // Check if string already contains HTML entities
+        const alreadyEncoded = /&lt;|&gt;|&amp;|&quot;|&#x27;|&#x2F;/.test(sanitized);
+
+        if (!alreadyEncoded) {
+            // Basic HTML encoding for safety - only if not already encoded
+            sanitized = sanitized
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#x27;')
+                .replace(/\//g, '&#x2F;');
+        }
 
         return sanitized;
     }

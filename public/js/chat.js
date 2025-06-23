@@ -30,10 +30,78 @@ document.addEventListener('DOMContentLoaded', function() {
     // MARKDOWN PARSING WITH HIGHLIGHT.JS
     // ========================================================================
 
+    // function parseMarkdown(text) {
+    //     if (!text || typeof text !== 'string') return '';
+    //
+    //     try {
+    //         // Use highlight.js if available, otherwise fallback
+    //         if (typeof window.hljs !== 'undefined') {
+    //             return parseMarkdownWithHighlightJS(text);
+    //         } else {
+    //             return basicMarkdownParse(text);
+    //         }
+    //     } catch (error) {
+    //         console.error('Error parsing markdown:', error);
+    //         return basicMarkdownParse(text);
+    //     }
+    // }
+    //
+    // function parseMarkdownWithHighlightJS(text) {
+    //     // Escape HTML first
+    //     text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    //
+    //     // Code blocks with highlight.js
+    //     text = text.replace(/```(\w+)?\n?([\s\S]*?)```/g, function(match, language, code) {
+    //         const lang = language ? language.toLowerCase() : '';
+    //         const codeId = generateCodeId();
+    //         const cleanCode = code.trim();
+    //
+    //         let highlightedCode = cleanCode;
+    //
+    //         // Try to highlight with hljs
+    //         if (lang && window.hljs && hljs.getLanguage && hljs.getLanguage(lang)) {
+    //             try {
+    //                 const result = hljs.highlight(cleanCode, { language: lang, ignoreIllegals: true });
+    //                 highlightedCode = result.value;
+    //             } catch (error) {
+    //                 console.warn('Highlighting failed for', lang, ':', error);
+    //                 // Use plain code if highlighting fails
+    //                 highlightedCode = cleanCode;
+    //             }
+    //         } else if (window.hljs && hljs.highlightAuto) {
+    //             // Auto-detect language
+    //             try {
+    //                 const result = hljs.highlightAuto(cleanCode);
+    //                 highlightedCode = result.value;
+    //             } catch (error) {
+    //                 console.warn('Auto-highlighting failed:', error);
+    //                 highlightedCode = cleanCode;
+    //             }
+    //         }
+    //
+    //         return `<div class="code-block-container" data-language="${lang || 'text'}">
+    //             <div class="code-block-header">
+    //                 <span class="code-language">${(lang || 'TEXT').toUpperCase()}</span>
+    //                 <button class="copy-code-btn" onclick="copyCodeBlock('${codeId}')">
+    //                     <span class="copy-icon">📋</span>
+    //                     <span class="copy-text">Copy</span>
+    //                 </button>
+    //             </div>
+    //             <pre><code id="${codeId}" class="hljs">${highlightedCode}</code></pre>
+    //         </div>`;
+    //     });
+    //
+    //     // Continue with other markdown processing
+    //     return processOtherMarkdown(text);
+    // }
+
     function parseMarkdown(text) {
         if (!text || typeof text !== 'string') return '';
 
         try {
+            // Decode HTML entities terlebih dahulu jika sudah ter-encode
+            text = text.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+
             // Use highlight.js if available, otherwise fallback
             if (typeof window.hljs !== 'undefined') {
                 return parseMarkdownWithHighlightJS(text);
@@ -47,39 +115,61 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function parseMarkdownWithHighlightJS(text) {
-        // Escape HTML first
+        // Escape HTML hanya untuk content yang bukan code blocks
+        const codeBlockRegex = /```(\w+)?\n?([\s\S]*?)```/g;
+        const codeBlocks = [];
+        let codeBlockIndex = 0;
+
+        // Extract code blocks first
+        text = text.replace(codeBlockRegex, function(match) {
+            const placeholder = `__CODE_BLOCK_${codeBlockIndex}__`;
+            codeBlocks[codeBlockIndex] = match;
+            codeBlockIndex++;
+            return placeholder;
+        });
+
+        // Now escape HTML in the remaining text
         text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-        // Code blocks with highlight.js
-        text = text.replace(/```(\w+)?\n?([\s\S]*?)```/g, function(match, language, code) {
-            const lang = language ? language.toLowerCase() : '';
-            const codeId = generateCodeId();
-            const cleanCode = code.trim();
-            
-            let highlightedCode = cleanCode;
-            
-            // Try to highlight with hljs
-            if (lang && window.hljs && hljs.getLanguage && hljs.getLanguage(lang)) {
-                try {
-                    const result = hljs.highlight(cleanCode, { language: lang, ignoreIllegals: true });
-                    highlightedCode = result.value;
-                } catch (error) {
-                    console.warn('Highlighting failed for', lang, ':', error);
-                    // Use plain code if highlighting fails
-                    highlightedCode = cleanCode;
-                }
-            } else if (window.hljs && hljs.highlightAuto) {
-                // Auto-detect language
-                try {
-                    const result = hljs.highlightAuto(cleanCode);
-                    highlightedCode = result.value;
-                } catch (error) {
-                    console.warn('Auto-highlighting failed:', error);
-                    highlightedCode = cleanCode;
-                }
-            }
+        // Restore code blocks and process them
+        for (let i = 0; i < codeBlocks.length; i++) {
+            const placeholder = `__CODE_BLOCK_${i}__`;
+            const codeBlockMatch = codeBlocks[i].match(/```(\w+)?\n?([\s\S]*?)```/);
 
-            return `<div class="code-block-container" data-language="${lang || 'text'}">
+            if (codeBlockMatch) {
+                const language = codeBlockMatch[1];
+                const code = codeBlockMatch[2];
+                const lang = language ? language.toLowerCase() : '';
+                const codeId = generateCodeId();
+                const cleanCode = code.trim();
+
+                let highlightedCode = cleanCode;
+
+                // Try to highlight with hljs
+                if (lang && window.hljs && hljs.getLanguage && hljs.getLanguage(lang)) {
+                    try {
+                        const result = hljs.highlight(cleanCode, { language: lang, ignoreIllegals: true });
+                        highlightedCode = result.value;
+                    } catch (error) {
+                        console.warn('Highlighting failed for', lang, ':', error);
+                        // Escape HTML for plain code
+                        highlightedCode = cleanCode.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                    }
+                } else if (window.hljs && hljs.highlightAuto) {
+                    // Auto-detect language
+                    try {
+                        const result = hljs.highlightAuto(cleanCode);
+                        highlightedCode = result.value;
+                    } catch (error) {
+                        console.warn('Auto-highlighting failed:', error);
+                        highlightedCode = cleanCode.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                    }
+                } else {
+                    // Escape HTML for plain code
+                    highlightedCode = cleanCode.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                }
+
+                const processedCodeBlock = `<div class="code-block-container" data-language="${lang || 'text'}">
                 <div class="code-block-header">
                     <span class="code-language">${(lang || 'TEXT').toUpperCase()}</span>
                     <button class="copy-code-btn" onclick="copyCodeBlock('${codeId}')">
@@ -89,7 +179,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <pre><code id="${codeId}" class="hljs">${highlightedCode}</code></pre>
             </div>`;
-        });
+
+                text = text.replace(placeholder, processedCodeBlock);
+            }
+        }
 
         // Continue with other markdown processing
         return processOtherMarkdown(text);
@@ -456,15 +549,71 @@ document.addEventListener('DOMContentLoaded', function() {
         return messageId;
     }
 
+    // async function copyMessage(text) {
+    //     try {
+    //         const plainText = text.replace(/<[^>]*>/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+    //         await navigator.clipboard.writeText(plainText);
+    //         showNotification('Message copied to clipboard!', 'success');
+    //     } catch (err) {
+    //         console.error('Failed to copy message:', err);
+    //         showNotification('Failed to copy message', 'error');
+    //     }
+    // }
+
     async function copyMessage(text) {
         try {
-            const plainText = text.replace(/<[^>]*>/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+            // Decode HTML entities dan tambahkan word wrapping
+            let plainText = text
+                .replace(/<[^>]*>/g, '')           // Remove HTML tags
+                .replace(/&lt;/g, '<')            // Decode &lt;
+                .replace(/&gt;/g, '>')            // Decode &gt;
+                .replace(/&amp;/g, '&')           // Decode &amp; (harus terakhir)
+                .replace(/&quot;/g, '"')          // Decode &quot;
+                .replace(/&#x27;/g, "'")          // Decode &#x27;
+                .replace(/&#x2F;/g, '/');         // Decode &#x2F;
+
+            // Add line breaks untuk mencegah teks terlalu panjang
+            // Break setiap 80 karakter pada space terdekat
+            plainText = addWordWrap(plainText, 80);
+
             await navigator.clipboard.writeText(plainText);
             showNotification('Message copied to clipboard!', 'success');
-        } catch (err) {
-            console.error('Failed to copy message:', err);
+        } catch (error) {
+            console.error('Failed to copy message:', error);
             showNotification('Failed to copy message', 'error');
+
+            // Fallback method
+            const textArea = document.createElement('textarea');
+            textArea.value = plainText;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
         }
+    }
+
+// Function untuk menambahkan word wrap
+    function addWordWrap(text, maxLength = 80) {
+        const words = text.split(' ');
+        const lines = [];
+        let currentLine = '';
+
+        for (const word of words) {
+            // Jika menambah word ini akan melebihi maxLength, buat line baru
+            if (currentLine.length + word.length + 1 > maxLength && currentLine.length > 0) {
+                lines.push(currentLine.trim());
+                currentLine = word;
+            } else {
+                currentLine += (currentLine.length > 0 ? ' ' : '') + word;
+            }
+        }
+
+        // Tambahkan line terakhir
+        if (currentLine.length > 0) {
+            lines.push(currentLine.trim());
+        }
+
+        return lines.join('\n');
     }
 
     function deleteMessage(messageId) {

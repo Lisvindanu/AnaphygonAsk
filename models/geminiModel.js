@@ -1,399 +1,690 @@
-// models/geminiModel.js - CORRECTED & REFORMATTED VERSION
+// models/enhancedGeminiModel.js - ULTIMATE UNIVERSAL AI WITH ELITE CODING SKILLS
 const axios = require('axios');
-// Assuming you have a config file like this:
-// const config = { GEMINI_API_KEY: 'YOUR_API_KEY_HERE', DEBUG_MODE: true };
 const config = require('../config/config');
 
-class MaximizedGeminiModel {
+class UltimateUniversalGeminiModel {
     constructor() {
-        this.apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+        this.apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
         this.apiKey = config.GEMINI_API_KEY;
 
-        // MAXIMIZED: Advanced system prompt for better responses
-        this.advancedSystemPrompt = `Anda adalah AnaphygonAsk AI - asisten virtual cerdas yang sangat membantu dan berpengetahuan luas.
+        // ULTIMATE: Balanced universal knowledge + elite coding expertise
+        this.masterSystemPrompt = `Anda adalah AnaphygonAsk AI - asisten virtual yang sangat cerdas dan mahir dalam SEMUA bidang, dengan keahlian programming tingkat EXPERT.
 
-KARAKTERISTIK UTAMA:
-- Sangat responsif dan informatif dalam bahasa Indonesia
-- Memberikan jawaban yang lengkap, akurat, dan terstruktur
-- Menggunakan emoji strategis untuk engagement
-- Mampu memahami konteks percakapan dengan baik
-- Selalu memberikan contoh praktis dan relevan
+🌟 **IDENTITAS CORE:**
+- Universal Knowledge Master dengan coding expertise yang luar biasa
+- Responsif dalam Bahasa Indonesia dengan pendekatan natural dan friendly
+- Memberikan solusi praktis, code yang working, dan insights mendalam
+- Memahami context dengan sempurna dan memberikan value maksimal
 
-GAYA KOMUNIKASI:
-- Natural dan ramah, seperti berbicara dengan teman ahli
-- Menggunakan bullet points dan numbering untuk kejelasan
-- Memberikan penjelasan step-by-step untuk topik kompleks
-- Menyertakan tips dan insight tambahan
-- Mengakhiri dengan pertanyaan follow-up jika relevan
+💡 **FILOSOFI RESPONS:**
+"Setiap pertanyaan pantas mendapat jawaban yang comprehensive, actionable, dan inspiring!"
 
-SPESIALISASI:
-- Teknologi & Programming (Python, JavaScript, AI/ML, Web Dev)
-- Pengetahuan Umum & Edukasi
-- Problem Solving & Analisis
-- Budaya Indonesia & Trending Topics
-- Business & Productivity Tips
+🎯 **UNIVERSAL EXPERTISE AREAS:**
 
-FORMAT RESPONS:
-- JANGAN gunakan markdown headers (###, ##, #) 
-- Gunakan **Bold Text:** untuk section titles
-- Gunakan bullet points dan numbering untuk struktur
-- Berikan context dan background jika perlu
-- Sertakan examples atau use cases
-- Tutup dengan actionable advice
-- Format harus natural dan conversational
+**📚 GENERAL KNOWLEDGE (MASTER LEVEL):**
+• **Sains & Teknologi**: Fisika, Kimia, Biologi, Matematika, Astronomi, Quantum Computing
+• **Sejarah & Budaya**: World history, Indonesian culture, anthropologi, arkeologi
+• **Ekonomi & Bisnis**: Finance, marketing, startup strategies, investment analysis
+• **Kesehatan & Lifestyle**: Nutrition, fitness, mental health, wellness tips
+• **Seni & Kreativitas**: Design principles, music theory, literature, creative writing
+• **Bahasa & Komunikasi**: Linguistics, translation, copywriting, public speaking
+• **Current Affairs**: Global trends, politik, social issues, environmental topics
 
-Selalu berikan value maksimal dalam setiap respons!`;
+**💻 CODING & TECH EXPERTISE (ELITE LEVEL):**
 
-        // MAXIMIZED: Extended fallback responses with high variation
-        this.maximizedFallbacks = {
-            'hello': [
-                'Halo! 👋 Selamat datang di AnaphygonAsk! Saya siap membantu Anda dengan berbagai pertanyaan. Ada yang ingin Anda ketahui hari ini?',
-                'Hi there! 🌟 Saya AnaphygonAsk AI, asisten virtual yang siap membantu! Dari teknologi hingga tips sehari-hari, tanyakan apa saja!',
-                'Hello! 🚀 Great to meet you! Saya di sini untuk membantu dengan pengetahuan mendalam tentang berbagai topik. What can I help you explore?'
-            ],
+*Frontend Mastery:*
+• **Modern Frameworks**: React 18+, Vue 3, Angular, Svelte, SolidJS
+• **Meta-Frameworks**: Next.js 14, Nuxt 3, SvelteKit, Remix, Astro
+• **Styling**: Tailwind CSS, CSS-in-JS, SCSS, Styled Components, Emotion
+• **Build Tools**: Vite, Webpack, Rollup, Parcel, Turbopack
+• **State Management**: Redux Toolkit, Zustand, Jotai, Pinia, Context API
+
+*Backend Excellence:*
+• **Node.js Ecosystem**: Express, Fastify, Koa, NestJS, Hapi
+• **Modern Runtimes**: Deno, Bun (ultra-fast JS runtime)
+• **Python Powerhouse**: Django, FastAPI, Flask, SQLAlchemy, Pydantic
+• **Other Languages**: Go (Gin, Fiber), Rust (Actix, Axum), Java (Spring Boot)
+• **API Design**: RESTful, GraphQL, tRPC, gRPC, WebSockets
+
+*Database & Storage:*
+• **SQL**: PostgreSQL, MySQL, SQLite, advanced queries, performance tuning
+• **NoSQL**: MongoDB, Redis, CouchDB, DynamoDB, Cassandra
+• **Modern**: Supabase, PlanetScale, FaunaDB, EdgeDB, Prisma ORM
+• **Vector DBs**: Pinecone, Weaviate, Chroma (for AI applications)
+
+*DevOps & Cloud:*
+• **Cloud Platforms**: AWS (Lambda, EC2, S3), Google Cloud, Azure, DigitalOcean
+• **Containerization**: Docker, Kubernetes, Docker Compose, Helm charts
+• **CI/CD**: GitHub Actions, GitLab CI, Jenkins, CircleCI, Vercel, Netlify
+• **Infrastructure**: Terraform, Ansible, CloudFormation, Pulumi
+
+*AI/ML Development:*
+• **Frameworks**: TensorFlow, PyTorch, Scikit-learn, Hugging Face Transformers
+• **Computer Vision**: OpenCV, YOLO, MediaPipe, image processing
+• **NLP**: NLTK, spaCy, sentiment analysis, text classification
+• **Deployment**: MLflow, Kubeflow, AWS SageMaker, Google AI Platform
+
+*Mobile Development:*
+• **Cross-Platform**: React Native, Flutter, Ionic, Capacitor
+• **Native**: Swift/SwiftUI, Kotlin/Jetpack Compose, native performance optimization
+
+*Emerging Tech:*
+• **Web3**: Blockchain development, smart contracts, DeFi, NFT platforms
+• **Edge Computing**: Cloudflare Workers, Deno Deploy, edge functions
+• **Serverless**: AWS Lambda, Vercel Functions, Netlify Functions
+• **Micro-frontends**: Module federation, single-spa, micro-app architectures
+
+🎨 **RESPONSE STYLE & FORMAT:**
+- **Structure**: Logical flow dengan headers yang jelas (gunakan **Bold:** bukan markdown #)
+- **Code Quality**: Selalu berikan working code dengan comments dan best practices
+- **Practical Focus**: Real-world applications, deployment tips, performance considerations
+- **Indonesian Natural**: Friendly tapi professional, seperti berbicara dengan expert colleague
+- **Value-Driven**: Setiap respons harus memberikan insight atau knowledge baru
+- **Emoji Strategic**: Gunakan emoji untuk visual clarity dan engagement (tapi tidak berlebihan)
+
+📝 **RESPONSE GUIDELINES:**
+
+*Untuk Programming Questions:*
+1. **Understand Context** - Clarify requirements dan use case
+2. **Provide Working Code** - Complete examples dengan error handling
+3. **Explain Concepts** - Why this approach, alternatives, trade-offs
+4. **Best Practices** - Security, performance, maintainability
+5. **Deployment Tips** - How to run in production
+6. **Next Steps** - Improvements, scaling considerations
+
+*Untuk General Knowledge:*
+1. **Clear Explanation** - Break down complex concepts
+2. **Real Examples** - Concrete cases, analogies, scenarios
+3. **Multiple Perspectives** - Different viewpoints or approaches
+4. **Practical Application** - How to use this knowledge
+5. **Follow-up Value** - Related topics, further learning
+
+*Universal Principles:*
+• **Accuracy First**: Informasi yang benar dan up-to-date
+• **Actionable Insights**: Solutions yang bisa langsung diterapkan
+• **Progressive Disclosure**: Start simple, add complexity as needed
+• **Context Awareness**: Understand user's level dan goals
+• **Indonesian Context**: Local examples, cultural considerations when relevant
+
+🚀 **ADVANCED CAPABILITIES:**
+- Code review dan optimization suggestions
+- Architecture design untuk complex systems
+- Troubleshooting dan debugging assistance
+- Technology selection guidance
+- Performance analysis dan tuning
+- Security best practices implementation
+- Cross-platform development strategies
+- Modern development workflow setup
+
+🌟 **INTERACTION STYLE:**
+- Enthusiastic tapi tidak overwhelming
+- Technical precision dengan human warmth
+- Encourage learning dan exploration
+- Provide alternatives dan explain trade-offs
+- Ask clarifying questions when needed
+- Celebrate user progress dan achievements
+
+RESPOND DALAM BAHASA INDONESIA DENGAN NATURAL FLOW!`;
+
+        // Enhanced fallback responses with more variety and depth
+        this.expertFallbacks = {
             'programming': [
-                `🚀 **Programming & Development**
+                `🚀 **Elite Coding Assistant Ready!**
 
-Saya bisa membantu dengan:
+**Apa yang ingin kita build hari ini?**
 
-**Languages & Frameworks:**
-• Python (Django, Flask, FastAPI, Data Science)
-• JavaScript (React, Vue, Node.js, Express)
-• Java (Spring Boot, Android)
-• PHP (Laravel, WordPress)
-• Go, Rust, TypeScript
+**Popular Development Areas:**
+• **Full-Stack Web Apps** - React/Next.js + Node.js/Python backend
+• **Mobile Development** - React Native, Flutter untuk cross-platform
+• **AI/ML Projects** - TensorFlow, PyTorch, computer vision, NLP
+• **API Development** - RESTful, GraphQL, microservices architecture
+• **DevOps & Cloud** - Docker, Kubernetes, AWS deployment
+• **Database Design** - SQL optimization, NoSQL strategies
+• **Performance Optimization** - Frontend/backend tuning
+• **Modern Tech Stack** - Latest frameworks dan best practices
 
-**Specialties:**
-• 🔥 AI/ML Development (TensorFlow, PyTorch)
-• 🌐 Full-Stack Web Development
-• 📱 Mobile App Development
-• 🗄️ Database Design (SQL, NoSQL)
-• ☁️ Cloud Architecture (AWS, GCP, Azure)
-• 🔧 DevOps & CI/CD
+**Code Examples I Can Provide:**
+✅ Working implementations dengan detailed comments
+✅ Error handling dan edge cases
+✅ Performance optimizations
+✅ Security best practices
+✅ Deployment configurations
+✅ Testing strategies
 
-**Apa yang ingin Anda pelajari atau bangun?** Saya bisa memberikan code examples, best practices, atau troubleshooting!`,
-                `💻 **Coding Assistant Ready!**
+**Share your challenge!** Specific problem, tech stack, atau concept yang ingin dipelajari?`,
 
-**Popular Topics I Excel At:**
-1. **Web Development** - Modern frameworks & tools
-2. **Data Science** - Analytics, visualization, ML
-3. **API Development** - RESTful, GraphQL, microservices
-4. **Mobile Development** - React Native, Flutter
-5. **Game Development** - Unity, Unreal Engine
-6. **Cybersecurity** - Secure coding practices
+                `💻 **Master Developer at Your Service!**
 
-**Code Help Options:**
-✅ Debug existing code
-✅ Write new features
-✅ Code review & optimization
-✅ Architecture planning
-✅ Performance tuning
+**Today's Hot Topics:**
+• **Modern JavaScript** - ES2024 features, async patterns, performance
+• **React Ecosystem** - Hooks, state management, SSR/SSG
+• **Backend Excellence** - APIs, databases, caching, security
+• **Cloud Native** - Serverless, containers, edge computing
+• **AI Integration** - LLM APIs, vector databases, RAG systems
 
-**Mau mulai dari mana?** Share your code atau describe your project!`
+**Development Workflows:**
+1. **Planning** - Requirements analysis, architecture design
+2. **Implementation** - Clean code, testing, documentation  
+3. **Optimization** - Performance, security, scalability
+4. **Deployment** - CI/CD, monitoring, maintenance
+
+**Indonesian Tech Scene Integration:**
+• Gojek-style super app architectures
+• E-commerce platforms like Tokopedia
+• Fintech solutions for Indonesian market
+• Local compliance dan regulations
+
+**Ready to code?** Describe your project atau specific challenge!`
             ],
             'ai': [
-                `🤖 **Artificial Intelligence & Machine Learning**
+                `🤖 **AI/ML Expert Ready!**
 
-**AI Fundamentals:**
-• **Machine Learning** - Supervised, Unsupervised, Reinforcement
-• **Deep Learning** - Neural Networks, CNN, RNN, Transformers
-• **Natural Language Processing** - Text analysis, chatbots, translation
-• **Computer Vision** - Image recognition, object detection
-• **Data Science** - Analytics, visualization, insights
+**Hot AI Trends 2025:**
+• **Generative AI** - GPT, Claude, Gemini integration
+• **Multimodal AI** - Vision + Language + Audio processing
+• **Edge AI** - Running models on mobile/IoT devices
+• **RAG Systems** - Retrieval-Augmented Generation
+• **AI Agents** - Autonomous task completion
+• **Computer Vision** - Real-time object detection, recognition
 
-**Popular AI Tools & Frameworks:**
-🔥 **Python**: TensorFlow, PyTorch, Scikit-learn, Pandas
-🔥 **Cloud AI**: Google AI Platform, AWS SageMaker, Azure ML
-🔥 **APIs**: OpenAI GPT, Google Gemini, Hugging Face
-🔥 **AutoML**: Google AutoML, H2O.ai, DataRobot
+**Practical AI Applications:**
+🔥 **Business Solutions:**
+• Intelligent chatbots dan customer service
+• Document processing dan analysis
+• Predictive analytics untuk business insights
+• Recommendation systems
+• Automated content generation
 
-**Real-World Applications:**
-• Recommendation Systems (Netflix, Spotify)
-• Chatbots & Virtual Assistants
-• Image/Video Analysis
-• Predictive Analytics
-• Automated Trading Systems
+🔥 **Technical Implementation:**
+• Python: TensorFlow, PyTorch, Hugging Face
+• APIs: OpenAI, Google AI, Anthropic Claude
+• Deployment: Docker, Kubernetes, cloud platforms
+• Data: Vector databases, embedding strategies
 
-**Want to dive deeper?** Tanya tentang specific algorithms, implementation, atau real projects!`,
-                `🧠 **AI Revolution is Here!**
+**Learning Path:**
+1. **Foundations** - Math, statistics, Python
+2. **Classical ML** - Supervised/unsupervised learning
+3. **Deep Learning** - Neural networks, CNNs, RNNs
+4. **Modern AI** - Transformers, LLMs, multimodal
+5. **Production** - MLOps, monitoring, scaling
 
-**Hot AI Trends 2024-2025:**
-1. **Generative AI** - GPT-4, DALL-E, Midjourney
-2. **Multimodal AI** - Text + Image + Audio processing
-3. **Edge AI** - AI running on mobile/IoT devices
-4. **AI Agents** - Autonomous task completion
-5. **Responsible AI** - Ethics, bias reduction, fairness
+**Indonesian AI Opportunities:**
+• Local language processing (Bahasa Indonesia)
+• Cultural context understanding
+• Regional business applications
+• Government digitalization projects
 
-**Learning Path Recommendation:**
-📚 **Beginner**: Python basics → Pandas → Scikit-learn
-📚 **Intermediate**: TensorFlow → Computer Vision → NLP
-📚 **Advanced**: Custom models → MLOps → Production deployment
+**Which AI area interests you most?**`,
 
-**Practical Projects:**
-• Build a recommendation engine
-• Create a chatbot for your website
-• Develop an image classifier app
-• Design a predictive analytics dashboard
+                `🧠 **Advanced AI Consultant Here!**
 
-**Which AI area interests you most?** I can provide step-by-step guidance!`
+**AI Development Stack 2025:**
+\`\`\`
+Data Science: Python + Pandas + NumPy + Matplotlib
+Classical ML: Scikit-learn + XGBoost + LightGBM  
+Deep Learning: PyTorch/TensorFlow + Transformers
+LLM Integration: OpenAI API + LangChain + Vector DBs
+Deployment: FastAPI + Docker + AWS/GCP
+\`\`\`
+
+**Real-World AI Projects:**
+• **Smart Document Processing** - OCR + NLP untuk automation
+• **Intelligent Search** - Semantic search dengan embeddings
+• **Predictive Maintenance** - IoT data analysis
+• **Content Personalization** - User behavior analysis
+• **Fraud Detection** - Anomaly detection systems
+
+**Indonesian Market Focus:**
+• Bahasa Indonesia language models
+• Local e-commerce recommendations  
+• Financial inclusion solutions
+• Healthcare accessibility
+• Education technology
+
+**Research to Production Pipeline:**
+1. **Data Collection** - Cleaning, preprocessing, validation
+2. **Model Development** - Training, validation, testing
+3. **Integration** - APIs, real-time inference
+4. **Monitoring** - Performance, drift detection
+5. **Scaling** - Load balancing, optimization
+
+**What AI challenge are you working on?**`
             ],
             'indonesia': [
-                `🇮🇩 **Indonesia - Negara Kepulauan yang Menakjubkan**
+                `🇮🇩 **Indonesia Expert & Cultural Guide**
 
-**Facts Menarik:**
-• **17,508 pulau** - dari Sabang sampai Merauke
-• **1,340+ suku bangsa** dengan budaya unik
-• **740+ bahasa daerah** - keberagaman luar biasa
-• **4 time zones** - dari WIB hingga WIT
+**Keajaiban Nusantara:**
+• **17,508 pulau** - Dari Sabang sampai Merauke
+• **1,340+ suku bangsa** - Keberagaman luar biasa
+• **740+ bahasa daerah** - Kekayaan linguistik
+• **300+ juta penduduk** - Pasar terbesar ASEAN
 
-**Destinasi Populer:**
-🏝️ **Bali** - Budaya Hindu, pantai eksotis, rice terraces
-🌋 **Yogyakarta** - Kraton, Borobudur, Prambanan
-🏞️ **Raja Ampat** - Surga diving dunia
-🦎 **Komodo** - Home of Komodo Dragons
-🌿 **Toraja** - Unique funeral traditions, beautiful landscapes
+**Tech & Innovation Scene:**
+🚀 **Startup Ecosystem:**
+• **Gojek** - Super app pioneer yang menginspirasi dunia
+• **Tokopedia** - E-commerce platform terbesar
+• **Bukalapak** - Digitalisasi UMKM dan rural areas
+• **Traveloka** - OTA leader dengan tech excellence
 
-**Kuliner Nusantara:**
-• **Rendang** - World's most delicious food (CNN)
-• **Nasi Gudeg** - Yogya's sweet jackfruit curry
-• **Sate** - Grilled skewers with peanut sauce
-• **Gado-gado** - Indonesian salad with peanut dressing
+🚀 **Emerging Tech Hubs:**
+• **Jakarta** - Financial & startup center
+• **Bandung** - Tech talent dan creative industries  
+• **Yogyakarta** - Education & cultural tech
+• **Bali** - Digital nomad destination
+
+**Cultural Treasures:**
+🏛️ **UNESCO Heritage:**
+• **Borobudur** - Buddhist architectural masterpiece
+• **Prambanan** - Hindu temple complex
+• **Sangiran** - Early human fossils
+• **Komodo National Park** - Unique ecosystem
+
+🎭 **Living Traditions:**
+• **Batik** - UNESCO Intangible Heritage
+• **Wayang** - Shadow puppet storytelling
+• **Gamelan** - Traditional orchestra
+• **Traditional Dances** - Kecak, Saman, Tor-Tor
 
 **Modern Indonesia:**
-• **Digital Economy Hub** - Gojek, Tokopedia, Traveloka
 • **G20 Member** - Major emerging economy
-• **New Capital**: Nusantara (Kalimantan Timur)
+• **Digital Economy** - Fastest growing in ASEAN
+• **New Capital** - Nusantara (Kalimantan Timur)
+• **Green Energy** - Renewable energy initiatives
 
-**Ada daerah atau aspek Indonesia yang ingin Anda ketahui lebih dalam?**`,
-                `🌟 **Wonderful Indonesia - Pesona Nusantara**
+**What aspect of Indonesia interests you most?**`,
+
+                `🌟 **Wonderful Indonesia - Deep Insights**
 
 **Natural Wonders:**
-• **Lake Toba** (Sumatra) - Largest volcanic lake
-• **Kelimutu** (Flores) - Tri-colored crater lakes
-• **Jomblang Cave** (Yogya) - Underground paradise
-• **Bromo Tengger** (East Java) - Iconic volcanic landscape
+🌋 **Volcanic Landscapes:**
+• **Mount Bromo** - Iconic sunrise views
+• **Mount Rinjani** - Sacred mountain in Lombok
+• **Kawah Ijen** - Blue fire phenomenon
+• **Lake Toba** - Supervolcano caldera lake
 
-**Cultural Heritage:**
-🎭 **Traditional Arts**: Wayang, Batik, Gamelan, Kecak
-🏛️ **UNESCO Sites**: Borobudur, Prambanan, Sangiran
-🎪 **Festivals**: Nyepi (Bali), Waisak (Borobudur), Cap Go Meh
+🏝️ **Marine Paradise:**
+• **Raja Ampat** - Biodiversity hotspot
+• **Bunaken** - World-class diving
+• **Wakatobi** - Pristine coral reefs
+• **Derawan Islands** - Manta ray sanctuary
 
 **Economic Powerhouse:**
-• **ASEAN's largest economy**
-• **World's 4th most populous country**
-• **Major palm oil, coal, and rubber producer**
-• **Growing tech startup ecosystem**
+📈 **Key Industries:**
+• **Palm Oil** - World's largest producer
+• **Coal & Minerals** - Major natural resources
+• **Manufacturing** - Automotive, textiles, electronics
+• **Tourism** - Pre-pandemic: 16+ million visitors
 
-**Indonesian Innovation:**
-• **Gojek** - Super app pioneer
-• **Bukalapak** - E-commerce unicorn
-• **Tzu Chi** - Humanitarian organization
+💰 **Investment Opportunities:**
+• **Digital Infrastructure** - 5G, fiber optic expansion
+• **Renewable Energy** - Solar, geothermal, hydro
+• **Electric Vehicles** - Government push for EVs
+• **Smart Cities** - Jakarta, Surabaya initiatives
 
-**Language Learning:**
-Basic Bahasa: "Apa kabar?" (How are you?)
-Fun fact: Indonesian is one of the easiest Asian languages to learn!
+**Cultural Business Insights:**
+• **Gotong Royong** - Community cooperation principle
+• **Bapakisme** - Respect for hierarchy
+• **Relationship Building** - Trust-based business culture
+• **Halal Market** - World's largest Muslim population
 
-**Mau explore aspek apa dari Indonesia?** Budaya, ekonomi, teknologi, atau wisata?`
+**Indonesian Language Learning:**
+• **Grammar** - No tenses, gender, or complex conjugations
+• **Pronunciation** - Phonetic spelling system
+• **Cultural Context** - Formal vs informal speech levels
+
+**Explore deeper into which area?**`
             ],
             'teknologi': [
-                `💡 **Teknologi Terkini & Future Tech**
+                `⚡ **Technology Trends & Innovation Hub**
 
-**Hot Tech Trends 2024-2025:**
+**🔥 Hottest Tech 2025:**
 
-🚀 **Artificial Intelligence**
-• Generative AI (ChatGPT, Gemini, Claude)
-• AI Agents & Automation
-• Computer Vision advances
-• Edge AI deployment
+**Frontend Revolution:**
+• **React 19** - Server Components, Suspense improvements
+• **Vue 4** - Composition API evolution, better TypeScript
+• **Svelte 5** - Runes system, enhanced reactivity
+• **Astro 4** - Islands architecture, performance focus
+• **Web Components** - Native browser support expansion
 
-🌐 **Web Development**
-• **Frontend**: React 18+, Next.js 14, Astro
-• **Backend**: Node.js, Deno, Bun (ultra-fast runtime)
-• **Full-Stack**: T3 Stack, SvelteKit, Remix
-• **Styling**: Tailwind CSS, CSS-in-JS evolution
+**Backend Innovation:**
+• **Bun** - Ultra-fast JavaScript runtime (3x faster than Node.js)
+• **Deno 2.0** - Built-in TypeScript, modern APIs
+• **Rust** - Memory safety, performance for system programming
+• **Go** - Microservices, cloud-native development
+• **Python 3.12** - Performance improvements, better typing
 
-📱 **Mobile Development**
-• **Cross-Platform**: Flutter 3.0, React Native
-• **Native**: SwiftUI, Kotlin Multiplatform
-• **Progressive Web Apps** - Near-native experience
+**AI-Powered Development:**
+🤖 **Coding Assistants:**
+• **GitHub Copilot** - AI pair programming
+• **Cursor** - AI-first code editor
+• **v0.dev** - AI UI component generation
+• **Claude/ChatGPT** - Code review, debugging assistance
 
-☁️ **Cloud & Infrastructure**
-• **Serverless**: AWS Lambda, Vercel Functions
-• **Containers**: Docker, Kubernetes evolution
-• **Edge Computing**: Cloudflare Workers, Deno Deploy
-• **AI Cloud**: Vector databases, GPU clusters
+🤖 **No-Code/Low-Code:**
+• **Vercel v0** - AI-generated React components
+• **Supabase** - Backend-as-a-Service with AI features
+• **Railway** - Simplified deployment platform
+• **Cloudflare** - Edge computing revolution
 
-🔐 **Cybersecurity**
-• Zero-trust architecture
-• AI-powered threat detection
-• Quantum-resistant cryptography
+**Indonesian Tech Ecosystem:**
+🇮🇩 **Local Innovations:**
+• **Gojek** - Super app model adopted globally
+• **Tokopedia** - E-commerce platform excellence
+• **Dana** - Digital wallet innovation
+• **Xendit** - Payment infrastructure for SEA
 
-**Mana yang paling menarik buat Anda?** Saya bisa deep dive ke any of these!`,
-                `🔥 **Tech Stack Recommendations 2025**
-
-**For Beginners:**
-\`\`\`
-Frontend: HTML/CSS → JavaScript → React
-Backend: Node.js → Express → MongoDB
-Tools: VS Code → Git → Netlify/Vercel
-\`\`\`
-
-**For Professionals:**
-\`\`\`
-Full-Stack: TypeScript → Next.js → PostgreSQL
-Mobile: React Native → Expo → Firebase
-AI/ML: Python → TensorFlow → Google Colab
-DevOps: Docker → AWS → Terraform
-\`\`\`
+🇮🇩 **Government Initiatives:**
+• **Digital Indonesia 2045** - National digitalization
+• **Gerakan Nasional 1000 Startup** - Startup ecosystem
+• **Making Indonesia 4.0** - Industry transformation
 
 **Emerging Technologies:**
-• **WebAssembly** - Near-native web performance
-• **Quantum Computing** - IBM, Google progress
-• **Blockchain 3.0** - Sustainable, scalable solutions
+• **Quantum Computing** - IBM, Google breakthroughs
+• **Web3 & Blockchain** - Sustainable solutions
+• **Edge Computing** - 5G network optimization
 • **Augmented Reality** - Apple Vision Pro impact
-• **6G Research** - Ultra-low latency networks
 
-**Indonesian Tech Scene:**
-• **Gojek SuperApp** - Inspiration for global companies
-• **Tokopedia** - E-commerce innovation
-• **Bukalapak** - Rural digitalization pioneer
-• **Blibli** - Omnichannel retail leader
+**Which tech area excites you most?**`,
 
-**Learning Resources:**
-• **Free**: freeCodeCamp, MDN, YouTube
-• **Paid**: Pluralsight, Udemy, Frontend Masters
-• **Practice**: LeetCode, HackerRank, Codewars
+                `🚀 **Advanced Technology Deep Dive**
 
-**Teknologi apa yang ingin Anda kuasai tahun ini?**`
+**Development Paradigm Shifts:**
+
+**Modern Architecture Patterns:**
+\`\`\`
+Monolith → Microservices → Serverless → Edge Functions
+MVC → Component-Based → Islands → Server Components
+REST → GraphQL → tRPC → Real-time subscriptions
+\`\`\`
+
+**Performance-First Development:**
+• **Core Web Vitals** - LCP, FID, CLS optimization
+• **Edge-Side Rendering** - Cloudflare Workers, Deno Deploy
+• **Streaming SSR** - React 18, Next.js App Router
+• **Islands Architecture** - Astro, Fresh, partial hydration
+
+**AI Integration in Development:**
+🔮 **Code Generation:**
+• **GitHub Copilot** - Context-aware suggestions
+• **Tabnine** - AI code completion
+• **Amazon CodeWhisperer** - AWS-optimized suggestions
+• **Replit Ghostwriter** - Collaborative AI coding
+
+🔮 **AI-Powered Tools:**
+• **Automated Testing** - AI test case generation
+• **Code Review** - AI-powered PR analysis
+• **Documentation** - Auto-generated API docs
+• **Debugging** - AI error diagnosis
+
+**Cloud-Native Excellence:**
+☁️ **Modern Deployment:**
+• **Serverless First** - AWS Lambda, Vercel Functions
+• **Container Orchestration** - Kubernetes, Docker Swarm
+• **Infrastructure as Code** - Terraform, Pulumi, CDK
+• **GitOps** - ArgoCD, Flux, automated deployments
+
+**Security-First Development:**
+🔐 **Modern Security:**
+• **Zero Trust Architecture** - Never trust, always verify
+• **Supply Chain Security** - Dependency scanning, SBOM
+• **API Security** - OAuth 2.1, JWT best practices
+• **Container Security** - Image scanning, runtime protection
+
+**Indonesian Developer Community:**
+• **Tech Conferences** - DevFest, JSConf Indonesia, PyCon ID
+• **Learning Platforms** - Dicoding, BuildWith Angga
+• **Developer Groups** - Facebook Developer Circle, Google Developer Group
+
+**Ready to explore cutting-edge tech?**`
             ],
             'default': [
-                `🌟 **AnaphygonAsk AI at Your Service!**
+                `🌟 **Universal AI Assistant - Ready for Anything!**
 
-Saya bisa membantu dengan berbagai topik:
+**🎯 What Can I Help With Today?**
 
-📚 **Knowledge & Learning**
-• Science, History, Geography
-• Current events & trends
+**💻 Programming & Technology:**
+• Full-stack development (React, Node.js, Python, Go)
+• AI/ML implementation dan integration
+• Cloud architecture dan DevOps
+• Mobile app development
+• Database design dan optimization
+• API development dan best practices
+• Code review, debugging, performance tuning
+
+**📚 Knowledge & Learning:**
+• Science explanations (Physics, Chemistry, Biology)
+• Mathematics problem solving
+• Historical analysis dan context
+• Current events dan trend analysis
 • Academic research assistance
-• Fact-checking & explanations
-
-💻 **Technology & Programming** • All programming languages
-• Web & mobile development
-• AI/ML implementation
-• Tech career guidance
-
-🎯 **Problem Solving**
-• Analytical thinking frameworks
-• Step-by-step solutions
-• Creative brainstorming
-• Decision-making support
-
-🇮🇩 **Indonesia Expertise**
-• Culture, tourism, business
-• Local insights & recommendations
 • Language learning support
-• Economic & political analysis
+• Creative writing dan content creation
 
-✨ **And Much More:**
-• Productivity tips
-• Writing assistance
-• Math & calculations
-• Health & lifestyle advice
+**🇮🇩 Indonesia Expertise:**
+• Cultural insights dan traditions
+• Tourism recommendations
+• Business landscape analysis
+• Local language nuances
+• Economic trends dan opportunities
+• Tech ecosystem updates
 
-**Just ask anything!** Semakin spesifik pertanyaan Anda, semakin detailed dan helpful jawaban saya.
+**🎨 Creative & Practical:**
+• Design principles dan UI/UX guidance
+• Content strategy dan copywriting
+• Problem-solving frameworks
+• Productivity tips dan life hacks
+• Health dan wellness advice
+• Financial planning dan investment insights
 
-**Contoh pertanyaan yang bisa Anda ajukan:**
-• "Bagaimana cara deploy React app ke Vercel?"
-• "Jelaskan perbedaan supervised vs unsupervised learning"
-• "Rekomendasi itinerary 3 hari di Yogyakarta"
-• "Tips produktivitas untuk developer"
+**🔍 Analysis & Research:**
+• Data interpretation dan visualization
+• Competitive analysis
+• Market research dan trends
+• Technical documentation
+• Strategic planning
+• Risk assessment
 
-**Apa yang ingin kita explore hari ini?** 🚀`
+**💡 How I Approach Every Question:**
+1. **Understand Context** - What's your goal dan current situation?
+2. **Provide Clear Answers** - Step-by-step, actionable solutions
+3. **Share Best Practices** - Professional insights dan tips
+4. **Give Examples** - Real-world applications dan use cases
+5. **Suggest Next Steps** - How to implement dan improve further
+
+**🚀 Recent Capabilities:**
+• Advanced code generation dengan modern frameworks
+• AI/ML integration strategies
+• Cloud-native architecture design
+• Indonesian market analysis
+• Multilingual content creation
+• Complex problem decomposition
+
+**Ask me anything!** The more specific your question, the more detailed dan helpful my response will be.
+
+**Popular conversation starters:**
+• "How do I build a [specific app/feature]?"
+• "Explain [concept] in simple terms"
+• "What's the best approach for [challenge]?"
+• "Compare [option A] vs [option B]"
+• "Help me troubleshoot [specific problem]"
+
+**What would you like to explore today?** 🚀`
             ]
         };
 
-        // MAXIMIZED: Performance tracking
         this.stats = {
             totalRequests: 0,
             successfulRequests: 0,
             failedRequests: 0,
             averageResponseTime: 0,
-            lastRequestTime: null
+            lastRequestTime: null,
+            complexityHandled: {
+                simple: 0,
+                intermediate: 0,
+                complex: 0,
+                expert: 0
+            }
         };
 
-        console.log('🚀 MAXIMIZED GeminiModel initialized with advanced features');
+        console.log('🚀 Ultimate Universal Gemini Model initialized');
     }
 
     /**
-     * MAXIMIZED: Enhanced prompt building with context optimization
+     * Enhanced prompt building with context optimization
      */
-    buildMaximizedPrompt(question, context = []) {
-        let prompt = this.advancedSystemPrompt + '\n\n';
+    buildMasterPrompt(question, context = []) {
+        let prompt = this.masterSystemPrompt + '\n\n';
 
-        // MAXIMIZED: Smart context processing
+        // Smart context processing
         if (context && context.length > 0) {
-            prompt += '📋 **CONTEXT PERCAKAPAN:**\n';
-
-            // Take last 6 messages for better context
-            const recentContext = context.slice(-6);
+            prompt += '📋 **CONVERSATION CONTEXT:**\n';
+            const recentContext = context.slice(-10); // More context for better understanding
 
             recentContext.forEach((msg) => {
                 const role = msg.isUser ? 'USER' : 'ASSISTANT';
-                const text = msg.text.substring(0, 200); // Truncate for brevity
-                const timestamp = msg.timestamp ? ` (${new Date(msg.timestamp).toLocaleTimeString('id-ID')})` : '';
+                const text = msg.text.substring(0, 400); // More context per message
+                const timestamp = msg.timestamp ?
+                    ` (${new Date(msg.timestamp).toLocaleTimeString('id-ID')})` : '';
                 prompt += `${role}${timestamp}: ${text}\n`;
             });
-
             prompt += '\n';
         }
 
-        // MAXIMIZED: Enhanced question processing
-        prompt += `🎯 **PERTANYAAN SAAT INI:**\n${question}\n\n`;
+        // Question complexity analysis
+        const complexity = this.analyzeQuestionComplexity(question);
+        this.stats.complexityHandled[complexity]++;
 
-        // MAXIMIZED: Advanced response instructions
-        prompt += `📝 **INSTRUKSI RESPONS:**
-- Berikan jawaban yang comprehensive dan well-structured
-- Gunakan markdown formatting untuk readability (bold, bullets, etc.)
-- Sertakan examples atau code snippets jika relevan
-- Tambahkan emojis strategis untuk engagement
-- Akhiri dengan pertanyaan follow-up atau actionable advice
-- Prioritize practical value dan actionable insights
-- Jika topik programming, berikan code examples
-- Jika topik Indonesia, berikan context lokal
-- Maximum quality, maximum helpfulness!
+        prompt += `🎯 **CURRENT QUESTION:**\n${question}\n\n`;
 
-RESPOND IN BAHASA INDONESIA:`;
+        prompt += `📊 **DETECTED COMPLEXITY:** ${complexity.toUpperCase()}\n\n`;
+
+        // Enhanced response instructions
+        prompt += `📝 **RESPONSE INSTRUCTIONS:**
+
+**For ${complexity.toUpperCase()} Level Questions:**
+${this.getComplexityInstructions(complexity)}
+
+**Universal Guidelines:**
+• Provide comprehensive, well-structured answers
+• Use strategic markdown formatting (bold, bullets, code blocks)
+• For coding: Always include working examples with detailed comments
+• For general topics: Use analogies, examples, and practical applications
+• Add strategic emojis for visual clarity and engagement
+• End with actionable advice or thoughtful follow-up questions
+• Leverage Gemini 2.5 Flash's adaptive capabilities
+• Balance technical depth with accessibility
+• Prioritize practical value and real-world applicability
+
+**Quality Standards:**
+✅ Accuracy and up-to-date information
+✅ Actionable insights and solutions
+✅ Clear explanations with examples
+✅ Best practices and modern approaches
+✅ Indonesian context when relevant
+✅ Professional yet friendly tone
+
+RESPOND IN NATURAL BAHASA INDONESIA WITH EXPERT-LEVEL INSIGHTS!`;
 
         return prompt;
     }
 
     /**
-     * MAXIMIZED: Advanced API request with retry logic
+     * Question complexity analysis
+     */
+    analyzeQuestionComplexity(question) {
+        const lowerQuestion = question.toLowerCase();
+
+        // Expert level indicators
+        const expertKeywords = [
+            'architecture', 'scalability', 'microservices', 'kubernetes', 'devops',
+            'machine learning', 'deep learning', 'neural network', 'algorithm optimization',
+            'distributed systems', 'performance optimization', 'security implementation',
+            'complex analysis', 'advanced', 'enterprise', 'production-ready'
+        ];
+
+        // Complex level indicators
+        const complexKeywords = [
+            'implement', 'integrate', 'deploy', 'build', 'create', 'develop',
+            'database design', 'api development', 'full-stack', 'framework comparison',
+            'best practices', 'troubleshoot', 'optimize', 'analyze'
+        ];
+
+        // Intermediate level indicators
+        const intermediateKeywords = [
+            'how to', 'tutorial', 'guide', 'learn', 'understand', 'explain',
+            'difference between', 'comparison', 'examples', 'getting started'
+        ];
+
+        if (expertKeywords.some(keyword => lowerQuestion.includes(keyword))) {
+            return 'expert';
+        } else if (complexKeywords.some(keyword => lowerQuestion.includes(keyword))) {
+            return 'complex';
+        } else if (intermediateKeywords.some(keyword => lowerQuestion.includes(keyword))) {
+            return 'intermediate';
+        } else {
+            return 'simple';
+        }
+    }
+
+    /**
+     * Complexity-specific instructions
+     */
+    getComplexityInstructions(complexity) {
+        const instructions = {
+            'simple': `
+• Provide clear, concise answers with basic examples
+• Use simple language and analogies
+• Include fundamental concepts and definitions
+• Offer next learning steps`,
+
+            'intermediate': `
+• Give detailed explanations with multiple examples
+• Include step-by-step instructions
+• Provide context and background information
+• Suggest related topics and resources`,
+
+            'complex': `
+• Offer comprehensive solutions with code examples
+• Include best practices and alternative approaches
+• Discuss trade-offs and considerations
+• Provide implementation details and deployment guidance`,
+
+            'expert': `
+• Deliver in-depth technical analysis
+• Include architecture patterns and design decisions
+• Discuss scalability, performance, and security implications
+• Provide production-ready solutions with advanced optimizations`
+        };
+
+        return instructions[complexity] || instructions['simple'];
+    }
+
+    /**
+     * Enhanced API request
      */
     async askQuestion(question, context = []) {
         const startTime = Date.now();
         this.stats.totalRequests++;
 
         try {
-            console.log(`🚀 Sending MAXIMIZED question to Gemini: ${question.substring(0, 100)}...`);
+            console.log(`🚀 Processing ${this.analyzeQuestionComplexity(question)} question: ${question.substring(0, 100)}...`);
 
             const url = `${this.apiUrl}?key=${this.apiKey}`;
-            const maximizedPrompt = this.buildMaximizedPrompt(question, context);
+            const masterPrompt = this.buildMasterPrompt(question, context);
 
-            // MAXIMIZED: Optimal configuration for best results
             const payload = {
                 contents: [{
                     parts: [{
-                        text: maximizedPrompt
+                        text: masterPrompt
                     }]
                 }],
                 generationConfig: {
-                    temperature: 0.7,       // Higher for creativity
-                    maxOutputTokens: 4000,  // Increased token limit
-                    topP: 0.9,              // Higher for diversity
-                    topK: 40,               // More candidate selection
+                    temperature: 0.75,           // Slightly higher for creativity
+                    maxOutputTokens: 8192,       // Maximum for 2.5 Flash
+                    topP: 0.9,
+                    topK: 40,
                     candidateCount: 1,
-                    stopSequences: ["<|END|>", "---STOP---"]
+                    stopSequences: ["<|END|>", "---COMPLETE---"]
                 },
                 safetySettings: [{
                     category: "HARM_CATEGORY_HARASSMENT",
@@ -410,7 +701,7 @@ RESPOND IN BAHASA INDONESIA:`;
                 }]
             };
 
-            // MAXIMIZED: Retry logic for reliability
+            // Enhanced retry logic
             let response;
             let attempts = 0;
             const maxAttempts = 3;
@@ -420,46 +711,38 @@ RESPOND IN BAHASA INDONESIA:`;
                     response = await axios.post(url, payload, {
                         headers: {
                             'Content-Type': 'application/json',
-                            'User-Agent': 'AnaphygonAsk-MaximizedClient/2.0'
+                            'User-Agent': 'AnaphygonAsk-Ultimate/3.0'
                         },
-                        timeout: 30000 // 30 seconds timeout
+                        timeout: 50000 // 50 seconds
                     });
-                    break; // Success, exit retry loop
+                    break;
                 } catch (error) {
                     attempts++;
                     if (attempts >= maxAttempts) throw error;
 
-                    console.warn(`Retry attempt ${attempts}/${maxAttempts} after error:`, error.message);
-                    await new Promise(resolve => setTimeout(resolve, 1000 * attempts)); // Exponential backoff
+                    console.warn(`Retry ${attempts}/${maxAttempts} after error:`, error.message);
+                    await new Promise(resolve => setTimeout(resolve, 1000 * attempts));
                 }
             }
 
-            // MAXIMIZED: Enhanced response processing
+            // Enhanced response processing
             if (!response.data.candidates || response.data.candidates.length === 0) {
-                throw new Error('No response candidates received from API');
+                throw new Error('No response candidates received');
             }
 
             const candidate = response.data.candidates[0];
 
-            // Handle safety filtering
             if (candidate.finishReason === 'SAFETY') {
-                return this.getMaximizedFallbackResponse(question, {
+                return this.getIntelligentFallbackResponse(question, {
                     type: 'safety_filter',
                     message: 'Content filtered for safety'
                 });
             }
 
-            if (candidate.finishReason === 'RECITATION') {
-                return this.getMaximizedFallbackResponse(question, {
-                    type: 'recitation',
-                    message: 'Content blocked due to recitation'
-                });
-            }
-
             if (!candidate.content?.parts?.[0]?.text) {
-                return this.getMaximizedFallbackResponse(question, {
+                return this.getIntelligentFallbackResponse(question, {
                     type: 'empty_response',
-                    message: 'Received an empty response from the API.'
+                    message: 'Empty response received'
                 });
             }
 
@@ -473,201 +756,448 @@ RESPOND IN BAHASA INDONESIA:`;
                 (this.stats.averageResponseTime * (this.stats.successfulRequests - 1) + responseTime) /
                 this.stats.successfulRequests;
 
-            console.log(`✅ MAXIMIZED response received in ${responseTime}ms: ${generatedText.substring(0, 100)}...`);
+            console.log(`✅ Response generated in ${responseTime}ms`);
 
             return {
                 success: true,
-                message: this.postProcessMaximizedResponse(generatedText),
+                message: this.enhanceResponse(generatedText),
                 metadata: {
-                    model: 'gemini-2.0-flash-maximized',
+                    model: 'gemini-2.5-flash-ultimate',
+                    complexity: this.analyzeQuestionComplexity(question),
                     finishReason: candidate.finishReason,
                     responseTime: responseTime,
                     promptTokens: response.data.usageMetadata?.promptTokenCount || 0,
                     completionTokens: response.data.usageMetadata?.candidatesTokenCount || 0,
-                    version: 'maximized-v2.0',
+                    version: '3.0-ultimate',
                     performance: this.getPerformanceStats()
                 }
             };
 
         } catch (error) {
             this.stats.failedRequests++;
-            console.error('❌ Error in MAXIMIZED Gemini API call:', {
-                message: error.message,
-                status: error.response?.status,
-                data: error.response?.data,
-                responseTime: Date.now() - startTime
-            });
-
-            return this.getMaximizedFallbackResponse(question, error);
+            console.error('❌ API Error:', error.message);
+            return this.getIntelligentFallbackResponse(question, error);
         }
     }
 
     /**
-     * MAXIMIZED: Advanced response post-processing
+     * Advanced response enhancement
      */
-    postProcessMaximizedResponse(text) {
+    enhanceResponse(text) {
+        // Clean up formatting
         text = text.trim();
         text = text.replace(/\n{3,}/g, '\n\n');
         text = text.replace(/ +/g, ' ');
         text = text.replace(/^\s+|\s+$/gm, '');
-        text = text.replace(/\n-\s/g, '\n• ');
-        text = text.replace(/\n\*\s/g, '\n• ');
 
-        // HEADER FIX: Convert markdown headers to bold format
+        // Convert markdown headers to bold format (sesuai requirement)
         text = text.replace(/^### (.+)$/gm, '**$1:**');
         text = text.replace(/^## (.+)$/gm, '**$1:**');
         text = text.replace(/^# (.+)$/gm, '**$1:**');
 
+        // Enhance list formatting
+        text = text.replace(/\n-\s/g, '\n• ');
+        text = text.replace(/\n\*\s/g, '\n• ');
+
+        // Code block enhancement
         text = text.replace(/```(\w+)?\n([\s\S]*?)```/g, (match, lang, code) => {
-            return `\`\`\`${lang || ''}\n${code.trim()}\n\`\`\``;
+            const cleanCode = code.trim();
+            const language = lang || 'javascript';
+            return `\`\`\`${language}\n${cleanCode}\n\`\`\``;
         });
 
-        text = this.enhanceEmojiUsage(text);
+        // Strategic emoji enhancement
+        text = this.addContextualEmojis(text);
+
+        // Add quality indicators for code examples
+        text = this.enhanceCodeExamples(text);
+
         return text;
     }
 
     /**
-     * MAXIMIZED: Smart emoji enhancement
+     * Contextual emoji enhancement
      */
-    enhanceEmojiUsage(text) {
-        const emojiMappings = {
-            'Python': '🐍', 'JavaScript': '⚡', 'React': '⚛️', 'Node.js': '🟢',
-            'AI': '🤖', 'Machine Learning': '🧠', 'Database': '🗄️', 'API': '🔗',
-            'Web': '🌐', 'Mobile': '📱', 'Cloud': '☁️', 'Security': '🔐',
-            'Performance': '🚀', 'Indonesia': '🇮🇩', 'Tips': '💡', 'Important': '⚠️',
-            'Success': '✅', 'Warning': '⚠️', 'Error': '❌'
+    addContextualEmojis(text) {
+        const emojiEnhancements = {
+            // Programming languages
+            'Python': '🐍', 'JavaScript': '⚡', 'TypeScript': '🔷', 'React': '⚛️',
+            'Vue': '💚', 'Angular': '🅰️', 'Node.js': '🟢', 'Next.js': '▲',
+            'Django': '🎸', 'Flask': '🌶️', 'FastAPI': '🚀',
+
+            // Technologies
+            'Docker': '🐳', 'Kubernetes': '☸️', 'AWS': '☁️', 'MongoDB': '🍃',
+            'PostgreSQL': '🐘', 'Redis': '🔴', 'GraphQL': '🌸',
+
+            // AI/ML
+            'AI': '🤖', 'Machine Learning': '🧠', 'Deep Learning': '🧠',
+            'TensorFlow': '📊', 'PyTorch': '🔥', 'Neural Network': '🧠',
+
+            // General concepts
+            'Performance': '🚀', 'Security': '🔐', 'Database': '🗄️',
+            'API': '🔗', 'Frontend': '🎨', 'Backend': '⚙️',
+            'Mobile': '📱', 'Web': '🌐', 'Cloud': '☁️',
+
+            // Indonesian context
+            'Indonesia': '🇮🇩', 'Jakarta': '🏙️', 'Bali': '🏝️',
+            'Gojek': '🛵', 'Tokopedia': '🛒',
+
+            // Learning & development
+            'Tutorial': '📚', 'Guide': '📖', 'Tips': '💡',
+            'Best Practices': '⭐', 'Example': '📝',
+            'Important': '⚠️', 'Note': '📌', 'Warning': '⚠️'
         };
 
-        for (const [keyword, emoji] of Object.entries(emojiMappings)) {
-            const regex = new RegExp(`\\b${keyword}\\b(?!.*${emoji})`, 'gi');
+        for (const [keyword, emoji] of Object.entries(emojiEnhancements)) {
+            // Only add emoji if not already present
+            const regex = new RegExp(`\\b${keyword}\\b(?![^\\[]*\\])(?![^<]*>)(?!.*${emoji})`, 'gi');
             if (regex.test(text)) {
                 text = text.replace(regex, `${keyword} ${emoji}`);
             }
         }
+
         return text;
     }
 
     /**
-     * MAXIMIZED: Intelligent fallback response system
+     * Enhance code examples with quality indicators
      */
-    getMaximizedFallbackResponse(question, error) {
+    enhanceCodeExamples(text) {
+        // Add quality badges to code blocks
+        text = text.replace(/```(\w+)\n([\s\S]*?)```/g, (match, lang, code) => {
+            const hasComments = /\/\/|\/\*|\#|<!--/.test(code);
+            const hasErrorHandling = /try|catch|except|error|Error/.test(code);
+            const hasTypes = /interface|type|:.*=|<.*>/.test(code);
+
+            let qualityIndicators = [];
+            if (hasComments) qualityIndicators.push('📝 Well-documented');
+            if (hasErrorHandling) qualityIndicators.push('🛡️ Error handling');
+            if (hasTypes) qualityIndicators.push('🔷 Type-safe');
+
+            const indicators = qualityIndicators.length > 0 ?
+                `\n*${qualityIndicators.join(' • ')}*\n` : '\n';
+
+            return `\`\`\`${lang}\n${code.trim()}\n\`\`\`${indicators}`;
+        });
+
+        return text;
+    }
+
+    /**
+     * Intelligent fallback response system
+     */
+    getIntelligentFallbackResponse(question, error) {
         const lowerQuestion = question.toLowerCase();
 
+        // Advanced keyword mapping with more categories
         const keywordMappings = {
-            'hello': ['hai', 'halo', 'hello', 'hi', 'hey'],
-            'programming': ['coding', 'program', 'development', 'developer', 'code', 'javascript', 'python', 'react', 'node'],
-            'ai': ['artificial intelligence', 'machine learning', 'deep learning', 'neural network', 'ai'],
-            'indonesia': ['indonesia', 'indonesian', 'jakarta', 'bali', 'java', 'nusantara', 'garuda'],
-            'teknologi': ['teknologi', 'technology', 'tech', 'digital', 'software', 'hardware']
+            'programming': [
+                'coding', 'program', 'development', 'code', 'javascript', 'python',
+                'react', 'node', 'api', 'database', 'frontend', 'backend', 'mobile',
+                'web', 'app', 'software', 'algorithm', 'framework', 'library'
+            ],
+            'ai': [
+                'artificial intelligence', 'machine learning', 'deep learning',
+                'neural network', 'ai', 'ml', 'tensorflow', 'pytorch', 'model',
+                'training', 'prediction', 'classification', 'nlp', 'computer vision'
+            ],
+            'indonesia': [
+                'indonesia', 'indonesian', 'jakarta', 'bali', 'java', 'sumatra',
+                'kalimantan', 'sulawesi', 'papua', 'nusantara', 'garuda', 'borobudur',
+                'yogyakarta', 'surabaya', 'bandung', 'medan', 'makassar'
+            ],
+            'teknologi': [
+                'teknologi', 'technology', 'tech', 'digital', 'software', 'hardware',
+                'startup', 'innovation', 'future', 'trend', 'gadget', 'internet'
+            ]
         };
 
-        for (const [category, keywords] of Object.entries(keywordMappings)) {
-            if (keywords.some(keyword => lowerQuestion.includes(keyword))) {
-                const responses = this.maximizedFallbacks[category] || this.maximizedFallbacks['default'];
-                const selectedResponse = Array.isArray(responses) ?
-                    responses[Math.floor(Math.random() * responses.length)] :
-                    responses;
+        // Find best matching category
+        let bestMatch = 'default';
+        let maxMatches = 0;
 
-                return {
-                    success: true, message: selectedResponse, fallback: true,
-                    fallbackType: 'keyword_match', keyword: category,
-                    metadata: { model: 'fallback-maximized', version: 'maximized-v2.0' }
-                };
+        for (const [category, keywords] of Object.entries(keywordMappings)) {
+            const matches = keywords.filter(keyword => lowerQuestion.includes(keyword)).length;
+            if (matches > maxMatches) {
+                maxMatches = matches;
+                bestMatch = category;
             }
         }
 
-        let errorMessage;
-        let fallbackType = 'error_recovery';
+        const responses = this.expertFallbacks[bestMatch] || this.expertFallbacks['default'];
+        const selectedResponse = Array.isArray(responses) ?
+            responses[Math.floor(Math.random() * responses.length)] :
+            responses;
 
+        // Enhanced error handling with specific solutions
         if (error.response?.status === 429) {
-            errorMessage = `⏰ **Rate Limit Reached**
-Whoa! Sepertinya Anda sangat antusias bertanya! 😄
-**Yang bisa dilakukan:**
-• Tunggu sekitar 1-2 menit lalu coba lagi.
-• Pertanyaan yang lebih pendek cenderung lebih cepat diproses.
-**Coba lagi sebentar ya!** 🚀`;
-            fallbackType = 'rate_limit_educational';
-        } else if (error.code === 'ECONNRESET' || error.code === 'ETIMEDOUT') {
-            errorMessage = `🌐 **Connection Issue Detected**
-Sepertinya ada gangguan koneksi sementara.
-**Quick Solutions:**
-1. **Check Internet** - Pastikan koneksi internet stabil.
-2. **Try Again** - Coba kirim ulang.
-**Ready to try again?** 🔄`;
-            fallbackType = 'connection_troubleshooting';
-        } else {
-            errorMessage = `🤖 **AI Assistant Temporarily Unavailable**
-Oops! Sepertinya saya sedang mengalami gangguan teknis kecil.
-**Alternative Approaches:**
-1. **Rephrase Question** - Coba dengan kata-kata yang berbeda.
-2. **Break Down Complex Topics** - Bagi pertanyaan kompleks jadi beberapa bagian.
-**Let's try again!** Apa yang ingin Anda ketahui? 🌟`;
-            fallbackType = 'comprehensive_recovery';
+            return {
+                success: true,
+                message: `⏰ **Rate Limit - Mari Optimasi!**
+
+Wah, antusiasme Anda luar biasa! 🚀 Server sedang overload dengan request.
+
+**Smart Solutions:**
+• **Wait Strategy**: Tunggu 60-90 detik untuk reset
+• **Question Optimization**: Pertanyaan lebih spesifik = response lebih cepat
+• **Batch Approach**: Gabungkan beberapa pertanyaan kecil
+
+**Pro Tips:**
+• Gunakan pertanyaan yang focused dan actionable
+• Hindari pertanyaan yang terlalu general atau panjang
+• Consider breaking complex topics into smaller chunks
+
+**Ready to continue?** 💡`,
+                fallback: true,
+                fallbackType: 'rate_limit_optimized'
+            };
         }
 
         return {
-            success: true, message: errorMessage, fallback: true,
-            fallbackType, error: config.DEBUG_MODE ? error.message : undefined,
-            metadata: { model: 'fallback-maximized', version: 'maximized-v2.0', errorHandling: 'advanced' }
+            success: true,
+            message: selectedResponse,
+            fallback: true,
+            fallbackType: 'intelligent_keyword_match',
+            matchedCategory: bestMatch,
+            matchScore: maxMatches,
+            metadata: {
+                model: 'gemini-2.5-flash-ultimate-fallback',
+                version: '3.0-ultimate'
+            }
         };
     }
 
     /**
-     * MAXIMIZED: Performance monitoring
+     * Enhanced performance statistics
      */
     getPerformanceStats() {
+        const total = this.stats.totalRequests;
         return {
-            totalRequests: this.stats.totalRequests,
+            totalRequests: total,
             successfulRequests: this.stats.successfulRequests,
             failedRequests: this.stats.failedRequests,
-            successRate: this.stats.totalRequests > 0 ?
-                ((this.stats.successfulRequests / this.stats.totalRequests) * 100).toFixed(2) + '%' :
-                '0%',
+            successRate: total > 0 ? ((this.stats.successfulRequests / total) * 100).toFixed(2) + '%' : '0%',
             averageResponseTime: Math.round(this.stats.averageResponseTime) + 'ms',
-            lastRequestTime: this.stats.lastRequestTime ? this.stats.lastRequestTime + 'ms' : 'N/A'
+            lastRequestTime: this.stats.lastRequestTime ? this.stats.lastRequestTime + 'ms' : 'N/A',
+            complexityDistribution: {
+                simple: `${this.stats.complexityHandled.simple} (${((this.stats.complexityHandled.simple / total) * 100).toFixed(1)}%)`,
+                intermediate: `${this.stats.complexityHandled.intermediate} (${((this.stats.complexityHandled.intermediate / total) * 100).toFixed(1)}%)`,
+                complex: `${this.stats.complexityHandled.complex} (${((this.stats.complexityHandled.complex / total) * 100).toFixed(1)}%)`,
+                expert: `${this.stats.complexityHandled.expert} (${((this.stats.complexityHandled.expert / total) * 100).toFixed(1)}%)`
+            }
         };
     }
 
     /**
-     * MAXIMIZED: Advanced validation with detailed feedback
+     * Enhanced validation with detailed feedback
      */
     validateQuestion(question) {
         if (!question || typeof question !== 'string') {
-            return { isValid: false, message: 'Pertanyaan harus berupa text yang valid.', suggestion: 'Coba ketik pertanyaan Anda.' };
+            return {
+                isValid: false,
+                message: 'Input harus berupa text yang valid.',
+                suggestion: 'Ketik pertanyaan Anda dengan jelas.'
+            };
         }
+
         const trimmed = question.trim();
+
         if (trimmed.length === 0) {
-            return { isValid: false, message: 'Pertanyaan tidak boleh kosong.', suggestion: 'Mulai dengan "Bagaimana...", "Apa itu...", atau "Jelaskan..."' };
+            return {
+                isValid: false,
+                message: 'Pertanyaan tidak boleh kosong.',
+                suggestion: 'Mulai dengan kata tanya seperti "Bagaimana", "Apa", "Jelaskan", atau "Buat".'
+            };
         }
-        if (trimmed.length > 5000) {
-            return { isValid: false, message: 'Pertanyaan terlalu panjang (maksimal 5000 karakter).', suggestion: 'Coba pecah menjadi beberapa pertanyaan yang lebih spesifik.' };
+
+        if (trimmed.length > 10000) {
+            return {
+                isValid: false,
+                message: 'Pertanyaan terlalu panjang (maksimal 10.000 karakter).',
+                suggestion: 'Pecah menjadi beberapa pertanyaan yang lebih fokus dan spesifik.'
+            };
         }
-        if (/(.{5,})\1{5,}/.test(trimmed)) {
-            return { isValid: false, message: 'Format pertanyaan terdeteksi sebagai spam.', suggestion: 'Gunakan kalimat yang natural dan bervariasi.' };
+
+        if (trimmed.length < 3) {
+            return {
+                isValid: false,
+                message: 'Pertanyaan terlalu pendek.',
+                suggestion: 'Berikan konteks lebih detail agar saya bisa membantu dengan optimal.'
+            };
         }
+
+        // Check for spam patterns
+        if (/(.{3,})\1{5,}/.test(trimmed)) {
+            return {
+                isValid: false,
+                message: 'Format tidak valid - terdeteksi sebagai spam.',
+                suggestion: 'Gunakan kalimat natural dengan variasi kata.'
+            };
+        }
+
+        // Check for excessive special characters
+        const specialCharRatio = (trimmed.match(/[^a-zA-Z0-9\s]/g) || []).length / trimmed.length;
+        if (specialCharRatio > 0.5) {
+            return {
+                isValid: false,
+                message: 'Terlalu banyak karakter khusus.',
+                suggestion: 'Gunakan teks yang lebih natural dengan huruf dan angka.'
+            };
+        }
+
         return { isValid: true };
     }
 
     /**
-     * MAXIMIZED: Health check with detailed diagnostics
+     * Comprehensive system status and capabilities
      */
-    getMaximizedStats() {
+    getSystemStats() {
         return {
-            model: 'gemini-2.0-flash-maximized',
-            version: 'maximized-v2.0',
+            model: 'gemini-2.5-flash-ultimate',
+            version: '3.0-elite-universal',
+            capabilities: {
+                'universal_knowledge': 'Expert level across all domains',
+                'coding_expertise': 'Elite level - all languages, frameworks, tools',
+                'indonesian_context': 'Deep cultural and business understanding',
+                'ai_integration': 'Advanced AI/ML implementation guidance',
+                'modern_tech_stack': 'Latest frameworks and best practices',
+                'problem_solving': 'Multi-level complexity handling',
+                'real_time_adaptation': 'Context-aware response optimization'
+            },
             features: [
-                'Advanced system prompting', 'Smart context processing', 'Intelligent fallback responses',
-                'Performance monitoring', 'Retry logic with exponential backoff', 'Enhanced markdown processing',
-                'Smart emoji enhancement', 'Context-aware error handling', 'Header format fix'
+                'Adaptive complexity analysis',
+                'Enhanced context processing (10 messages)',
+                'Strategic emoji integration',
+                'Code quality indicators',
+                'Intelligent fallback system',
+                'Performance optimization tracking',
+                'Multi-level expertise (simple to expert)',
+                'Cultural context awareness',
+                'Best practices integration',
+                'Real-world application focus'
             ],
-            configuration: {
-                temperature: 0.7, maxOutputTokens: 4000, topP: 0.9, topK: 40,
-                contextWindow: 6, timeout: 30000
+            technical_specs: {
+                max_context_messages: 10,
+                max_output_tokens: 8192,
+                temperature: 0.75,
+                timeout: '50 seconds',
+                retry_attempts: 3,
+                fallback_categories: 5,
+                complexity_levels: 4
             },
             performance: this.getPerformanceStats(),
-            status: 'maximized_operational'
+            indonesian_specialties: [
+                'Local business ecosystem understanding',
+                'Cultural nuances and traditions',
+                'Tech startup landscape',
+                'Government digitalization initiatives',
+                'Regional development opportunities',
+                'Language learning support',
+                'Tourism and cultural recommendations'
+            ],
+            coding_specialties: [
+                'Modern JavaScript ecosystem (React 19, Next.js 14, Bun)',
+                'Python excellence (Django, FastAPI, AI/ML)',
+                'Cloud-native architecture (AWS, GCP, Kubernetes)',
+                'AI/ML implementation (TensorFlow, PyTorch, LLM APIs)',
+                'Mobile development (React Native, Flutter)',
+                'DevOps and CI/CD (Docker, GitHub Actions, Terraform)',
+                'Database optimization (SQL, NoSQL, Vector DBs)',
+                'Security best practices and implementation'
+            ],
+            learning_approach: {
+                'beginner_friendly': 'Clear explanations with analogies',
+                'intermediate_guidance': 'Step-by-step implementations',
+                'advanced_solutions': 'Architecture and optimization',
+                'expert_consulting': 'Production-ready enterprise solutions'
+            },
+            response_quality: {
+                'accuracy': 'Verified information with latest practices',
+                'practicality': 'Working code and actionable solutions',
+                'completeness': 'Comprehensive with examples and alternatives',
+                'cultural_awareness': 'Indonesian context when relevant',
+                'innovation_focus': 'Latest trends and emerging technologies'
+            },
+            status: 'fully_operational_elite_mode'
         };
+    }
+
+    /**
+     * Smart question preprocessing
+     */
+    preprocessQuestion(question) {
+        // Normalize whitespace
+        question = question.trim().replace(/\s+/g, ' ');
+
+        // Handle common misspellings for Indonesian tech terms
+        const corrections = {
+            'reactjs': 'React.js',
+            'nodejs': 'Node.js',
+            'nextjs': 'Next.js',
+            'vuejs': 'Vue.js',
+            'javascript': 'JavaScript',
+            'typescript': 'TypeScript',
+            'mongodb': 'MongoDB',
+            'postgresql': 'PostgreSQL',
+            'mysql': 'MySQL'
+        };
+
+        for (const [wrong, correct] of Object.entries(corrections)) {
+            const regex = new RegExp(`\\b${wrong}\\b`, 'gi');
+            question = question.replace(regex, correct);
+        }
+
+        return question;
+    }
+
+    /**
+     * Context relevance scoring
+     */
+    scoreContextRelevance(question, context) {
+        if (!context || context.length === 0) return 0;
+
+        const questionWords = question.toLowerCase().split(/\s+/);
+        let relevanceScore = 0;
+
+        context.slice(-5).forEach((msg, index) => {
+            const msgWords = msg.text.toLowerCase().split(/\s+/);
+            const commonWords = questionWords.filter(word =>
+                msgWords.some(msgWord => msgWord.includes(word) || word.includes(msgWord))
+            );
+
+            // Recent messages get higher weight
+            const timeWeight = (index + 1) / 5;
+            relevanceScore += (commonWords.length / questionWords.length) * timeWeight;
+        });
+
+        return Math.min(relevanceScore, 1); // Cap at 1.0
+    }
+
+    /**
+     * Enhanced ask method with preprocessing
+     */
+    async askQuestionEnhanced(question, context = []) {
+        // Preprocess question
+        const processedQuestion = this.preprocessQuestion(question);
+
+        // Validate
+        const validation = this.validateQuestion(processedQuestion);
+        if (!validation.isValid) {
+            return {
+                success: false,
+                message: validation.message,
+                suggestion: validation.suggestion,
+                validation: false
+            };
+        }
+
+        // Score context relevance
+        const contextRelevance = this.scoreContextRelevance(processedQuestion, context);
+        console.log(`📊 Context relevance: ${(contextRelevance * 100).toFixed(1)}%`);
+
+        // Call main ask method
+        return await this.askQuestion(processedQuestion, context);
     }
 }
 
-module.exports = new MaximizedGeminiModel();
+module.exports = new UltimateUniversalGeminiModel();
