@@ -6,6 +6,299 @@
     <title><%= title %> | <%= config.appName %></title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="icon" href="/img/logo.jpg">
+    
+    <!-- LOCAL HIGHLIGHT.JS FILES -->
+    <link rel="stylesheet" href="/libs/github-dark.min.css">
+    <script src="/libs/highlight.js"></script>
+    
+    <!-- Enhanced Code Block Styling -->
+    <style>
+        /* Code Block Container */
+        .code-block-container {
+            margin: 1rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            position: relative;
+        }
+
+        .code-block-header {
+            background: #161b22;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #30363d;
+            font-size: 12px;
+        }
+
+        .code-language {
+            font-size: 0.75rem;
+            color: #7d8590;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .copy-code-btn {
+            background: rgba(177, 186, 196, 0.1);
+            border: 1px solid rgba(177, 186, 196, 0.2);
+            color: #7d8590;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-weight: 500;
+        }
+
+        .copy-code-btn:hover {
+            background: rgba(177, 186, 196, 0.15);
+            border-color: #7d8590;
+            color: #c9d1d9;
+            transform: translateY(-1px);
+        }
+
+        .copy-code-btn.copied {
+            background: rgba(46, 160, 67, 0.15);
+            border-color: #2ea043;
+            color: #2ea043;
+        }
+
+        .code-block-container pre {
+            margin: 0;
+            padding: 1rem;
+            background: #0d1117 !important;
+            overflow-x: auto;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .code-block-container pre code {
+            background: none !important;
+            padding: 0;
+            border: none;
+            font-family: inherit;
+            color: #c9d1d9;
+        }
+
+        /* Inline Code Styling */
+        .message-content code:not(pre code) {
+            background: rgba(177, 186, 196, 0.1);
+            color: #7d8590;
+            padding: 0.125rem 0.25rem;
+            border-radius: 3px;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.875em;
+            border: 1px solid rgba(177, 186, 196, 0.15);
+        }
+
+        /* Table Styling */
+        .message-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #30363d;
+            background: rgba(13, 17, 23, 0.8);
+        }
+
+        .message-content table th,
+        .message-content table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid #30363d;
+        }
+
+        .message-content table th {
+            background: #161b22;
+            font-weight: 600;
+            color: #7d8590;
+        }
+
+        .message-content table tr:hover {
+            background: rgba(177, 186, 196, 0.05);
+        }
+
+        /* Blockquote Styling */
+        .message-content blockquote {
+            border-left: 4px solid #7d8590;
+            background: rgba(177, 186, 196, 0.05);
+            margin: 1rem 0;
+            padding: 1rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: #c9d1d9;
+        }
+
+        /* List Styling */
+        .message-content ul,
+        .message-content ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .message-content li {
+            margin: 0.5rem 0;
+            line-height: 1.6;
+        }
+
+        /* Heading Styling */
+        .message-content h1 {
+            color: #7d8590;
+            border-bottom: 2px solid #30363d;
+            padding-bottom: 0.5rem;
+            margin: 2rem 0 1rem 0;
+        }
+
+        .message-content h2 {
+            color: #7d8590;
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 0.25rem;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .message-content h3 {
+            color: #7d8590;
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        /* Paragraph Styling */
+        .message-content p {
+            line-height: 1.7;
+            margin: 1rem 0;
+        }
+
+        /* Link Styling */
+        .message-content a {
+            color: #58a6ff;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(88, 166, 255, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .message-content a:hover {
+            color: #79c0ff;
+            border-bottom-color: #79c0ff;
+        }
+
+        /* Horizontal Rule */
+        .message-content hr {
+            border: none;
+            height: 1px;
+            background: #30363d;
+            margin: 2rem 0;
+        }
+
+        /* Enhanced scrollbar for code blocks */
+        .code-block-container pre::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .code-block-container pre::-webkit-scrollbar-track {
+            background: #161b22;
+        }
+
+        .code-block-container pre::-webkit-scrollbar-thumb {
+            background: #30363d;
+            border-radius: 3px;
+        }
+
+        .code-block-container pre::-webkit-scrollbar-thumb:hover {
+            background: #484f58;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .code-block-header {
+                padding: 0.5rem;
+                font-size: 0.875rem;
+            }
+            
+            .code-language {
+                font-size: 0.625rem;
+            }
+            
+            .copy-code-btn {
+                padding: 0.25rem;
+                font-size: 0.625rem;
+            }
+            
+            .message-content table {
+                font-size: 0.875rem;
+            }
+            
+            .message-content table th,
+            .message-content table td {
+                padding: 0.5rem;
+            }
+
+            .code-block-container pre {
+                padding: 0.5rem;
+                font-size: 12px;
+            }
+        }
+
+        /* Custom hljs theme adjustments */
+        .hljs {
+            background: #0d1117 !important;
+            color: #c9d1d9 !important;
+        }
+
+        .hljs-keyword {
+            color: #ff7b72 !important;
+        }
+
+        .hljs-string {
+            color: #a5d6ff !important;
+        }
+
+        .hljs-comment {
+            color: #8b949e !important;
+        }
+
+        .hljs-function {
+            color: #d2a8ff !important;
+        }
+
+        .hljs-variable {
+            color: #79c0ff !important;
+        }
+
+        .hljs-number {
+            color: #79c0ff !important;
+        }
+
+        .hljs-title {
+            color: #d2a8ff !important;
+        }
+
+        .hljs-params {
+            color: #c9d1d9 !important;
+        }
+
+        .hljs-built_in {
+            color: #ffa657 !important;
+        }
+
+        .hljs-tag {
+            color: #7ee787 !important;
+        }
+
+        .hljs-attr {
+            color: #79c0ff !important;
+        }
+
+        .hljs-attribute {
+            color: #79c0ff !important;
+        }
+    </style>
 </head>
 <body>
 <header>

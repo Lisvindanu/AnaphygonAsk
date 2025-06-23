@@ -34,10 +34,13 @@ SPESIALISASI:
 - Business & Productivity Tips
 
 FORMAT RESPONS:
-- Gunakan struktur yang jelas (heading, subpoin)
+- JANGAN gunakan markdown headers (###, ##, #) 
+- Gunakan **Bold Text:** untuk section titles
+- Gunakan bullet points dan numbering untuk struktur
 - Berikan context dan background jika perlu
 - Sertakan examples atau use cases
 - Tutup dengan actionable advice
+- Format harus natural dan conversational
 
 Selalu berikan value maksimal dalam setiap respons!`;
 
@@ -510,6 +513,11 @@ RESPOND IN BAHASA INDONESIA:`;
         text = text.replace(/\n-\s/g, '\n• ');
         text = text.replace(/\n\*\s/g, '\n• ');
 
+        // HEADER FIX: Convert markdown headers to bold format
+        text = text.replace(/^### (.+)$/gm, '**$1:**');
+        text = text.replace(/^## (.+)$/gm, '**$1:**');
+        text = text.replace(/^# (.+)$/gm, '**$1:**');
+
         text = text.replace(/```(\w+)?\n([\s\S]*?)```/g, (match, lang, code) => {
             return `\`\`\`${lang || ''}\n${code.trim()}\n\`\`\``;
         });
@@ -650,7 +658,7 @@ Oops! Sepertinya saya sedang mengalami gangguan teknis kecil.
             features: [
                 'Advanced system prompting', 'Smart context processing', 'Intelligent fallback responses',
                 'Performance monitoring', 'Retry logic with exponential backoff', 'Enhanced markdown processing',
-                'Smart emoji enhancement', 'Context-aware error handling'
+                'Smart emoji enhancement', 'Context-aware error handling', 'Header format fix'
             ],
             configuration: {
                 temperature: 0.7, maxOutputTokens: 4000, topP: 0.9, topK: 40,
