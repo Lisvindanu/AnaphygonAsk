@@ -1,0 +1,15 @@
+[
+  {
+    "id": "mc95wwqkpau2dpf0cuc",
+    "username": "admin",
+    "email": "admin@localhost",
+    "password": "$2b$12$PmDHgg5Hk1rOniU5nM9KROIYtYnNoJjFuEEe81bdHjpuiZThNded.",
+    "createdAt": "2025-06-23T13:58:47.228Z",
+    "lastLogin": null,
+    "chatLimit": 200,
+    "dailyUsage": 0,
+    "lastUsageReset": "Mon Jun 23 2025",
+    "isActive": true,
+    "role": "admin"
+  }
+]

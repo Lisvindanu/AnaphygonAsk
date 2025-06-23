@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const logger = require('morgan');
 const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser'); // ✅ NEW: Cookie parser for sessions
 
 // Load environment variables
 dotenv.config();
@@ -10,6 +11,10 @@ dotenv.config();
 const homeController = require('./controllers/homeController');
 const chatController = require('./controllers/chatController');
 const config = require('./config/config');
+
+// ✅ NEW: Import authentication
+const authRoutes = require('./routes/authRoutes');
+const AuthMiddleware = require('./middleware/authMiddleware');
 
 // Initialize app
 const app = express();
@@ -47,6 +52,9 @@ app.set('trust proxy', true);
 // Set view engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+
+// ✅ NEW: Cookie parser middleware (before routes)
+app.use(cookieParser());
 
 // MAXIMIZED: Apply enhanced middleware first
 if (securityMiddleware && securityMiddleware.securityHeaders) {
@@ -103,26 +111,65 @@ app.use((req, res, next) => {
     next();
 });
 
-// Routes
-app.get('/', homeController.index);
-app.get('/chat', chatController.showChat);
+// ✅ NEW: Authentication routes
+app.use('/auth', authRoutes);
 
-// MAXIMIZED: Apply rate limiting to API endpoints
-app.post('/api/chat', rateLimiterMiddleware, chatController.processQuestion);
+// ✅ UPDATED: Routes with authentication
+app.get('/', AuthMiddleware.optionalAuth, homeController.index);
+app.get('/chat', AuthMiddleware.requireAuth, chatController.showChat);
+
+// ✅ UPDATED: Chat API with auth and enhanced rate limiting
+app.post('/api/chat',
+    AuthMiddleware.requireAuth,           // Must be logged in
+    AuthMiddleware.checkChatLimit,       // Check daily chat limit
+    rateLimiterMiddleware,               // General rate limiting
+    chatController.processQuestion
+);
+
+// ✅ NEW: User info endpoint
+app.get('/api/user', AuthMiddleware.requireAuth, (req, res) => {
+    const userModel = require('./models/userModel');
+    const chatQuota = userModel.canUserChat(req.user.id);
+
+    res.json({
+        success: true,
+        user: {
+            ...req.user,
+            chatQuota
+        }
+    });
+});
+
+// ✅ NEW: Admin endpoints
+app.get('/admin', AuthMiddleware.requireAuth, AuthMiddleware.requireAdmin, (req, res) => {
+    res.render('admin/dashboard', {
+        title: 'Admin Dashboard - Tanya AI',
+        user: req.user
+    });
+});
 
 // MAXIMIZED: Enhanced health and metrics endpoints
 app.get('/health', (req, res) => {
     if (chatController.healthCheck && typeof chatController.healthCheck === 'function') {
         chatController.healthCheck(req, res);
     } else {
-        // Fallback health check
+        // Enhanced fallback health check with auth status
+        const userModel = require('./models/userModel');
+        const totalUsers = userModel.getAllUsers().length;
+
         res.json({
             status: 'OK',
             timestamp: new Date().toISOString(),
             uptime: process.uptime(),
             memory: process.memoryUsage(),
             version: config.getVersion ? config.getVersion() : '2.0.0',
-            mode: config.isMaximizedMode ? config.isMaximizedMode() ? 'maximized' : 'standard' : 'standard'
+            mode: config.isMaximizedMode ? config.isMaximizedMode() ? 'maximized' : 'standard' : 'standard',
+            // ✅ NEW: Auth system status
+            auth: {
+                enabled: true,
+                totalUsers: totalUsers,
+                status: 'operational'
+            }
         });
     }
 });
@@ -131,13 +178,37 @@ app.get('/api/metrics', (req, res) => {
     if (chatController.getMetrics && typeof chatController.getMetrics === 'function') {
         chatController.getMetrics(req, res);
     } else {
-        // Fallback metrics
-        res.json({
-            timestamp: new Date().toISOString(),
-            uptime: process.uptime(),
-            memory: process.memoryUsage(),
-            message: 'Enhanced metrics not available - using fallback'
-        });
+        // Enhanced fallback metrics with user stats
+        try {
+            const userModel = require('./models/userModel');
+            const users = userModel.getAllUsers();
+            const activeUsers = users.filter(u => {
+                const lastLogin = new Date(u.lastLogin);
+                const dayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+                return lastLogin > dayAgo;
+            });
+
+            res.json({
+                timestamp: new Date().toISOString(),
+                uptime: process.uptime(),
+                memory: process.memoryUsage(),
+                message: 'Enhanced metrics not available - using fallback',
+                // ✅ NEW: User metrics
+                users: {
+                    total: users.length,
+                    active24h: activeUsers.length,
+                    totalChatUsage: users.reduce((sum, u) => sum + (u.dailyUsage || 0), 0)
+                }
+            });
+        } catch (error) {
+            res.json({
+                timestamp: new Date().toISOString(),
+                uptime: process.uptime(),
+                memory: process.memoryUsage(),
+                message: 'Enhanced metrics not available - using fallback',
+                error: 'User metrics unavailable'
+            });
+        }
     }
 });
 
@@ -149,21 +220,58 @@ app.get('/api/info', (req, res) => {
         mode: config.isMaximizedMode ? config.isMaximizedMode() ? 'maximized' : 'standard' : 'standard',
         timestamp: new Date().toISOString(),
         endpoints: {
+            // ✅ UPDATED: Authentication endpoints
+            auth: {
+                login: 'POST /auth/login',
+                register: 'POST /auth/register',
+                logout: 'POST /auth/logout',
+                userInfo: 'GET /api/user'
+            },
+            // Original endpoints
             chat: 'POST /api/chat',
             health: 'GET /health',
             metrics: 'GET /api/metrics',
             info: 'GET /api/info'
         },
-        features: config.APP_CONFIG ? Object.keys(config.APP_CONFIG.features || {}).filter(
-            key => config.APP_CONFIG.features[key]
-        ) : [],
+        features: [
+            ...(config.APP_CONFIG ? Object.keys(config.APP_CONFIG.features || {}).filter(
+                key => config.APP_CONFIG.features[key]
+            ) : []),
+            // ✅ NEW: Auth features
+            'user_authentication',
+            'session_management',
+            'daily_chat_limits',
+            'admin_panel'
+        ],
         limits: {
             maxQuestionLength: config.APP_CONFIG ? config.APP_CONFIG.maxQuestionLength : 2000,
             maxContextItems: config.APP_CONFIG ? config.APP_CONFIG.maxContextItems : 8,
             rateLimitPerMinute: config.APP_CONFIG ?
-                (config.APP_CONFIG.rateLimiting ? config.APP_CONFIG.rateLimiting.maxRequests : 15) : 15
+                (config.APP_CONFIG.rateLimiting ? config.APP_CONFIG.rateLimiting.maxRequests : 15) : 15,
+            // ✅ NEW: Chat limits
+            defaultDailyChatLimit: 50,
+            maxDailyChatLimit: 200
         }
     });
+});
+
+// ✅ NEW: Redirect root to appropriate page based on auth status
+app.get('/', AuthMiddleware.optionalAuth, (req, res) => {
+    if (req.user) {
+        // User is logged in, redirect to chat
+        res.redirect('/chat');
+    } else {
+        // User not logged in, show landing page or redirect to login
+        try {
+            res.render('index', {
+                title: 'Tanya AI - Your Smart Assistant',
+                user: null
+            });
+        } catch (error) {
+            // If no landing page, redirect to login
+            res.redirect('/auth/login');
+        }
+    }
 });
 
 // MAXIMIZED: Enhanced 404 handler
@@ -174,7 +282,8 @@ app.use((req, res) => {
     try {
         res.status(404).render('404', {
             title: 'Page Not Found',
-            config: config.APP_CONFIG || { appName: 'AnaphygonAsk' }
+            config: config.APP_CONFIG || { appName: 'AnaphygonAsk' },
+            user: req.user || null // ✅ NEW: Pass user info to 404 page
         });
     } catch (err) {
         console.warn('404 page render failed, using JSON response:', err.message);
@@ -188,6 +297,8 @@ app.use((req, res) => {
                 'Check the URL for typos',
                 'Visit the home page: /',
                 'Try the chat page: /chat',
+                'Login: /auth/login',
+                'Register: /auth/register',
                 'Check API documentation: /api/info'
             ]
         });
@@ -206,6 +317,7 @@ app.use((err, req, res, next) => {
         userAgent: req.get('User-Agent'),
         ip: req.ip,
         requestId: req.requestId,
+        user: req.user ? req.user.username : 'anonymous', // ✅ NEW: Include user info
         timestamp: new Date().toISOString()
     });
 
@@ -276,26 +388,61 @@ const server = app.listen(PORT, () => {
     console.log(`🔧 Mode: ${config.isMaximizedMode ? config.isMaximizedMode() ? 'MAXIMIZED' : 'Standard' : 'Standard'}`);
     console.log(`📝 Version: ${config.getVersion ? config.getVersion() : '2.0.0'}`);
     console.log(`🔑 API Key: ${config.GEMINI_API_KEY ? '✅ Configured' : '❌ Missing'}`);
+    console.log(`🔐 Authentication: ✅ Enabled`); // ✅ NEW
     console.log('');
     console.log('📋 Available Endpoints:');
     console.log('├── 🏠 Home: http://localhost:' + PORT + '/');
+    console.log('├── 🔐 Login: http://localhost:' + PORT + '/auth/login');
+    console.log('├── 📝 Register: http://localhost:' + PORT + '/auth/register');
     console.log('├── 💬 Chat: http://localhost:' + PORT + '/chat');
+    console.log('├── 👤 User Info: http://localhost:' + PORT + '/api/user');
     console.log('├── 🔍 Health: http://localhost:' + PORT + '/health');
     console.log('├── 📊 Metrics: http://localhost:' + PORT + '/api/metrics');
     console.log('└── ℹ️  Info: http://localhost:' + PORT + '/api/info');
     console.log('');
     console.log('🔧 Features:');
-    if (config.APP_CONFIG && config.APP_CONFIG.features) {
-        const enabledFeatures = Object.keys(config.APP_CONFIG.features)
-            .filter(key => config.APP_CONFIG.features[key]);
-        enabledFeatures.forEach((feature, index) => {
-            const isLast = index === enabledFeatures.length - 1;
-            console.log(`${isLast ? '└──' : '├──'} ${feature}: ✅`);
-        });
-    }
+    const allFeatures = [
+        ...(config.APP_CONFIG && config.APP_CONFIG.features ?
+            Object.keys(config.APP_CONFIG.features).filter(key => config.APP_CONFIG.features[key]) : []),
+        '🔐 User Authentication',
+        '📊 Daily Chat Limits',
+        '🎫 Session Management',
+        '👑 Admin Panel'
+    ];
+    allFeatures.forEach((feature, index) => {
+        const isLast = index === allFeatures.length - 1;
+        console.log(`${isLast ? '└──' : '├──'} ${feature}: ✅`);
+    });
     console.log('');
     console.log('⏹️  Press Ctrl+C to stop the server');
     console.log('🚀 ════════════════════════════════════════════════════════════\n');
+
+    // ✅ NEW: Initialize first admin user if no users exist
+    setTimeout(async () => {
+        try {
+            const userModel = require('./models/userModel');
+            const users = userModel.getAllUsers();
+
+            if (users.length === 0) {
+                console.log('🔧 Creating default admin user...');
+                const adminResult = await userModel.createUser('admin', 'admin123', 'admin@localhost');
+                if (adminResult.success) {
+                    // Update to admin role
+                    const adminUser = userModel.users.get('admin');
+                    adminUser.role = 'admin';
+                    adminUser.chatLimit = 200; // Higher limit for admin
+                    await userModel.saveUsers();
+
+                    console.log('✅ Default admin created:');
+                    console.log('   Username: admin');
+                    console.log('   Password: admin123');
+                    console.log('   🚨 CHANGE PASSWORD IMMEDIATELY!');
+                }
+            }
+        } catch (error) {
+            console.warn('⚠️  Could not create default admin:', error.message);
+        }
+    }, 1000);
 });
 
 // MAXIMIZED: Enhanced server error handling
